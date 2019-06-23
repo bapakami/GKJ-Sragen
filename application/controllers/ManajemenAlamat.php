@@ -131,6 +131,6 @@ class ManajemenAlamat extends CI_Controller {
 		redirect('manajemenberita');
 	}
 
-
+	
 }
 ?>

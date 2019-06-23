@@ -63,7 +63,7 @@ class Manajemenpenghasilan extends CI_Controller {
 	        //load mPDF library
 	  		$this->load->library('m_pdf');
 	        //$this->m_pdf->pdf->AddPage('L');   
-	       //generate the PDF from the given html
+	       	//generate the PDF from the given html
 	  		$this->m_pdf->pdf->WriteHTML($html);
 	    
 	        //download it.
@@ -157,5 +157,22 @@ class Manajemenpenghasilan extends CI_Controller {
 		redirect('manajemenberita');
 	}
 
+	public function dropdown()
+	{
+		$data = [
+			"data" => [],
+			"message" => "",
+			"status" => 200 // Success
+		];
+
+		try {
+			$data["data"] = $this->M_manajemenpenghasilan->pilihan();
+		}
+		catch (Exception $e) {
+			$data["message"] = $e->getMessage();
+			$data["status"] = 400; // Bad Request
+		}
+		echo json_encode($data);
+	}
 }
 ?>

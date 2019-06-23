@@ -6,14 +6,14 @@ class Login extends CI_Controller{
 		$this->load->model('M_login');
 		$this->load->library(array('form_validation'));
 		$this->load->helper('captcha');
- 
+
 	}
  
 	function index(){
 		// $data = array(
-  //           'captcha' => $this->recaptcha->getWidget(), // menampilkan recaptcha
-  //           'script_captcha' => $this->recaptcha->getScriptTag(), // javascript recaptcha ditaruh di head
-  //       );
+        //     'captcha' => $this->captcha->getWidget(), // menampilkan recaptcha
+        //     'script_captcha' => $this->captcha->getScriptTag(), // javascript recaptcha ditaruh di head
+        // );
 		if($this->input->post('submit')){
 			$inputCaptcha = $this->input->post('captcha');
 			$sessCaptcha = $this->session->userdata('captchaCode');
@@ -68,35 +68,35 @@ class Login extends CI_Controller{
 	}
  	public function myform()
  	{
-         $this->load->library('mathcaptcha');
-         $this->mathcaptcha->init();
+		$this->load->library('mathcaptcha');
+		$this->mathcaptcha->init();
+	
+		$data['math_captcha_question'] = $this->mathcaptcha->get_question();
+	
+		$this->form_validation->set_rules('math_captcha', 'Math CAPTCHA', 'required|callback__check_math_captcha');
      
-         $data['math_captcha_question'] = $this->mathcaptcha->get_question();
-     
-         $this->form_validation->set_rules('math_captcha', 'Math CAPTCHA', 'required|callback__check_math_captcha');
-     
-         if ($this->form_validation->run() == FALSE)
-         {
-             $this->load->view('myform', $data);
-         }
-         else
-         {
-             $this->load->view('myform', $data);
-         }
- 	}
+		if ($this->form_validation->run() == FALSE)
+		{
+			$this->load->view('myform', $data);
+		}
+		else
+		{
+			$this->load->view('myform', $data);
+		}
+	}
+	 
  	function _check_math_captcha($str)
  	{
-	     if ($this->mathcaptcha->check_answer($str))
-	     {
-	     	$this->form_validation->set_message('_check_math_captcha', 'good');
-	         return TRUE;
-	     }
-	     else
-	     {
-	         $this->form_validation->set_message('_check_math_captcha', 'Enter a valid math captcha response.');
-	          redirect(base_url('login'));
-	        
-	     }
+		if ($this->mathcaptcha->check_answer($str))
+		{
+			$this->form_validation->set_message('_check_math_captcha', 'good');
+			return TRUE;
+		}
+		else
+		{
+			$this->form_validation->set_message('_check_math_captcha', 'Enter a valid math captcha response.');
+			redirect(base_url('login'));
+		}
  	}
 
 	function aksi_login(){
@@ -104,54 +104,52 @@ class Login extends CI_Controller{
 		$sessCaptcha = $this->session->userdata('captchaCode');
 		$username = $this->input->post('username');
 		$password = md5($this->input->post('password'));
-		if($inputCaptcha === $sessCaptcha){
-			
-		$cek_login = $this->M_login->cek_login($username,$password);
-		
-			if($cek_login->num_rows() > 0 & $inputCaptcha === $sessCaptcha){
-		        $data  = $cek_login->row_array();
-		        $id 		= $data['id'];
-		        $name  = $data['fullname'];
-		        $username  = $data['username'];
-		        $email = $data['email'];
-		        $group_id = $data['group_id'];
-		        $gerejaid = $data['gereja_id'];
-		        
-		        
-		        $sesdata = array(
-		        	'id'		=> $id,
-		            'fullname'  => $name,
-		            'username'  => $username,
-		            'email'     => $email,
-		            'group_id'     => $group_id,
-		            'gereja_id' => $gerejaid,
-		            'logged_in' => TRUE
-		        );
-		        $this->session->set_userdata($sesdata);
-		        // access login for admin
-		        if($group_id === '1'){
-		            redirect(base_url('AdminGereja/beranda'));
 
-		        // access login for staff
-		        }else if($group_id === '6'){
-		            redirect(base_url("beranda/admin_aja"));
-
-		        // access login for author
-		        }else{
-		            redirect('login');
-		        }
-
-		    }else{
-		        echo $this->session->set_flashdata('msg','Username or Password is Wrong or Username is not active');
-		        redirect(base_url('login'));
-		    }
-		}else{
+		if($inputCaptcha !== $sessCaptcha){
 			echo $this->session->set_flashdata('msg','Captcha Not Matched');
 			redirect(base_url('login'));
+			return;
 		}
-		
-		
 
+		$cek_login = $this->M_login->cek_login($username,$password);
+		
+		if($cek_login->num_rows() > 0){
+			$data  = $cek_login->row_array();
+			$id 		= $data['id'];
+			$name  = $data['fullname'];
+			$username  = $data['username'];
+			$email = $data['email'];
+			$group_id = $data['group_id'];
+			$gerejaid = $data['gereja_id'];
+			
+			
+			$sesdata = array(
+				'id'		=> $id,
+				'fullname'  => $name,
+				'username'  => $username,
+				'email'     => $email,
+				'group_id'  => $group_id,
+				'gereja_id' => $gerejaid,
+				'logged_in' => TRUE
+			);
+			$this->session->set_userdata($sesdata);
+			// access login for admin
+			if($group_id === '1'){
+				redirect(base_url('AdminGereja/beranda'));
+
+			// access login for staff
+			}else if($group_id === '6'){
+				redirect(base_url("beranda/admin_aja"));
+
+			// access login for author
+			}else{
+				redirect('login');
+			}
+
+		}else{
+			echo $this->session->set_flashdata('msg','Username or Password is Wrong or Username is not active');
+			redirect(base_url('login'));
+		}
 	}
  
 	function logout(){

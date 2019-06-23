@@ -7,7 +7,7 @@ class LandingPage extends CI_Controller {
 	{
 		parent::__construct();
 		$this->load->database();
-		$this->load->model('M_Berita');
+		$this->load->model('M_berita');
 		$this->load->library('pagination');
 		//$this->load->helper('text');
 	}
@@ -53,15 +53,15 @@ class LandingPage extends CI_Controller {
         $data['page'] = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
  
         //panggil function get_mahasiswa_list yang ada pada mmodel mahasiswa_model. 
-        $data['isi'] = $this->M_Berita->get_data_list($config["per_page"], $data['page']);
+        $data['isi'] = $this->M_berita->get_data_list($config["per_page"], $data['page']);
         $data['pagination'] = $this->pagination->create_links();
 		$this->load->view('konten/berita',$data);
 	}
 
 	public function detail_berita ($id)
 	{
-		$data['isi'] = $this->M_Berita->DataList($id);
-		$data['data'] = $this->M_Berita->RecentBlog();
+		$data['isi'] = $this->M_berita->DataList($id);
+		$data['data'] = $this->M_berita->RecentBlog();
 		$this->load->view('konten/blog',$data);
 
 	}

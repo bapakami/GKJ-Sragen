@@ -268,6 +268,36 @@ function validateForm() {
       return false;
      }
 }
+
+
+function initDropdown() {
+  const col = 2
+  $.ajax({
+    type: "GET",
+    url: base_url + "ManajemenPelayanan/dropdown",
+    dataType: "json",
+    success: function(res){
+      console.log(res)
+      var data = res.data
+      var tbl = $('#checkbox-table tbody')
+      $.each(data, function(i, val) {
+        if(i%col==0) {
+          tbl.append("<tr></tr>")
+        }
+        var elem = tbl.find("tr").last();
+        fmt = "<td><div class='checkbox'><label><input type='checkbox' name='minat[]' value='{0}'>{0}</label></div></td>"
+        elem.append(fmt.format(val))
+        console.log(val)
+      })
+    },
+    error: function(XMLHttpRequest, textStatus, errorThrown) { 
+      console.log("Status: " + textStatus); console.log("Error: " + errorThrown); 
+    }
+  })
+}
+$(document).ready(function () {
+  initDropdown()
+});
 </script>
 
 

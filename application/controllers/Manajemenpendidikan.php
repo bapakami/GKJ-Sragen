@@ -44,7 +44,7 @@ class Manajemenpendidikan extends CI_Controller {
 		if($this->input->post('hasil_id') == 'PDF'){
 			
 			$data['statistik'] = $this->M_manajemenpendidikan->getStatistik($gereja,$partsNo);
-	  		$html=$this->load->view('laporan/pdf_Laporanpendidikan',$data , true);      
+	  		$html=$this->load->view('laporan/pdf_laporanpendidikan',$data , true);      
 	        //this the the PDF filename that user will get to download
 	  		$pdfFilePath = "Laporan_Pendidikan.pdf";
 	        //load mPDF library
@@ -117,5 +117,22 @@ class Manajemenpendidikan extends CI_Controller {
 	}
 
 
+	public function dropdown()
+	{
+		$data = [
+			"data" => [],
+			"message" => "",
+			"status" => 200 // Success
+		];
+
+		try {
+			$data["data"] = $this->M_manajemenpendidikan->pilihan();
+		}
+		catch (Exception $e) {
+			$data["message"] = $e->getMessage();
+			$data["status"] = 400; // Bad Request
+		}
+		echo json_encode($data);
+	}
 }
 ?>

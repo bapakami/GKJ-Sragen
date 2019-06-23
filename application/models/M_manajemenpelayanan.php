@@ -9,6 +9,22 @@ class M_manajemenpelayanan extends CI_Model
 		$this->load->database();
 	}
 
+	function pilihan()
+	{
+		$q = "SELECT
+			nama_strata
+		FROM
+			pelayanan
+		";
+		$hasil=$this->db->query($q);
+		$res = [];
+		foreach ($hasil->result() as $row)
+		{
+			array_push($res, $row->nama_strata);
+		}
+		return $res;
+	}
+
 	function getPDF($gereja,$parts)
 	{
 		$hasil=$this->db->query("SELECT a.Nama_Lengkap as NamaLengkap,a.jenis_kelamin as gender,a.alamat_tinggal as alamat, a.telepon as telepon, a.minat_pelayanan_gereja as minat_pelayanan_gereja,b.namagereja as namagereja FROM jemaats a

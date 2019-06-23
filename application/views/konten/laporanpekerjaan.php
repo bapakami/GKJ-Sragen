@@ -27,31 +27,8 @@
             <div class="box-body table-responsive">
             <form name="myForm" class="form-horizontal" action="<?php echo base_url('Manajemenpekerjaan/report_Data')?>" method="post" enctype="multipart/form-data" role="form">
             <label><b>Pekerjaan Jemaat</b> </label> <br>       
-            <table>
-              <tr>
-                  <?php 
-                    $temp = 1;
-                    foreach ($pekerjaan as $pkj) {
-                      // if($temp == 1 || (){
-                      //   echo "<td>";
-                      // }
-
-                      echo "<div class='checkbox'>";
-                      echo "<label><input type='checkbox' name='pekerjaan[]' value='$pkj[nama_pp]'>$pkj[nama_pp]</label>";
-                      echo "</div>";
-
-                      // if($temp == 8){
-                      //   echo "</td>";
-                      // }
-
-                      // if($temp == 9){
-                      //   echo "<td width='205'>";
-                      //   echo "</td>";
-                      // }
-                      $temp++;
-                    }
-                  ?>
-              </tr>
+            <table id="checkbox-table" style="width:100%">
+              <tbody></tbody>
             </table>
 
               <br>
@@ -84,7 +61,7 @@
   </div>
 
 <script type="text/javascript">
-    
+
 function validateForm() {
   var cb1 = document.getElementById('belum_bekerja');
      if(cb1.checked){
@@ -205,6 +182,35 @@ function validateForm() {
      }
 }
 
+function initDropdown() {
+  const col = 2
+  $.ajax({
+    type: "GET",
+    url: base_url + "Manajemenpekerjaan/dropdown",
+    dataType: "json",
+    success: function(res){
+      console.log(res)
+      var data = res.data
+      var tbl = $('#checkbox-table tbody')
+      $.each(data, function(i, val) {
+        if(i%col==0) {
+          tbl.append("<tr></tr>")
+        }
+        var elem = tbl.find("tr").last();
+        fmt = "<td><div class='checkbox'><label><input type='checkbox' name='pekerjaan[]' value='{0}'>{0}</label></div></td>"
+        elem.append(fmt.format(val))
+        console.log(val)
+      })
+    },
+    error: function(XMLHttpRequest, textStatus, errorThrown) { 
+      console.log("Status: " + textStatus); console.log("Error: " + errorThrown); 
+    }
+  })
+}
+$(document).ready(function () {
+  initDropdown()
+});
+    
 </script>
 
 
