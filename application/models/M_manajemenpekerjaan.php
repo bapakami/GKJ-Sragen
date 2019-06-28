@@ -9,11 +9,46 @@ class M_manajemenpekerjaan extends CI_Model
 		$this->load->database();
 	}
 
+	function pilihan()
+	{
+		$q = "SELECT
+			nama_pp
+		FROM
+			pekerjaanpokok
+		";
+		$hasil=$this->db->query($q);
+		$res = [];
+		foreach ($hasil->result() as $row)
+		{
+			array_push($res, $row->nama_pp);
+		}
+		return $res;
+	}
+
 	function getPDF($gereja,$partsNo)
 	{
-		 $hasil=$this->db->query("SELECT a.Nama_Lengkap as NamaLengkap,a.penghasilan as penghasilan,a.pendidikan as pendidikan,a.pekerjaan as pekerjaan, a.alamat_tinggal as alamat,b.namagereja as namagereja from jemaats a Left join gereja b ON a.gerejaid = b.id WHERE a.gerejaid=$gereja and a.status = 'Hidup' and a.pekerjaan in ($partsNo)");
-		 
-		 return $hasil->result();
+		$hasil=$this->db->query("SELECT 
+			a.Nama_Lengkap as NamaLengkap,
+			a.penghasilan as penghasilan,
+			a.pendidikan as pendidikan,
+			a.pekerjaan as pekerjaan, 
+			a.alamat_tinggal as alamat,
+			b.namagereja as namagereja 
+		FROM 
+			jemaats a 
+		LEFT JOIN 
+			gereja b 
+		ON 
+			a.gerejaid = b.id 
+		WHERE 
+			a.gerejaid = $gereja 
+			AND 
+				a.status = 'Hidup' 
+			AND 
+				a.pekerjaan in ($partsNo)
+		");
+		
+		return $hasil->result();
 	}
 
 	function getStatistik($gereja,$partsNo)

@@ -1,4 +1,4 @@
-  <?php
+<?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 require('vendor/autoload.php');
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
@@ -7,6 +7,7 @@ use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use PhpOffice\PhpSpreadsheet\Helper\Sample;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 // End load library phpspreadsheet
+
 class Manajemenpekerjaan extends CI_Controller {
 	
 	public function __construct(){
@@ -142,5 +143,22 @@ class Manajemenpekerjaan extends CI_Controller {
 	}
 
 
+	public function dropdown()
+	{
+		$data = [
+			"data" => [],
+			"message" => "",
+			"status" => 200 // Success
+		];
+
+		try {
+			$data["data"] = $this->M_manajemenpekerjaan->pilihan();
+		}
+		catch (Exception $e) {
+			$data["message"] = $e->getMessage();
+			$data["status"] = 400; // Bad Request
+		}
+		echo json_encode($data);
+	}
 }
 ?>

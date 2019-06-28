@@ -20,9 +20,22 @@
 
   <script src="<?php echo base_url().'assets/js/jquery-3.3.1.min.js'; ?>"></script>
   <script src="<?php echo base_url().'assets/js/bootstrap.min.js'; ?>"></script>
+  <!-- <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> -->
   <script src="<?php echo base_url().'assets/plugins/datatables/jquery.dataTables.min.js'; ?>"></script>
   <script src="<?php echo base_url().'assets/plugins/datatables/dataTables.bootstrap.min.js'; ?>"></script>
-
+  <script>
+    // for general purpose
+    String.prototype.format = function() {
+        var formatted = this;
+        for (var i = 0; i < arguments.length; i++) {
+            var regexp = new RegExp('\\{'+i+'\\}', 'gi');
+            formatted = formatted.replace(regexp, arguments[i]);
+        }
+        return formatted;
+    };
+    base_url = "<?= base_url(); ?>"
+  </script>
 </head>
 
 <body class="hold-transition skin-blue sidebar-mini wysihtml5-supported">

@@ -9,11 +9,48 @@ class M_manajemenpendidikan extends CI_Model
 		$this->load->database();
 	}
 
+	function pilihan()
+	{
+		$q = "SELECT
+			nama_strata
+		FROM
+			pendidikan
+		";
+		$hasil=$this->db->query($q);
+		$res = [];
+		foreach ($hasil->result() as $row)
+		{
+			array_push($res, $row->nama_strata);
+		}
+		return $res;
+	}
+
 	function getPDF($gereja,$partsNo)
 	{
-		 $hasil=$this->db->query("SELECT a.Nama_Lengkap as NamaLengkap,a.penghasilan as penghasilan,a.pendidikan as pendidikan,a.tgl_lahir as tanggal_lahir,a.jenis_kelamin as jenis_kelamin,a.telepon as telepon, a.alamat_tinggal as alamat,b.namagereja as namagereja from jemaats a Left join gereja b ON a.gerejaid = b.id WHERE a.gerejaid=$gereja and a.status = 'Hidup' and a.pendidikan in ($partsNo)");
-		 
-		 return $hasil->result();
+		$hasil=$this->db->query("SELECT 
+			a.Nama_Lengkap as NamaLengkap,
+			a.penghasilan as penghasilan,
+			a.pendidikan as pendidikan,
+			a.tgl_lahir as tanggal_lahir,
+			a.jenis_kelamin as jenis_kelamin,
+			a.telepon as telepon, 
+			a.alamat_tinggal as alamat,
+			b.namagereja as namagereja 
+		FROM
+		 	jemaats a 
+		LEFT JOIN 
+			gereja b 
+		ON 
+			a.gerejaid = b.id 
+		WHERE 
+			a.gerejaid = $gereja 
+			AND 
+				a.status = 'Hidup' 
+			AND 
+				a.pendidikan IN ($partsNo)
+		");
+		
+		return $hasil->result();
 	}
 	function getStatistik($gereja,$partsNo)
 	{

@@ -175,7 +175,7 @@
            <li ><a href="<?php echo base_url();?>Manajemenpekerjaan"><i class="fa fa-circle-o text-red"></i> Berdasar Pekerjaan</a></li>
            <li ><a href="<?php echo base_url();?>Manajemenpendidikan"><i class="fa fa-circle-o text-red"></i> Berdasar Pendidikan Akhir</a></li>
            <li ><a href="<?php echo base_url();?>Manajemenusia"><i class="fa fa-circle-o text-red"></i> Berdasar Usia</a></li>
-           <li ><a href="<?php echo base_url();?>Manajemenalamat"><i class="fa fa-circle-o text-red"></i> Berdasar Tempat Tinggal</a></li>
+           <li ><a href="<?php echo base_url();?>ManajemenAlamat"><i class="fa fa-circle-o text-red"></i> Berdasar Tempat Tinggal</a></li>
            <li ><a href="<?php echo base_url();?>manajemengender"><i class="fa fa-circle-o text-red"></i> Berdasar Jenis Kelamin dan <br> Golongan Darah</a></li>
            <li ><a href="<?php echo base_url();?>Manajemenperkawinan"><i class="fa fa-circle-o text-red"></i> Berdasar Status Perkawinan</a></li>
            <li ><a href="<?php echo base_url();?>ManajemenStatusGerejawi"><i class="fa fa-circle-o text-red"></i> Berdasar Status Gerejawi</a></li>

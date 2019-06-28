@@ -121,6 +121,22 @@ class Manajemenusia extends CI_Controller {
 		
 	}
 
+	public function dropdown()
+	{
+		$data = [
+			"data" => [],
+			"message" => "",
+			"status" => 200 // Success
+		];
 
+		try {
+			$data["data"] = $this->M_manajemenusia->pilihan();
+		}
+		catch (Exception $e) {
+			$data["message"] = $e->getMessage();
+			$data["status"] = 400; // Bad Request
+		}
+		echo json_encode($data);
+	}
 }
 ?>

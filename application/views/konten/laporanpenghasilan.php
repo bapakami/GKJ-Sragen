@@ -25,13 +25,12 @@
              <label>Penghasilan</label>
               <select class="form-control" name="penghasilan"> 
                <option>-- Select Penghasilan --</option>
-               <option value="< 500.000"> < 500.000 </option>
+               <!-- <option value="< 500.000"> < 500.000 </option>
                <option value="500.000 s.d < 1.000.000"> 500.000 sd < 1.000.000 </option>
                <option value="1.000.000 s.d < 2.000.000"> 1.000.000 sd < 2.000.000 </option>
                <option value="2.000.000 s.d < 3.000.000">2.000.000 sd < 3.000.000</option>
                <option value="3.000.000 s.d < 4.000.000">3.000.000 sd < 4.000.000</option>
-               <option value="> 4.000.000"> > 4.000.000</option>
-               
+               <option value="> 4.000.000"> > 4.000.000</option> -->
              </select>
              <br>
             <?php if($this->session->userdata('group_id')==='6'):?>
@@ -63,15 +62,27 @@
   </div>
 
 <script type="text/javascript">
-$(document).ready(function () {
-   $('#example1').DataTable( {
-        responsive: true
-    } );
- 
-    new $.fn.dataTable.FixedHeader( table );
 
-});
-    
+function initDropdown() {
+  $.ajax({
+    type: "GET",
+    url: base_url + "Manajemenpenghasilan/dropdown",
+    dataType: "json",
+    success: function(res){
+      var data = res.data
+      for(var i = 0; i < data.length; i++){
+        console.log(data[i])
+        $('[name="penghasilan"]').append(
+          '<option value="{0}"> {0} </option>'.format(data[i])
+        )
+      }
+    },
+    error: function(XMLHttpRequest, textStatus, errorThrown) { 
+      console.log("Status: " + textStatus); console.log("Error: " + errorThrown); 
+    }
+  })
+}
+
 function validateForm() {
     if($("#penghasilan").find(":selected").text() == '-- Select Penghasilan --'){
         alert("Penghasilan tidak boleh kosong!!");
@@ -81,6 +92,16 @@ function validateForm() {
         return false;
     }
 }
+
+$(document).ready(function () {
+  //  $('#example1').DataTable( {
+  //       responsive: true
+  //   } );
+ 
+  //   new $.fn.dataTable.FixedHeader( table );
+    initDropdown()
+});
+    
 
 </script>
 

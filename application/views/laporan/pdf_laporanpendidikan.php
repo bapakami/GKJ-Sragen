@@ -34,7 +34,7 @@
       <tr>
         <td style="font-size:12px;text-align: center;">SMA</td>
         <td style="font-size:12px;text-align: center;"><?= $data->SMA; ?> </td>
-        <td style="font-size:12px;text-align: center;"><?= number_format($data->SMA / $JumlahJemaat) * 100,2); ?>%</td>
+        <td style="font-size:12px;text-align: center;"><?= number_format(($data->SMA / $JumlahJemaat) * 100,2); ?>%</td>
       </tr>
       <tr>
         <td style="font-size:12px;text-align: center;">D1</td>
