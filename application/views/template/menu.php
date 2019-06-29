@@ -157,7 +157,8 @@
           <li><a href="<?php echo base_url();?>Minatpelayananumum/"><i class="fa fa-circle-o text-yellow"></i> Minat Pelayanan Umum</a></li>
           <li><a href="<?php echo base_url();?>Minatpelayanangereja/"><i class="fa fa-circle-o text-yellow"></i> Minat Pelayanan Gereja</a></li>
           <li><a href="<?php echo base_url();?>Pengalamanmelayanimasyarakat/"><i class="fa fa-circle-o text-yellow"></i> Pengalaman Melayani <br> Masyarakat</a></li>
-          <li><a href="<?php echo base_url();?>DataUsia/"><i class="fa fa-circle-o text-yellow"></i> Usia Jemaat</a></li>
+          <li><a href="<?php echo base_url();?>DataUsia/"><i class="fa fa-circle-o text-yellow"></i>Usia Jemaat</a></li>
+          <li><a href="<?php echo base_url();?>MasterStatusKeluarga/"><i class="fa fa-circle-o text-yellow"></i>Status Keluarga</a></li>
           </ul>
         </li>
         <?php endif;?>
