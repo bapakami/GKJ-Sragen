@@ -22,7 +22,6 @@
       <div class="row">
         <div class="col-xs-12">
           <div class="box">
-
             <!-- /.box-header -->
             <div class="box-body table-responsive">
             <form class="form-horizontal" onsubmit="return validateForm()" action="<?php echo base_url('Manajemenpekerjaanpenghasilan/report_Data')?>" method="post" enctype="multipart/form-data" role="form">
@@ -30,50 +29,15 @@
             <label>Penghasilan</label>
            <br>
           <select class='form-control' id='Penghasilan' name="Penghasilan_id" style="z-index:2000; width:310px;">
-
-             <option value="< 500.000"> < 500.000</option>
-            <option value="500.000 s.d< 1.000.000"> 500.000 s.d< 1.000.000 </option>
-            <option value="1.000.000 s.d< 2.000.000"> 1.000.000 s.d< 2.000.000</option>
-            <option value="2.000.000 s.d< 3.000.000">2.000.000 s.d< 3.000.000</option>
-            <option value="3.000.000 s.d< 4.000.000">3.000.000 s.d< 4.000.000</option>
-            <option value=" > 4.000.000">  > 4.000.000</option>
-            
-               
           </select> 
-
-           </td>
-
-            <td>
-
+          </td>
+          <td>
           <label>Pekerjaan</label>
-
-
-           <select class="form-control" name="Pekerjaan_id" style="z-index: 2000; width: 310px;"> 
-            
-            <option value="Belum bekerja"> Belum Bekerja </option>
-            <option value="Tidak bekerja"> Tidak Bekerja </option>
-            <option value="PNS"> PNS </option>
-            <option value="TNI/Polri">TNI/POLRI</option>
-            <option value="DPR">DPR</option>
-            <option value="Swasta">  Swasta</option>
-            <option value="Pensiunan">  Pensiunan</option>
-            <option value="Pelajar/Mahasiswa">  Pelajar/Mahasiswa</option>
-            <option value="Perangkat desa">  Perangkat Desa</option>
-            <option value="Petani"> Petani</option>
-            <option value="Nelayan">  Nelayan</option>
-            <option value="Buruh">  Buruh</option>
-            <option value="Mengurus rumah tangga">  Mengurus Rumah Tangga</option>
-            <option value="Pedaganga"> Pedagang</option>
-            <option value="Lain-Lain">  Lain-Lain</option>
-            
-            
+          <select class="form-control"  id='Pekerjaan' name="Pekerjaan_id" style="z-index: 2000; width: 310px;"> 
           </select>
            </td>
           </tr>
         </table>
-
-         
-         
           <br>
             <?php if($this->session->userdata('group_id')==='6'):?>
              <label>Asal Gereja : </label>
@@ -141,7 +105,49 @@ function validateForm() {
 
 
 }
+function initDropdownPenghasilan() {
+  $.ajax({
+    type: "GET",
+    url: base_url + "Manajemenpenghasilan/dropdown",
+    dataType: "json",
+    success: function(res){
+      var data = res.data
+      for(var i = 0; i < data.length; i++){
+        console.log(data[i])
+        $('#Penghasilan').append(
+          '<option value="{0}"> {0} </option>'.format(data[i])
+        )
+      }
+    },
+    error: function(XMLHttpRequest, textStatus, errorThrown) { 
+      console.log("Status: " + textStatus); console.log("Error: " + errorThrown); 
+    }
+  })
+}
+function initDropdownPekerjaan() {
+  $.ajax({
+    type: "GET",
+    url: base_url + "Manajemenpekerjaan/dropdown",
+    dataType: "json",
+    success: function(res){
+      var data = res.data
+      for(var i = 0; i < data.length; i++){
+        console.log(data[i])
+        $('#Pekerjaan').append(
+          '<option value="{0}"> {0} </option>'.format(data[i])
+        )
+      }
+    },
+    error: function(XMLHttpRequest, textStatus, errorThrown) { 
+      console.log("Status: " + textStatus); console.log("Error: " + errorThrown); 
+    }
+  })
+}
 
+$(document).ready(function () {
+  initDropdownPenghasilan()
+  initDropdownPekerjaan()
+});
 </script>
 
 
