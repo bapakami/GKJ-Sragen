@@ -39,8 +39,6 @@ class Manajemenpekerjaan extends CI_Controller {
 	public function report_Data()
 	{
 		$belum_bekerja = $this->input->post('pekerjaan');
-		// echo "".$belum_bekerja[1];
-		// return;
 		$gereja = $this->input->post('gereja');
 		$berdasar = implode(",", $belum_bekerja);
 		$partsNo = '"'.implode('","', $belum_bekerja).'"';
@@ -122,6 +120,8 @@ class Manajemenpekerjaan extends CI_Controller {
 			$writer->save('php://output');
 			exit;
 			 
+		}else if($this->input->post('hasil_id') == 'GRAPH'){
+			redirect('Graph/pekerjaan/');		
 		}
 		redirect('manajemenpekerjaan');
 	}
