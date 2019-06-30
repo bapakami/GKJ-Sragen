@@ -9,6 +9,22 @@ class M_manajemenkeluarga extends CI_Model
 		$this->load->database();
 	}
 
+	function pilihan()
+	{
+		$q = "SELECT
+			status_keluarga
+		FROM
+			keluarga
+		";
+		$hasil=$this->db->query($q);
+		$res = [];
+		foreach ($hasil->result() as $row)
+		{
+			array_push($res, $row->status_keluarga);
+		}
+		return $res;
+	}
+
 	function getPDF($gereja,$partsGender,$partsStatus)
 	{
 

@@ -12,15 +12,15 @@ class M_manajemenpelayanan extends CI_Model
 	function pilihan()
 	{
 		$q = "SELECT
-			nama_strata
+			nama_pg
 		FROM
-			pelayanan
+			pelayanangereja
 		";
 		$hasil=$this->db->query($q);
 		$res = [];
 		foreach ($hasil->result() as $row)
 		{
-			array_push($res, $row->nama_strata);
+			array_push($res, $row->nama_pg);
 		}
 		return $res;
 	}

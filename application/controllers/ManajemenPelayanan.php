@@ -33,9 +33,6 @@ class ManajemenPelayanan extends CI_Controller {
 
 	}
 
-
-
-
 	public function report_Data()
 	{
 
@@ -127,11 +124,22 @@ class ManajemenPelayanan extends CI_Controller {
 		
 	}
 
+	public function dropdown()
+	{
+		$data = [
+			"data" => [],
+			"message" => "",
+			"status" => 200 // Success
+		];
 
-	
-
-	
-
-
+		try {
+			$data["data"] = $this->M_manajemenpelayanan->pilihan();
+		}
+		catch (Exception $e) {
+			$data["message"] = $e->getMessage();
+			$data["status"] = 400; // Bad Request
+		}
+		echo json_encode($data);
+	}
 }
 ?>

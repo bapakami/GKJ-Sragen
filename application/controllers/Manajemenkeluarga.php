@@ -129,17 +129,6 @@ class Manajemenkeluarga extends CI_Controller {
 		
 	}
 
-
-
-
-
-
-
-
-
-
-	
-
 	public function insertData()
 	{
 		$data = array (
@@ -166,8 +155,22 @@ class Manajemenkeluarga extends CI_Controller {
 		redirect('manajemenberita');
 	}
 
+	public function dropdown()
+	{
+		$data = [
+			"data" => [],
+			"message" => "",
+			"status" => 200 // Success
+		];
 
-
-
+		try {
+			$data["data"] = $this->M_manajemenkeluarga->pilihan();
+		}
+		catch (Exception $e) {
+			$data["message"] = $e->getMessage();
+			$data["status"] = 400; // Bad Request
+		}
+		echo json_encode($data);
+	}
 }
 ?>
