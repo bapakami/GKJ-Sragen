@@ -109,6 +109,7 @@
              <select class="form-control" name="hasil_id">
                <option value="PDF"> PDF</option>
                <option value="XLS"> XLS </option>
+               <option value="GRAPH"> Grafik </option>
              </select>
             <br>
 

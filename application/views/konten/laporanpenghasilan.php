@@ -25,15 +25,6 @@
              <label>Penghasilan</label>
               <select class="form-control" name="penghasilan"> 
                <option>-- Select Penghasilan --</option>
-<<<<<<< HEAD
-=======
-               <!-- <option value="< 500.000"> < 500.000 </option>
-               <option value="500.000 s.d < 1.000.000"> 500.000 sd < 1.000.000 </option>
-               <option value="1.000.000 s.d < 2.000.000"> 1.000.000 sd < 2.000.000 </option>
-               <option value="2.000.000 s.d < 3.000.000">2.000.000 sd < 3.000.000</option>
-               <option value="3.000.000 s.d < 4.000.000">3.000.000 sd < 4.000.000</option>
-               <option value="> 4.000.000"> > 4.000.000</option> -->
->>>>>>> master
              </select>
              <br>
             <?php if($this->session->userdata('group_id')==='6'):?>
@@ -53,6 +44,7 @@
              <select class="form-control" name="hasil_id">
                <option value="PDF"> PDF</option>
                <option value="XLS"> XLS </option>
+               <option value="GRAPH"> Grafik </option>
              </select>
             <br>
 
