@@ -9,6 +9,17 @@ class M_manajemenusia extends CI_Model
 		$this->load->database();
 	}
 
+	function pilihan()
+	{
+		$q = "SELECT
+			usia, deskripsi
+		FROM
+			usiajemaat
+		";
+		$hasil=$this->db->query($q);
+		return $hasil->result();
+	}
+
 	function getPDF($partsUsia,$partsStatus,$gereja)
 	{		
 		 $hasil=$this->db->query("SELECT a.Nama_Lengkap as NamaLengkap,a.alamat_tinggal as alamat,a.jenis_kelamin as gender,a.usia as usia,b.namagereja as namagereja, a.status_perkawinan as status_perkawinan from jemaats a Left join gereja b ON a.gerejaid = b.id WHERE a.gerejaid=$gereja and a.status = 'Hidup' and ((a.status_perkawinan in ($partsStatus)) AND (a.usia in ($partsUsia)))");

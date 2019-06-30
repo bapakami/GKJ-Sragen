@@ -26,7 +26,7 @@
             <!-- /.box-header -->
             <div class="box-body table-responsive">
             <form name="myForm" class="form-horizontal" action="<?php echo base_url('Manajemenpekerjaan/report_Data')?>" method="post" enctype="multipart/form-data" role="form">
-            <label><b>Pekerjaan Jemaat</b> </label> <br>       
+            <label><b>Pekerjaan Jemaat</b> </label> <br>
             <table id="checkbox-table" style="width:100%">
               <tbody></tbody>
             </table>
@@ -49,6 +49,7 @@
              <select class="form-control" name="hasil_id">
                <option value="PDF"> PDF</option>
                <option value="XLS"> XLS </option>
+               <option value="GRAPH"> Grafik </option>
              </select>
             <br>
 

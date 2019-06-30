@@ -113,43 +113,44 @@ class Login extends CI_Controller{
 
 		$cek_login = $this->M_login->cek_login($username,$password);
 		
-		if($cek_login->num_rows() > 0){
-			$data  = $cek_login->row_array();
-			$id 		= $data['id'];
-			$name  = $data['fullname'];
-			$username  = $data['username'];
-			$email = $data['email'];
-			$group_id = $data['group_id'];
-			$gerejaid = $data['gereja_id'];
-			
-			
-			$sesdata = array(
-				'id'		=> $id,
-				'fullname'  => $name,
-				'username'  => $username,
-				'email'     => $email,
-				'group_id'  => $group_id,
-				'gereja_id' => $gerejaid,
-				'logged_in' => TRUE
-			);
-			$this->session->set_userdata($sesdata);
-			// access login for admin
-			if($group_id === '1'){
-				redirect(base_url('AdminGereja/beranda'));
-
-			// access login for staff
-			}else if($group_id === '6'){
-				redirect(base_url("beranda/admin_aja"));
-
-			// access login for author
-			}else{
-				redirect('login');
-			}
-
-		}else{
+		if($cek_login->num_rows() < 1){
 			echo $this->session->set_flashdata('msg','Username or Password is Wrong or Username is not active');
 			redirect(base_url('login'));
+			return;
 		}
+
+		$data  = $cek_login->row_array();
+		$id 		= $data['id'];
+		$name  = $data['fullname'];
+		$username  = $data['username'];
+		$email = $data['email'];
+		$group_id = $data['group_id'];
+		$gerejaid = $data['gereja_id'];
+		
+		
+		$sesdata = array(
+			'id'		=> $id,
+			'fullname'  => $name,
+			'username'  => $username,
+			'email'     => $email,
+			'group_id'  => $group_id,
+			'gereja_id' => $gerejaid,
+			'logged_in' => TRUE
+		);
+		$this->session->set_userdata($sesdata);
+		// access login for admin
+		if($group_id === '1'){
+			redirect(base_url('AdminGereja/beranda'));
+
+		// access login for staff
+		}else if($group_id === '6'){
+			redirect(base_url("beranda/admin_aja"));
+
+		// access login for author
+		}else{
+			redirect('login');
+		}
+
 	}
  
 	function logout(){

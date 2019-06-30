@@ -27,53 +27,9 @@
             <div class="box-body table-responsive">
            <form class="form-horizontal" onsubmit="return validateForm()" action="<?php echo base_url('Manajemenusia/report_Data')?>" method="post" enctype="multipart/form-data" role="form">
               <label>Usia </label> <br>
-
-               <table>
-                 
-                 <tr>
-                   <td>  
-                     <div class="checkbox">
-                     <label><input type="checkbox" name="usia[]" value="<12 th"> anak (kurang 12 th) </label>
-                     </div> 
-                   </td>
-                   <td width="55"></td>
-                   <td>  
-                     <div class="checkbox">
-                     <label><input type="checkbox" name="usia[]" value="13-17 th">remaja (13-17 th)</label>
-                     </div> 
-                   </td>
-                 </tr>
-
-                  <tr>
-                   <td>  
-                     <div class="checkbox">
-                     <label><input type="checkbox" name="usia[]" value="18-25 th">pemuda (18-25 th)</label>
-                     </div> 
-                   </td>
-                   <td width="55"></td>
-                   <td>  
-                     <div class="checkbox">
-                     <label><input type="checkbox" name="usia[]" value="26-40 th">dewasa muda/keluarga muda (26-40 th)</label>
-                     </div> 
-                   </td>
-                 </tr>
-
-                  <tr>
-                   <td>  
-                     <div class="checkbox">
-                     <label><input type="checkbox" name="usia[]" value="41-60 th">dewasa (41-60 th)</label>
-                     </div> 
-                   </td>
-                   <td width="55"></td>
-                   <td>  
-                     <div class="checkbox">
-                     <label><input type="checkbox" name="usia[]" value=">60 th">adiyuswa (>60 th)</label>
-                     </div> 
-                   </td>
-                 </tr>
-
-                 </table>
-
+              <table id="checkbox-table" style="width:100%">
+                <tbody></tbody>
+              </table>
                  <br>
                  <table>
                  <label>Status Pernikahan</label> <br>
@@ -135,6 +91,7 @@
              <select class="form-control" name="hasil_id">
                <option value="PDF"> PDF</option>
                <option value="XLS"> XLS </option>
+               <option value="GRAPH"> Grafik </option>
              </select>
             <br>
 
@@ -199,6 +156,34 @@ function validateForm() {
      }
 }
 
+function initDropdown() {
+  const col = 2
+  $.ajax({
+    type: "GET",
+    url: base_url + "Manajemenusia/dropdown",
+    dataType: "json",
+    success: function(res){
+      console.log(res)
+      var data = res.data
+      var tbl = $('#checkbox-table tbody')
+      $.each(data, function(i, val) {
+        if(i%col==0) {
+          tbl.append("<tr></tr>")
+        }
+        var elem = tbl.find("tr").last();
+        fmt = "<td><div class='checkbox'><label><input type='checkbox' name='usia[]' value='{0}'>{1}</label></div></td>"
+        elem.append(fmt.format(val.usia, val.deskripsi))
+        console.log(val)
+      })
+    },
+    error: function(XMLHttpRequest, textStatus, errorThrown) { 
+      console.log("Status: " + textStatus); console.log("Error: " + errorThrown); 
+    }
+  })
+}
+$(document).ready(function () {
+  initDropdown()
+});
 </script>
 
 
