@@ -4,11 +4,10 @@
     <section class="content-header">
       <h1>
         <?php if($this->session->userdata('group_id')==='6'):?>
-       Laporan Berdasarkan Minat Pelayanan Jemaat
-           <?php elseif($this->session->userdata('group_id')==='1'):?>
-    Laporan Berdasarkan Minat Pelayanan Jemaat <br>  <?= $NamaGereja?>
-         <?php endif;?>
-       
+          Laporan Berdasarkan Minat Pelayanan Jemaat
+        <?php elseif($this->session->userdata('group_id')==='1'):?>
+          Laporan Berdasarkan Minat Pelayanan Jemaat <br>  <?= $NamaGereja?>
+        <?php endif;?>
         <small></small>
       </h1>
       <ol class="breadcrumb">
@@ -22,17 +21,14 @@
       <div class="row">
         <div class="col-xs-12">
           <div class="box">
-
             <!-- /.box-header -->
             <div class="box-body table-responsive">
             <form class="form-horizontal" onsubmit="return validateForm()" action="<?php echo base_url('Manajemenpelayanan/report_Data')?>" method="post" enctype="multipart/form-data" role="form">
-            <h5>tanda * harus diisi (boleh lebih dari satu) </h5> <br> 
-
-         
+            <h5>tanda * harus diisi (boleh lebih dari satu) </h5>
           <label>Minat Pelayanan*</label>
-          <table>
-            
-            <tr>
+          <table id="checkbox-table" style="width:100%">
+            <tbody></tbody>
+            <!-- <tr>
               <td>  
                 <div class="checkbox">
                 <label><input type="checkbox" name="minat[]" id="Paduan_Suara" value="Paduan suara">Paduan Suara</label>
@@ -114,20 +110,15 @@
                 <label><input type="checkbox" name="minat[]" id="Lain_lain" value="Lain_lain">Lain-lain</label>
                 </div> 
               </td>
-            </tr>
+            </tr> -->
 
             
           </table>
-
-           
-         
-
-          
           <br>
             <?php if($this->session->userdata('group_id')==='6'):?>
              <label>Asal Gereja (*) : </label>
              <select class='form-control' id='gereja' name="gereja">
-                <option value='0'>--pilih--</option>
+                <option value=''>--pilih--</option>
                   <?php 
                     foreach ($gereja as $grj) {
                       echo "<option value='$grj[id]'>$grj[namagereja]</option>";
@@ -135,138 +126,36 @@
                   ?>
               </select>
             <?php elseif($this->session->userdata('group_id')==='1'):?>
-              <input type="hidden" name="gereja" value="<?= $this->session->userdata('gereja_id') ?>">
+              <input type="hidden" id="gereja" name="gereja" value="<?= $this->session->userdata('gereja_id') ?>">
             <?php endif;?><br>
             <label>Output</label>
              <select class="form-control" name="hasil_id">
                <option value="PDF"> PDF</option>
                <option value="XLS"> XLS </option>
+               <option value="GRAPH"> Grafik </option>
              </select>
             <br>
-
               <input class="btn btn-primary"  type="submit" value="Lihat">
             </form>
-            </div>
-     
-
+      </div>
     </section>
   </div>
 
 <script type="text/javascript">
 function validateForm() {
-  if($("#penghasilan").find(":selected").text() == '-- Select Penghasilan --'){
-      alert("Penghasilan tidak boleh kosong!!");
-      return false;
-  } else if ($("#gereja").find(":selected").text() == '--pilih--'){
+  var gereja = $('#gereja').val()
+  if (gereja == "") {
       alert("Gereja tidak boleh kosong!!");
       return false;
   }
-  
-  var cb1 = document.getElementById('Paduan_Suara');
-     if(cb1.checked){
-      var Paduan_Suara=$('#Paduan_Suara').val();
-    } else {
-      Paduan_Suara = '';
-    }
 
-    var cb2 = document.getElementById('Lain_lain');
-     if(cb2.checked){
-      var Lain_lain=$('#Lain_lain').val();
-    } else {
-      Lain_lain = '';
-    }
-
-    var cb3 = document.getElementById('Administrasi');
-     if(cb3.checked){
-      var Administrasi=$('#Administrasi').val();
-    } else {
-      Administrasi = '';
-    }
-    
-     var cb4 = document.getElementById('Multimedia');
-     if(cb4.checked){
-      var Multimedia=$('#Multimedia').val();
-    } else {
-      Multimedia = '';
-    }
-
-     var cb5 = document.getElementById('Panitia_Pembangunan');
-     if(cb5.checked){
-      var Panitia_Pembangunan=$('#Panitia_Pembangunan').val();
-    } else {
-      Panitia_Pembangunan = '';
-    }
-
-     var cb6 = document.getElementById('pendamping_pemuda');
-     if(cb6.checked){
-      var pendamping_pemuda=$('#pendamping_pemuda').val();
-    } else {
-      pendamping_pemuda = '';
-    }
-
-     var cb7 = document.getElementById('guru_minggu');
-     if(cb7.checked){
-      var guru_minggu=$('#guru_minggu').val();
-    } else {
-      guru_minggu = '';
-    }
-
-     var cb8 = document.getElementById('bahan_pa');
-     if(cb8.checked){
-      var bahan_pa=$('#bahan_pa').val();
-    } else {
-      bahan_pa = '';
-    }
-    
-     var cb9 = document.getElementById('Memimpin_PA');
-     if(cb9.checked){
-      var Memimpin_PA=$('#Memimpin_PA').val();
-    } else {
-      Memimpin_PA = '';
-    }
-
-
-    var cb9 = document.getElementById('Menjadi_Majelis');
-     if(cb9.checked){
-      var Menjadi_Majelis=$('#Menjadi_Majelis').val();
-    } else {
-      Menjadi_Majelis = '';
-    }
-
-    var cb9 = document.getElementById('Pengiring_Ibadah');
-     if(cb9.checked){
-      var Pengiring_Ibadah=$('#Pengiring_Ibadah').val();
-    } else {
-      Pengiring_Ibadah = '';
-    }
-
-
-    var cb9 = document.getElementById('Pengurus_Komisi');
-     if(cb9.checked){
-      var Pengurus_Komisi=$('#Pengurus_Komisi').val();
-    } else {
-      Pengurus_Komisi = '';
-    }
-
-     
-
-     if(Pengurus_Komisi == '' 
-      && Pengiring_Ibadah == '' 
-      && Menjadi_Majelis == '' 
-      && Memimpin_PA == ''
-      && bahan_pa == ''
-      && guru_minggu == ''
-      && pendamping_pemuda == ''
-      && Panitia_Pembangunan == ''
-      && Multimedia == ''
-      && Administrasi == ''
-      && Lain_lain == ''
-      && Paduan_Suara == ''
-
-      ){
+  var status = $('input[name="minat[]"]:checked').length;
+  if (!status) {
       alert("Status Pelayanan tidak boleh kosong!!");
       return false;
-     }
+  }
+  
+  return true;
 }
 
 
