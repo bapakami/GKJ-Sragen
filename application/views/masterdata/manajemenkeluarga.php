@@ -39,7 +39,7 @@
                              foreach ($data->result_array() as $i) :
                                     $no++;
                                     $idx = $i['Idx'];
-                                    $nama_sk = $i['Nama_Status_Keluarga'];
+                                    $nama_sk = $i['status_keluarga'];
                                     $deskripsi = $i['Desc'];
                          ?>
                 <tr>
@@ -72,7 +72,7 @@
 
 <?php foreach ($data->result_array() as $i) :
     $idx = $i['Idx'];
-    $nama_sk = $i['Nama_Status_Keluarga'];
+    $nama_sk = $i['status_keluarga'];
     $deskripsi = $i['Desc'];
 ?>
 
@@ -123,7 +123,7 @@
 
 <?php foreach ($data->result_array() as $i) :
     $idx = $i['Idx'];
-    $nama_sk = $i['Nama_Status_Keluarga'];
+    $nama_sk = $i['status_keluarga'];
     $deskripsi = $i['Desc'];
 ?>
 
