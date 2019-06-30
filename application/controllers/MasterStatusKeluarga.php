@@ -23,7 +23,7 @@ class MasterStatusKeluarga extends CI_Controller {
 	public function insertData()
 	{
 		$data = array (
-			"Nama_Status_Keluarga" => $this->input->post('nama_sk'),
+			"status_keluarga" => $this->input->post('nama_sk'),
 			"Desc" => $this->input->post('deskripsi')
 		
 		);
@@ -34,7 +34,7 @@ class MasterStatusKeluarga extends CI_Controller {
 	public function editData()
 	{
 		$data = array (
-			"Nama_Status_Keluarga" => $this->input->post('nama_sk'),
+			"status_keluarga" => $this->input->post('nama_sk'),
 			"Desc" => $this->input->post('deskripsi')
 		
 		);
