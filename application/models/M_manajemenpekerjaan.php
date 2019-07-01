@@ -34,6 +34,8 @@ class M_manajemenpekerjaan extends CI_Model
 			jemaats 
 		WHERE
 			pekerjaan in ($partsNo)
+			AND
+				gerejaid = $gereja
 		GROUP BY 
 			pekerjaan
 		");

@@ -17,6 +17,19 @@
       	<div class="row">
         	<div class="col-xs-12">
           		<div class="box">
+				<?php if($this->session->userdata('group_id')==='6'):?>
+				<label>Asal Gereja : </label>
+				<select class='form-control' id='gereja' name="gereja">
+					<option value=''>--pilih--</option>
+					<?php 
+						foreach ($gereja as $grj) {
+						echo "<option value='$grj[id]'>$grj[namagereja]</option>";
+						}
+					?>
+				</select>
+				<?php elseif($this->session->userdata('group_id')==='1'):?>
+					<input type="hidden" id="gereja" name="gereja" value="<?= $this->session->userdata('gereja_id') ?>">
+				<?php endif;?>
 		            <!-- /.box-header -->
 		            <div class="box-body table-responsive">
 		            	<div id="chartContainer" style="height: 300px; width: 100%;"></div>
@@ -29,27 +42,34 @@
 
 <script>
 window.onload = function() {
-
-var chart = new CanvasJS.Chart("chartContainer", {
-	animationEnabled: true,
-	title: {
-		text: "Desktop Search Engine Market Share - 2016"
-	},
-	data: [{
-		type: "pie",
-		startAngle: 240,
-		yValueFormatString: "##0.00\"%\"",
-		indexLabel: "{label} {y}",
-		dataPoints: [
-			{y: 79.45, label: "Google"},
-			{y: 7.31, label: "Bing"},
-			{y: 7.06, label: "Baidu"},
-			{y: 4.91, label: "Yahoo"},
-			{y: 1.26, label: "Others"}
-		]
-	}]
-});
-chart.render();
-
+	var dataGraph = [];
+	var id = $('#gereja').val();
+	$.ajax({
+		type: "GET",
+		url: base_url + "Graph/Pekerjaan/data/" + id,
+		param: {},
+		dataType: "json",
+		success: function(res){
+			dataGraph = res.data;
+			console.log(res)
+			chart = new CanvasJS.Chart("chartContainer", {
+				animationEnabled: true,
+				title: {
+					text: "Grafik Pekerjaan Jemaat Gereja " + res.name
+				},
+				data: [{
+					type: "pie",
+					startAngle: 240,
+					yValueFormatString: "##0.00\"%\"",
+					indexLabel: "{label} {y}",
+					dataPoints: dataGraph
+				}]
+			});
+			chart.render();
+		},
+		error: function(XMLHttpRequest, textStatus, errorThrown) { 
+			console.log("Status: " + textStatus); console.log("Error: " + errorThrown); 
+		}
+	});
 }
 </script>
