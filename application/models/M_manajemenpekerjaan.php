@@ -25,6 +25,24 @@ class M_manajemenpekerjaan extends CI_Model
 		return $res;
 	}
 
+	function getDataForGraph($gereja,$partsNo)
+	{
+		$hasil=$this->db->query("SELECT 
+			COUNT(pekerjaan) AS jumlah,
+			pekerjaan AS pekerjaan 
+		From 
+			jemaats 
+		WHERE
+			pekerjaan in ($partsNo)
+			AND
+				gerejaid = $gereja
+		GROUP BY 
+			pekerjaan
+		");
+		
+		return $hasil->result();
+	}
+
 	function getPDF($gereja,$partsNo)
 	{
 		$hasil=$this->db->query("SELECT 

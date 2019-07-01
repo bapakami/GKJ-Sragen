@@ -22,6 +22,7 @@
 <script src="<?php echo base_url().'assets/js/app.min.js'; ?>"></script>
 <script src="<?php echo base_url().'assets/js/demo.js'; ?>"></script>
 <script src="<?php echo base_url().'assets/plugins/toast/jquery.toast.min.js'; ?>"></script>
+<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 
 <script>
 getDate();
