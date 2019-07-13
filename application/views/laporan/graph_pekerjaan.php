@@ -39,6 +39,9 @@
     </section>
 </div>
 
+<script>
+	var column = <?= json_encode($column) ?>;
+</script>
 
 <script>
 window.onload = function() {
@@ -47,11 +50,25 @@ window.onload = function() {
 	$.ajax({
 		type: "GET",
 		url: base_url + "Graph/Pekerjaan/data/" + id,
-		param: {},
+		data: {
+			"column": column
+		},
 		dataType: "json",
 		success: function(res){
 			dataGraph = res.data;
-			console.log(res)
+			total = 0;
+
+			$.each(dataGraph, function () {
+				this.number = parseInt(this.y, 10)
+				total = total + this.number;
+			})
+
+
+			dataGraph.map(function(ok){
+				ok.y = (ok.number * 100 / total).toFixed(2);
+			})
+
+			console.log(total, dataGraph);
 			chart = new CanvasJS.Chart("chartContainer", {
 				animationEnabled: true,
 				title: {
@@ -61,7 +78,7 @@ window.onload = function() {
 					type: "pie",
 					startAngle: 240,
 					yValueFormatString: "##0.00\"%\"",
-					indexLabel: "{label} {y}",
+					indexLabel: "{label}:{number} ({y})",
 					dataPoints: dataGraph
 				}]
 			});

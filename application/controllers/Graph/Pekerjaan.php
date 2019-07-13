@@ -10,21 +10,32 @@ class Pekerjaan extends CI_Controller {
 
 	public function index()
 	{	
+		$column = $this->input->get('column');
+		if ( ! is_array($column)) {
+			$column = $this->M_manajemenpekerjaan->pilihan();
+		}
+		$data['column'] = $column;
+
     	$this->load->view('template/header');
 		$this->load->view('template/menu');
-		$this->load->view('laporan/graph_pekerjaan');   
+		$this->load->view('laporan/graph_pekerjaan', $data);   
 		$this->load->view('template/footer');
 	}
 
 	public function data($id = 0)
 	{
+		$column = $this->input->get('column');
+		if ( ! is_array($column)) {
+			$column = $this->M_manajemenpekerjaan->pilihan();
+		}
+
 		if ( ! is_numeric($id) ) {
 			echo json_encode([]);
 			return;
 		}
 
 		$dataGraph = array();
-		$nameofmaster = '"'.implode('","', $this->M_manajemenpekerjaan->pilihan()).'"';
+		$nameofmaster = '"'.implode('","', $column).'"';
 		$resultFromTableJemaats = $this->M_manajemenpekerjaan->getDataForGraph($id,$nameofmaster);
 		foreach($resultFromTableJemaats as $row)
 		{
