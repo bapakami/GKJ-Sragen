@@ -121,9 +121,17 @@ class Manajemenpekerjaan extends CI_Controller {
 			exit;
 			 
 		}else if($this->input->post('hasil_id') == 'GRAPH'){
-			redirect('Graph/pekerjaan/');		
+			$column = $this->input->post('pekerjaan');
+			if ( ! is_array($column)) {
+				redirect('Manajemenpekerjaan');
+			}
+			
+			$arr = [
+				'column' => $column
+			];
+			redirect('Graph/Pekerjaan?' . http_build_query($arr));		
 		}
-		redirect('manajemenpekerjaan');
+		redirect('Manajemenpekerjaan');
 	}
 
 	public function editData()
