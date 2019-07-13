@@ -75,6 +75,8 @@ function validateForm() {
       alert("Pendidikan tidak boleh kosong!!");
       return false;
   }
+
+  return true;
 }
 
 function initDropdown() {
@@ -104,6 +106,13 @@ function initDropdown() {
 }
 $(document).ready(function () {
   initDropdown()
+  $("form").submit(function(e) { 
+    if(! validateForm()) {
+      e.preventDefault();
+      return;
+    }
+    this.submit();
+  }); 
 });
     
 </script>
