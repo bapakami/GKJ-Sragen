@@ -116,6 +116,7 @@
                  <ul class="treeview-menu">
                    <li><a href="<?php echo base_url();?>AdminGereja/Jemaat"><i class="fa fa-circle-o text-aqua"></i>Jemaat Berstatus Hidup</a></li>
                    <li><a href="<?php echo base_url();?>AdminGereja/JemaatMeninggal"><i class="fa fa-circle-o text-aqua"></i>Jemaat Berstatus <br>Meninggal</a></li>
+                    <li><a href="<?php echo base_url();?>AdminGereja/NonJemaat"><i class="fa fa-circle-o text-aqua"></i>Non Jemaat</a></li>
                   
                  </ul>
              </li> <!-- <li><a href="<?php echo base_url();?>AdminGereja/Jemaat"><i class="fa fa-users"></i> Data Jemaat</a></li> -->
@@ -149,6 +150,7 @@
             </span>
           </a>
           <ul class="treeview-menu">
+          <li><a href="<?php echo base_url();?>master_status"><i class="fa fa-circle-o text-yellow"></i> Status Pernikahan</a></li>
           <li><a href="<?php echo base_url();?>Pendidikanterakhir"><i class="fa fa-circle-o text-yellow"></i> Pendidikan Terakhir</a></li>
           <li><a href="<?php echo base_url();?>Penghasilanperbulan"><i class="fa fa-circle-o text-yellow"></i> Penghasilan Per Bulan</a></li>
           <li><a href="<?php echo base_url();?>Pekerjaanpokok/"><i class="fa fa-circle-o text-yellow"></i> Pekerjaan Pokok</a></li>

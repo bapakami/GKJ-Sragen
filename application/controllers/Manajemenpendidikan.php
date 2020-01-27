@@ -112,6 +112,18 @@ class Manajemenpendidikan extends CI_Controller {
 		$writer->save('php://output');
 			exit;
 			 
+		}elseif ($this->input->post('hasil_id') == 'GRAPH') {
+			$column = $this->input->post('pendidikan');
+			$gereja = $this->input->post('gereja');
+			if ( ! is_array($column)) {
+				redirect('Manajemenpenddikan');
+			}
+			
+			$arr = [
+				'column' => $column,
+				'gereja' => $gereja
+			];
+			redirect('Graph/Pendidikan?' . http_build_query($arr));	
 		}
 		redirect('manajemenpendidikan');
 	}

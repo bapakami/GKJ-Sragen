@@ -35,18 +35,26 @@ class Manajemenusia extends CI_Controller {
 	public function report_Data()
 	{
 		$usia = $this->input->post('usia');
+		$usiastart = $this->input->post('startusia');
+		$usiaend = $this->input->post('endusia');
 		$status = $this->input->post('status');
 		$gereja = $this->input->post('gereja');
 		$berdasarStatus = implode(",", $status);
-		$berdasarUsia = implode(",", $usia);
-		$partsUsia = '"'.implode('","', $usia).'"';
-		$partsStatus = '"'.implode('","', $status).'"';
-		if($this->input->post('hasil_id') == 'PDF'){
-			
+		// $berdasarUsia = implode(",", $usia);
+		// $partsUsia = '"'.implode('","', $usia).'"';
+		// $partsStatus = '"'.implode('","', $status).'"';
+		if($this->input->post('hasil_id') == 'PDF'){	
 			$data['namagereja'] = $this->M_manajemenusia->getNamaGereja($gereja);
-			$data['isi'] = $this->M_manajemenusia->getPDF($partsUsia,$partsStatus,$gereja);
-			$data['statistik'] = $this->M_manajemenusia->getStatistik($partsUsia,$partsStatus,$gereja);
-			$data['berdasarUsia'] = $berdasarUsia;
+			// $data['isi'] = $this->M_manajemenusia->getPDF($partsUsia,$partsStatus,$gereja);
+					$usiastart = $this->input->post('startusia');
+		$usiaend = $this->input->post('endusia');
+		$status = $this->input->post('status');
+		$gereja = $this->input->post('gereja');
+		$berdasarStatus = implode(",", $status);
+			$statistik3 = $this->M_manajemenusia->getStatistik($usiastart,$usiaend,$gereja,$berdasarStatus);
+			$data = array('statistik1' => $statistik3 );
+			$data['usia_start'] = $usiastart;
+			$data['usia_end'] = $usiaend;
 			$data['berdasarStatus'] = $berdasarStatus;
 	  		$html=$this->load->view('laporan/pdf_laporanusia',$data , true);      
 	        //this the the PDF filename that user will get to download
@@ -117,6 +125,20 @@ class Manajemenusia extends CI_Controller {
 			$writer->save('php://output');
 			exit;
 			 
+		}elseif ($this->input->post('hasil_id') == 'GRAPH') {
+			$columnUsia = $this->input->post('usia');
+			$columnStatus = $this->input->post('status');
+			$gereja = $this->input->post('gereja');
+			if ( ! is_array($columnUsia)) {
+				redirect('Manajemenusia');
+			}
+			
+			$arr = [
+				'columnUsia' => $columnUsia,
+				'columnStatus' => $columnStatus,
+				'gereja' => $gereja
+			];
+			redirect('Graph/Usia?' . http_build_query($arr));	
 		}
 		
 	}

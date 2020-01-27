@@ -25,6 +25,28 @@ class M_manajemenkeluarga extends CI_Model
 		return $res;
 	}
 
+	function getDataForGraph($gereja,$partsKeluarga,$partsGender)
+	{
+		$hasil=$this->db->query("SELECT 
+			COUNT(status_keluarga) AS jumlah,
+			status_keluarga AS keluarga,
+			jenis_kelamin AS status 
+		From 
+			jemaats 
+		WHERE 
+			gerejaid = $gereja
+			AND 
+			status = 'Hidup'
+			AND 
+			((status_keluarga in ($partsKeluarga) ) and (jenis_kelamin in ($partsGender)))
+				
+		GROUP BY 
+			status_keluarga
+		");
+		
+		return $hasil->result();
+	}
+
 	function getPDF($gereja,$partsGender,$partsStatus)
 	{
 

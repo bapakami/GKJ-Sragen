@@ -24,12 +24,12 @@
       <tr>
         <td style="font-size:12px;text-align: center;"><?= $kategoriPenghasilan; ?></td>
         <td style="font-size:12px;text-align: center;"><?= $data->JumlahJemaat; ?> </td>
-        <td style="font-size:12px;text-align: center;"><?= $Persentase; ?>%</td>
+        <td style="font-size:12px;text-align: center;"><?= number_format($Persentase,2)?>%</td>
       </tr>
       <tr>
         <td style="font-size:12px;text-align: center;"><b>Total</b></td>
         <td style="font-size:12px;text-align: center;"><b><?= $data->JumlahJemaat ?> Jemaat</b></td>
-        <td style="font-size:12px;text-align: center;"><b><?= $Persentase?>%</b></td>
+        <td style="font-size:12px;text-align: center;"><b><?= number_format($Persentase,2)?>%</b></td>
       </tr>
       <?php $i++; } ?>
 </table>

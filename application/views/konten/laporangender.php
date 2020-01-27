@@ -25,7 +25,7 @@
 
             <!-- /.box-header -->
             <div class="box-body table-responsive">
-            <form class="form-horizontal" onsubmit="return validateForm()" action="<?php echo base_url('Manajemengender/report_Data')?>" method="post" enctype="multipart/form-data" role="form">
+            <form class="form-horizontal" action="<?php echo base_url('Manajemengender/report_Data')?>" method="post" enctype="multipart/form-data" role="form">
                <h4>Keterangan : yang diberi tanda * wajib diisi</h4>
             <label>Jenis Kelamin (*)</label> <br>
               <table>
@@ -90,7 +90,7 @@
             <?php if($this->session->userdata('group_id')==='6'):?>
              <label>Asal Gereja (*) : </label>
              <select class='form-control' id='gereja' name="gereja">
-                <option value='0'>--pilih--</option>
+                <option value=''>--pilih--</option>
                   <?php 
                     foreach ($gereja as $grj) {
                       echo "<option value='$grj[id]'>$grj[namagereja]</option>";
@@ -98,7 +98,7 @@
                   ?>
               </select>
             <?php elseif($this->session->userdata('group_id')==='1'):?>
-              <input type="hidden" name="gereja" value="<?= $this->session->userdata('gereja_id') ?>">
+              <input type="hidden" id="gereja" name="gereja" value="<?= $this->session->userdata('gereja_id') ?>">
             <?php endif;?>
             <br>
             <label>Output</label>
@@ -119,71 +119,36 @@
 
 <script type="text/javascript">
 function validateForm() {
-  if($("#penghasilan").find(":selected").text() == '-- Select Penghasilan --'){
-      alert("Penghasilan tidak boleh kosong!!");
-      return false;
-  } else if ($("#gereja").find(":selected").text() == '--pilih--'){
-      alert("Gereja tidak boleh kosong!!");
+  var gender = $('input[name="gender[]"]:checked').length;
+  if (!gender) {
+      alert("Anda belum memilih list gender");
       return false;
   }
-  
-  var cb1 = document.getElementById('laki_laki');
-     if(cb1.checked){
-      var laki_laki=$('#laki_laki').val();
-    } else {
-      laki_laki = '';
-    }
 
-    var cb2 = document.getElementById('perempuan');
-     if(cb2.checked){
-      var perempuan=$('#perempuan').val();
-    } else {
-      perempuan = '';
-    }
-
-    var cb3 = document.getElementById('A');
-     if(cb3.checked){
-      var A=$('#A').val();
-    } else {
-      A = '';
-    }
-    
-    var cb4 = document.getElementById('B');
-     if(cb4.checked){
-      var B=$('#B').val();
-    } else {
-      B = '';
-    }
-     
-    var cb5 = document.getElementById('AB');
-     if(cb5.checked){
-      var AB=$('#AB').val();
-    } else {
-      AB = '';
-    } 
-    
-    var cb6 = document.getElementById('O');
-     if(cb6.checked){
-      var O=$('#O').val();
-    } else {
-      O = '';
-    } 
-    
-     if(laki_laki == '' && perempuan == '' && A == '' && B =='' && AB =='' && O == ''){
-      alert("Gender dan Gol.Darah tidak boleh kosong!!");
+  var darah = $('input[name="darah[]"]:checked').length;
+  if (!darah) {
+      alert("Anda belum memilih list golongan darah");
       return false;
-     }
+  }
 
-     if($("#penghasilan").find(":selected").text() == '-- Select Penghasilan --'){
-         alert("Penghasilan tidak boleh kosong!!");
-         return false;
-     } else if ($("#gereja").find(":selected").text() == '--pilih--'){
-         alert("Gereja tidak boleh kosong!!");
-         return false;
-     }
+  var gereja = $('#gereja').val()
+    if (gereja == "") {
+        alert("Gereja tidak boleh kosong!!");
+        return false;
+    }
 
-}
+    return true;
+  }
 
+$(document).ready(function () {
+  $("form").submit(function(e) { 
+    if(! validateForm()) {
+      e.preventDefault();
+      return;
+    }
+    this.submit();
+  }); 
+});
 </script>
 
 

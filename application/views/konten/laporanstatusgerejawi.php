@@ -123,41 +123,20 @@
 
 <script type="text/javascript">
 function validateForm() {
-  if($("#penghasilan").find(":selected").text() == '-- Select Penghasilan --'){
-      alert("Penghasilan tidak boleh kosong!!");
+ var status = $('input[name="statusWarga[]"]:checked').length;
+  if (!status) {
+      alert("Anda belum memilih list statusWarga");
       return false;
-  } else if ($("#gereja").find(":selected").text() == '--pilih--'){
+  }
+
+  var gereja = $('#gereja').val()
+  if (gereja == "") {
       alert("Gereja tidak boleh kosong!!");
       return false;
   }
-  
-      var cb1 = document.getElementById('Warga');
-         if(cb1.checked){
-          var Warga=$('#Warga').val();
-        } else {
-          Warga = '';
-        }
-
-        var cb2 = document.getElementById('Tamu');
-         if(cb2.checked){
-          var Tamu=$('#Tamu').val();
-        } else {
-          Tamu = '';
-        }
-
-        var cb3 = document.getElementById('Warga_Belajar');
-         if(cb3.checked){
-          var Warga_Belajar=$('#Warga_Belajar').val();
-        } else {
-          Warga_Belajar = '';
-        }
-        
-        
-         if(Warga == '' && Tamu == '' && Warga_Belajar == '' ){
-          alert("Status Warga tidak boleh kosong!!");
-          return false;
-         }
-    }
+  return true;
+}
+    
 </script>
 
 

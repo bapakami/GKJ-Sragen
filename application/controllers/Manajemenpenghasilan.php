@@ -130,6 +130,18 @@ class Manajemenpenghasilan extends CI_Controller {
 			$writer->save('php://output');
 			exit;
 			 
+		}elseif ($this->input->post('hasil_id') == 'GRAPH') {
+			$column = $this->input->post('penghasilan');
+			$gereja = $this->input->post('gereja');
+			if ( $column == null) {
+				redirect('Manajemenpenghasilan');
+			}
+			
+			$arr = [
+				'column' => $column,
+				'gereja' => $gereja
+			];
+			redirect('Graph/Penghasilan?' . http_build_query($arr));		
 		}
 		
 	}

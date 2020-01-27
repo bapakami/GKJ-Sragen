@@ -17,20 +17,6 @@
       	<div class="row">
         	<div class="col-xs-12">
           		<div class="box">
-				<?php if($this->session->userdata('group_id')==='6'):?>
-				<label>Asal Gereja : </label>
-				<select class='form-control' id='gereja' name="gereja">
-					<option value=''>--pilih--</option>
-					<?php 
-						foreach ($gereja as $grj) {
-						echo "<option value='$grj[id]'>$grj[namagereja]</option>";
-						}
-					?>
-				</select>
-				<?php elseif($this->session->userdata('group_id')==='1'):?>
-					<input type="hidden" id="gereja" name="gereja" value="<?= $this->session->userdata('gereja_id') ?>">
-				<?php endif;?>
-		            <!-- /.box-header -->
 		            <div class="box-body table-responsive">
 		            	<div id="chartContainer" style="height: 300px; width: 100%;"></div>
 		            </div>
@@ -41,6 +27,7 @@
 
 <script>
 	var column = <?= json_encode($column) ?>;
+	var gereja = <?= json_encode($gereja) ?>;
 </script>
 
 <script>
@@ -49,9 +36,10 @@ window.onload = function() {
 	var id = $('#gereja').val();
 	$.ajax({
 		type: "GET",
-		url: base_url + "Graph/Pekerjaan/data/" + id,
+		url: base_url + "Graph/Pekerjaan/data",
 		data: {
-			"column": column
+			"column": column,
+			"gereja": gereja
 		},
 		dataType: "json",
 		success: function(res){

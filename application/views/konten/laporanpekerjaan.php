@@ -72,7 +72,7 @@ function validateForm() {
 
   var status = $('input[name="pekerjaan[]"]:checked').length;
   if (!status) {
-      alert("Pendidikan tidak boleh kosong!!");
+      alert("Anda belum memilih list pekerjaan");
       return false;
   }
 

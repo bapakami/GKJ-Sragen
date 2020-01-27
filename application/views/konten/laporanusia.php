@@ -26,10 +26,18 @@
             <!-- /.box-header -->
             <div class="box-body table-responsive">
            <form class="form-horizontal" onsubmit="return validateForm()" action="<?php echo base_url('Manajemenusia/report_Data')?>" method="post" enctype="multipart/form-data" role="form">
-              <label>Usia </label> <br>
-              <table id="checkbox-table" style="width:100%">
+              <label>Range Lahir </label> <br>
+<!--               <table id="checkbox-table" style="width:100%">
                 <tbody></tbody>
-              </table>
+              </table> -->
+              <div class="row">
+                <div class="col-sm-4">
+                  <input type="text" name="startusia" id="startusia" placeholder="from" class="form-control datepicker" required="required">
+                </div>                
+                <div class="col-sm-4">
+                  <input type="text" name="endusia" id="endusia" placeholder="To" class="form-control datepicker" required="required">
+                </div>
+              </div>
                  <br>
                  <table>
                  <label>Status Pernikahan</label> <br>
@@ -77,7 +85,7 @@
             <?php if($this->session->userdata('group_id')==='6'):?>
              <label>Asal Gereja : </label>
              <select class='form-control' id='gereja' name="gereja">
-                <option value='0'>--pilih--</option>
+                <option value=''>--pilih--</option>
                   <?php 
                     foreach ($gereja as $grj) {
                       echo "<option value='$grj[id]'>$grj[namagereja]</option>";
@@ -85,7 +93,7 @@
                   ?>
               </select>
             <?php elseif($this->session->userdata('group_id')==='1'):?>
-              <input type="hidden" name="gereja" value="<?= $this->session->userdata('gereja_id') ?>">
+              <input type="hidden" id="gereja" name="gereja" value="<?= $this->session->userdata('gereja_id') ?>">
             <?php endif;?><br>
             <label>Output</label>
              <select class="form-control" name="hasil_id">
@@ -105,55 +113,26 @@
 
 <script type="text/javascript">
 function validateForm() {
- 
-  var cb1 = document.getElementById('menikah');
-     if(cb1.checked){
-      var menikah=$('#menikah').val();
-    } else {
-      menikah = '';
-    }
-
-    var cb2 = document.getElementById('belum_menikah');
-     if(cb2.checked){
-      var belum_menikah=$('#belum_menikah').val();
-    } else {
-      belum_menikah = '';
-    }
-
-    var cb3 = document.getElementById('janda');
-     if(cb3.checked){
-      var janda=$('#janda').val();
-    } else {
-      janda = '';
-    }
-    
-    var cb4 = document.getElementById('duda');
-     if(cb4.checked){
-      var duda=$('#duda').val();
-    } else {
-      duda = '';
-    }
-     
-    var cb5 = document.getElementById('single_parent');
-     if(cb5.checked){
-      var single_parent=$('#single_parent').val();
-    } else {
-      single_parent = '';
-    }   
-    
-    
-     if(menikah == '' && belum_menikah == '' && janda == '' && duda =='' && single_parent ==''){
-      alert("Status Perkawinan tidak boleh kosong!!");
+ var usiastart = $('#startusia').length;
+ var usiaend = $('#endusia').length;
+  if (!usiastart || !usiaend) {
+      alert("Usia tidak boleh kosong!!");
       return false;
-     }
+  }
 
-     if($("#penghasilan").find(":selected").text() == '-- Select Penghasilan --'){
-         alert("Penghasilan tidak boleh kosong!!");
-         return false;
-     } else if ($("#gereja").find(":selected").text() == '--pilih--'){
-         alert("Gereja tidak boleh kosong!!");
-         return false;
-     }
+  var status = $('input[name="status[]"]:checked').length;
+  if (!status) {
+      alert("Kategori status tidak boleh kosong!!");
+      return false;
+  }
+
+  var gereja = $('#gereja').val()
+  if (gereja == "") {
+      alert("Gereja tidak boleh kosong!!");
+      return false;
+  }
+
+  return true;
 }
 
 function initDropdown() {
@@ -171,7 +150,7 @@ function initDropdown() {
           tbl.append("<tr></tr>")
         }
         var elem = tbl.find("tr").last();
-        fmt = "<td><div class='checkbox'><label><input type='checkbox' name='usia[]' value='{0}'>{1}</label></div></td>"
+        fmt = "<td><div class='checkbox'><label><input type='checkbox' name='usia[]' value='{0}'>{0}</label></div></td>"
         elem.append(fmt.format(val.usia, val.deskripsi))
         console.log(val)
       })
@@ -183,7 +162,22 @@ function initDropdown() {
 }
 $(document).ready(function () {
   initDropdown()
+  $("form").submit(function(e) { 
+    if(! validateForm()) {
+      e.preventDefault();
+      return;
+    }
+    this.submit();
+  }); 
 });
+</script>
+<script type="text/javascript">
+  $(document).ready(function () {
+          $('.datepicker').datepicker({
+    format: "yyyy-mm-dd",
+          autoclose: true,
+      });
+  });
 </script>
 
 

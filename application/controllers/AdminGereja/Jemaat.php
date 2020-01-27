@@ -17,6 +17,7 @@ class Jemaat extends CI_Controller {
     {
         $data['data']=$this->M_Jemaat_Gereja->DataList($this->session->userdata('gereja_id'));
         $data['pendidikan'] = $this->M_Jemaat_Gereja->Pendidikan();
+        $data['status'] = $this->M_Jemaat_Gereja->Status_nikah();
         $data['pekerjaan'] = $this->M_Jemaat_Gereja->Pekerjaan();
         $data['peranDalamGereja'] = $this->M_Jemaat_Gereja->PeranDalamGereja();
         $data['minatPelayananUmum'] = $this->M_Jemaat_Gereja->MinatPelayanUmum();

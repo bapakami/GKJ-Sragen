@@ -20,11 +20,11 @@
 
             <!-- /.box-header -->
             <div class="box-body table-responsive">
-            <form class="form-horizontal" onsubmit="return validateForm()" action="<?php echo base_url('Manajemenpenghasilan/insertData')?>" method="post" enctype="multipart/form-data" role="form">
+            <form name="myForm" class="form-horizontal" action="<?php echo base_url('Manajemenpenghasilan/insertData')?>" method="post" enctype="multipart/form-data" role="form">
               <h4>Data Jemaat Berdasar Penghasilan</h4>
              <label>Penghasilan</label>
-              <select class="form-control" name="penghasilan"> 
-               <option>-- Select Penghasilan --</option>
+              <select class="form-control" name="penghasilan" id="penghasilan"> 
+               <option value='0'>-- Select Penghasilan --</option>
              </select>
              <br>
             <?php if($this->session->userdata('group_id')==='6'):?>
@@ -38,7 +38,7 @@
                   ?>
               </select>
             <?php elseif($this->session->userdata('group_id')==='1'):?>
-              <input type="hidden" name="gereja" value="<?= $this->session->userdata('gereja_id') ?>">
+              <input type="hidden" id="gereja" name="gereja" value="<?= $this->session->userdata('gereja_id') ?>">
             <?php endif;?><br>
             <label>Output</label>
              <select class="form-control" name="hasil_id">
@@ -48,7 +48,7 @@
              </select>
             <br>
 
-              <input class="btn btn-primary"  type="submit" value="Lihat">
+              <input class="btn btn-primary" type="submit" value="Lihat">
             </form>
             </div>
      
@@ -57,6 +57,22 @@
   </div>
 
 <script type="text/javascript">
+
+function validateForm() {
+   var status = $('#penghasilan').val()
+   if (status == 0) {
+       alert("Anda belum memilih list penghasilan");
+       return false;
+   }
+
+   var gereja = $('#gereja').val()
+   if (gereja == 0) {
+       alert("Gereja tidak boleh kosong!!");
+       return false;
+   }
+
+   return true;
+}
 
 function initDropdown() {
   $.ajax({
@@ -78,18 +94,15 @@ function initDropdown() {
   })
 }
 
-function validateForm() {
-    if($("#penghasilan").find(":selected").text() == '-- Select Penghasilan --'){
-        alert("Penghasilan tidak boleh kosong!!");
-        return false;
-    } else if ($("#gereja").find(":selected").text() == '--pilih--'){
-        alert("Gereja tidak boleh kosong!!");
-        return false;
-    }
-}
-
 $(document).ready(function () {
   initDropdown()
+  $("form").submit(function(e) { 
+    if(! validateForm()) {
+      e.preventDefault();
+      return;
+    }
+    this.submit();
+  }); 
 });
     
 

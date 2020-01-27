@@ -125,6 +125,20 @@ class Manajemenkeluarga extends CI_Controller {
 			$writer->save('php://output');
 			exit;
 			 
+		}elseif ($this->input->post('hasil_id') == 'GRAPH') {
+			$columnKeluarga = $this->input->post('status');
+			$columnGender = $this->input->post('gender');
+			$gereja = $this->input->post('gereja');
+			if ( ! is_array($columnKeluarga)) {
+				redirect('Manajemenusia');
+			}
+			
+			$arr = [
+				'columnKeluarga' => $columnKeluarga,
+				'columnGender' => $columnGender,
+				'gereja' => $gereja
+			];
+			redirect('Graph/Keluarga?' . http_build_query($arr));	
 		}
 		
 	}

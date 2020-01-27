@@ -25,7 +25,7 @@
 
             <!-- /.box-header -->
             <div class="box-body table-responsive">
-            <form class="form-horizontal" onsubmit="return validateForm()" action="<?php echo base_url('Manajemenperkawinan/report_Data')?>" method="post" enctype="multipart/form-data" role="form">
+            <form class="form-horizontal" action="<?php echo base_url('Manajemenperkawinan/report_Data')?>" method="post" enctype="multipart/form-data" role="form">
              <h5>Laporan ini adalah laporan data jemaat berdasarkan status nikah jemaat.
                Dimana data jemaat dapat ditampilkan berdasarkan Asal Gereja</h5> <br>
                 <label>Status Perkawinan </label>
@@ -76,7 +76,7 @@
             <?php if($this->session->userdata('group_id')==='6'):?>
              <label>Asal Gereja : </label>
              <select class='form-control' id='gereja' name="gereja">
-                <option value='0'>--pilih--</option>
+                <option value=''>--pilih--</option>
                   <?php 
                     foreach ($gereja as $grj) {
                       echo "<option value='$grj[id]'>$grj[namagereja]</option>";
@@ -84,7 +84,7 @@
                   ?>
               </select>
             <?php elseif($this->session->userdata('group_id')==='1'):?>
-              <input type="hidden" name="gereja" value="<?= $this->session->userdata('gereja_id') ?>">
+              <input type="hidden" id="gereja" name="gereja" value="<?= $this->session->userdata('gereja_id') ?>">
             <?php endif;?>
             <br>
             <label>Output</label>
@@ -105,58 +105,30 @@
 
 <script type="text/javascript">
 function validateForm() {
-
-  if($("#penghasilan").find(":selected").text() == '-- Select Penghasilan --'){
-      alert("Penghasilan tidak boleh kosong!!");
+  var status = $('input[name="perkawinan[]"]:checked').length;
+  if (!status) {
+      alert("Anda belum memilih list perkawinan");
       return false;
-  } else if ($("#gereja").find(":selected").text() == '--pilih--'){
+  }
+
+  var gereja = $('#gereja').val()
+  if (gereja == "") {
       alert("Gereja tidak boleh kosong!!");
       return false;
   }
-      var cb1 = document.getElementById('menikah');
-         if(cb1.checked){
-          var menikah=$('#menikah').val();
-        } else {
-          menikah = '';
-        }
 
-        var cb2 = document.getElementById('belum_menikah');
-         if(cb2.checked){
-          var belum_menikah=$('#belum_menikah').val();
-        } else {
-          belum_menikah = '';
-        }
+  return true;
+}
 
-        var cb3 = document.getElementById('janda');
-         if(cb3.checked){
-          var janda=$('#janda').val();
-        } else {
-          janda = '';
-        }
-        
-        var cb4 = document.getElementById('duda');
-         if(cb4.checked){
-          var duda=$('#duda').val();
-        } else {
-          duda = '';
-        }
-         
-        var cb5 = document.getElementById('single_parent');
-         if(cb5.checked){
-          var single_parent=$('#single_parent').val();
-        } else {
-          single_parent = '';
-        } 
-        
-        
-        
-         if(menikah == '' && belum_menikah == '' && janda == '' && duda =='' && single_parent ==''){
-          alert("Status Perkawinan tidak boleh kosong!!");
-          return false;
-         }
-
-
+$(document).ready(function () {
+  $("form").submit(function(e) { 
+    if(! validateForm()) {
+      e.preventDefault();
+      return;
     }
+    this.submit();
+  }); 
+});
 </script>
 
 

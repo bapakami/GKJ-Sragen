@@ -25,6 +25,26 @@ class M_manajemenpendidikan extends CI_Model
 		return $res;
 	}
 
+	function getDataForGraph($gereja,$partsNo)
+	{
+		$hasil=$this->db->query("SELECT 
+			COUNT(pendidikan) AS jumlah,
+			pendidikan AS pendidikan 
+		From 
+			jemaats 
+		WHERE
+			pendidikan in ($partsNo)
+			AND
+				gerejaid = $gereja
+			AND
+				status = 'Hidup'
+		GROUP BY 
+			pendidikan
+		");
+		
+		return $hasil->result();
+	}
+
 	function getPDF($gereja,$partsNo)
 	{
 		$hasil=$this->db->query("SELECT 

@@ -137,6 +137,18 @@ class ManajemenStatusGerejawi extends CI_Controller {
 			$writer->save('php://output');
 			exit;
 			 
+		}elseif ($this->input->post('hasil_id') == 'GRAPH') {
+			$columnStatus = $this->input->post('statusWarga');
+			$gereja = $this->input->post('gereja');
+			$arr = [
+				'columnStatus' => $columnStatus,
+				'HanyaSidhi' => $HanyaSidhi,
+				'HanyaBaptis' => $HanyaBaptis,
+				'BaptisdanSidhi' => $BaptisdanSidhi,
+				'BelumBaptisSidhi' => $BelumBaptisSidhi,
+				'gereja' => $gereja
+			];
+			redirect('Graph/StatusGerejawi?' . http_build_query($arr));		
 		}
 		
 	}

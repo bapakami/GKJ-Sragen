@@ -25,6 +25,26 @@ class M_manajemenpelayanan extends CI_Model
 		return $res;
 	}
 
+	function getDataForGraph($gereja,$partsNo)
+	{
+		$hasil=$this->db->query("SELECT 
+			COUNT(minat_pelayanan_gereja) AS jumlah,
+			minat_pelayanan_gereja AS pelayanan 
+		From 
+			jemaats 
+		WHERE
+			minat_pelayanan_gereja in ($partsNo)
+			AND
+				gerejaid = $gereja
+			AND
+				status = 'Hidup'
+		GROUP BY 
+			minat_pelayanan_gereja
+		");
+		
+		return $hasil->result();
+	}
+
 	function getPDF($gereja,$parts)
 	{
 		$hasil=$this->db->query("SELECT a.Nama_Lengkap as NamaLengkap,a.jenis_kelamin as gender,a.alamat_tinggal as alamat, a.telepon as telepon, a.minat_pelayanan_gereja as minat_pelayanan_gereja,b.namagereja as namagereja FROM jemaats a

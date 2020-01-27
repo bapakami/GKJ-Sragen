@@ -31,6 +31,7 @@
                     <th>Nama</th>
                     <th>No. KTP</th>
                     <th>No. KK</th>
+                    <th>Usia</th>
                     <th>Tempat, Tgl Lahir</th>
                     <th>Gender</th>
                     <th>Alamat</th>
@@ -62,12 +63,14 @@
                                     $alamat = $i['alamat_ktp'];
                                     $notelp = $i['telepon'];
                                     $buku_induk = $i['nmrbkinduk'];
+                                    $usia = $i['usia'];
                          ?>
                 <tr>
                     <td style="text-align:left;width:38px;"><?php echo $no; ?></td>
                     <td><?php echo $nama; ?></td>
                     <td><?php echo $ktp; ?></td>
                     <td><?php echo $kk; ?></td>
+                    <td><?php echo $usia; ?></td>
                     <td><?php echo $tempat_lahir; ?>, <?= tanggal_indo($tgl_lahir)?></td>
                     <td><?php echo $gender; ?></td>
                     <td><?php echo $alamat; ?></td>
@@ -219,8 +222,8 @@ $username = $i['nama_lengkap'];
                   <input id="NoInduk" type="text" name="NoInduk" class="form-control" placeholder="Nomor Induk" data-error="Lastname is required.">
                 </div>
                 <div class="col-md-4 ml-auto">
-                  <label for="form_lastname">No. KTP*</label>
-                  <input id="NoKtp" type="text" name="NoKtp" class="form-control" placeholder="Nomor KTP" data-error="Lastname is required.">
+                  <label for="form_lastname">NIK*</label>
+                  <input id="NoKtp" type="text" name="NoKtp" class="form-control" placeholder="Nomor Induk Karyawan" data-error="Lastname is required.">
                 </div>
                 <div class="col-md-4 ml-auto">
                   <label for="form_lastname">No. KK*</label>
@@ -263,7 +266,7 @@ $username = $i['nama_lengkap'];
                   <label for="form_lastname">Tanggal Lahir*</label>
                   <input id="datepicker" type="text" name="tanggalLahir" class="form-control" placeholder="Tanggal Lahir" data-error="Lastname is required.">
                          </div>
-                <div class="col-md-4">
+<!--                 <div class="col-md-4">
                   <label class="control-label">Usia Jemaat&nbsp;&nbsp;&nbsp;&nbsp;</label>
                     <select class="form-control" name="usiaJemaat">
                         <option>--Select Usia Jemaat--</option>
@@ -273,7 +276,21 @@ $username = $i['nama_lengkap'];
                           }
                         ?>
                     </select>
-                </div>
+                </div> -->
+                                      <div class="col-md-4">
+                        <label>Status dalam Keluarga</label>
+                           <select class="form-control" name="status_keluarga">
+                                    <option>--Select Status--</option>
+                                    <option value="Kepala Keluarga">Kepala Keluarga</option>
+                                    <option value="Istri">Istri</option>
+                                    <option value="Anak">Anak</option>     
+                                    <option value="Saudara">Saudara</option>                       
+                                    <option value="Menantu">Menantu</option>
+                                    <option value="Cucu">Cucu</option>
+                                    <option value="Kakek/Nenek">Kakek/Nenek</option>
+                                    <option value="Lain-lain">Lain-lain</option>
+                                </select>
+                      </div> 
               </div>
 
               <br>
@@ -316,8 +333,8 @@ $username = $i['nama_lengkap'];
                     <br>
                     <div class="row">
                       <div class="col-md-4">
-                        <label for="form_lastname">No Telp</label>
-                        <input id="NoTelp" type="text" name="NoTelp" class="form-control" placeholder="Nomor Telepon" data-error="Lastname is required.">
+                        <label for="form_lastname">No Handphone</label>
+                        <input id="NoTelp" type="text" name="NoTelp" class="form-control" placeholder="Nomor Handphone" data-error="Lastname is required.">
                       </div>
                       <div class="col-md-4 ml-auto">
                         <label for="form_lastname">No Telp Rumah</label>
@@ -330,23 +347,6 @@ $username = $i['nama_lengkap'];
                     </div>
 
                     <br>
-                    <div class="row">
-                      <div class="col-md-4">
-                        <label>Status dalam Keluarga</label>
-                           <select class="form-control" name="status_keluarga">
-                                    <option>--Select Status--</option>
-                                    <option value="Kepala Keluarga">Kepala Keluarga</option>
-                                    <option value="Istri">Istri</option>
-                                    <option value="Anak">Anak</option>     
-                                    <option value="Saudara">Saudara</option>                       
-                                    <option value="Menantu">Menantu</option>
-                                    <option value="Cucu">Cucu</option>
-                                    <option value="Kakek/Nenek">Kakek/Nenek</option>
-                                    <option value="Lain-lain">Lain-lain</option>
-                                </select>
-                      </div>                                          
-                    </div>
-
                     <br>
                     <div class="row">
                       <div class="col-md-6">
@@ -509,8 +509,8 @@ $username = $i['nama_lengkap'];
               <br>
               <div class="row">
                 <div class="col-md-4">
-                  <label for="form_lastname">Pendeta</label>
-                  <input id="pdt_sidhi" type="text" name="pdt_sidhi" class="form-control" placeholder="Nama Pendeta">                               
+                  <label for="form_lastname">Pendeta Sidhi</label>
+                  <input id="pdt_sidhi" type="text" name="pdt_sidhi" class="form-control" placeholder="Pendeta Sidhi">                               
                 </div>
                 <div class="col-md-4 ml-auto">
                   <label for="form_lastname">Tempat Sidhi</label>
@@ -580,17 +580,17 @@ $username = $i['nama_lengkap'];
                        <option value="Lain-lain">Lain-lain</option>
                     </select>
                 </div>
-                <div class="col-md-4 ml-auto">
-                  <label class="control-label">Status Pernikahan</label>
-                    <select class="form-control" name="statusNikah">
-                       <option value="Belum Menikah">Belum Menikah</option>
-                       <option value="Menikah">Menikah</option>
-                       <option value="Janda">Janda</option>
-                       <option value="Duda">Duda</option>
-                       <option value="Single Parent">Single Parent</option>
-                    </select>
-                </div>
-              </div>
+                      <div class="col-md-4 ml-auto">
+                        <label>Status Pernikahan</label>
+                           <select class="form-control" name="statusNikah">
+                                   <option>--pilih--</option>
+                                   <?php 
+                                      foreach ($status as $stat) {
+                                      echo "<option value='$stat[nama_status]'>$stat[nama_status]</option>";
+                                      }
+                                   ?>
+                            </select>
+                      </div> 
 
               <br>
               <div class="row">

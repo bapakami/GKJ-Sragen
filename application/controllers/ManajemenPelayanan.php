@@ -120,6 +120,18 @@ class ManajemenPelayanan extends CI_Controller {
 			$writer->save('php://output');
 			exit;
 			 
+		}elseif ($this->input->post('hasil_id') == 'GRAPH') {
+			$column = $this->input->post('minat');
+			$gereja = $this->input->post('gereja');
+			if ( ! is_array($column)) {
+				redirect('ManajemenPelayanan');
+			}
+			
+			$arr = [
+				'column' => $column,
+				'gereja' => $gereja
+			];
+			redirect('Graph/Pelayanan?' . http_build_query($arr));	
 		}
 		
 	}

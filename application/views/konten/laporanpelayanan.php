@@ -23,96 +23,11 @@
           <div class="box">
             <!-- /.box-header -->
             <div class="box-body table-responsive">
-            <form class="form-horizontal" onsubmit="return validateForm()" action="<?php echo base_url('Manajemenpelayanan/report_Data')?>" method="post" enctype="multipart/form-data" role="form">
+            <form class="form-horizontal" action="<?php echo base_url('Manajemenpelayanan/report_Data')?>" method="post" enctype="multipart/form-data" role="form">
             <h5>tanda * harus diisi (boleh lebih dari satu) </h5>
           <label>Minat Pelayanan*</label>
           <table id="checkbox-table" style="width:100%">
             <tbody></tbody>
-            <!-- <tr>
-              <td>  
-                <div class="checkbox">
-                <label><input type="checkbox" name="minat[]" id="Paduan_Suara" value="Paduan suara">Paduan Suara</label>
-                </div> 
-              </td>
-
-              <td>  
-                <div class="checkbox">
-                <label><input type="checkbox" name="minat[]" id="Pengurus_Komisi" value="Pengurus komisi">Pengurus Komisi</label>
-                </div> 
-              </td>
-            </tr>
-
-             <tr>
-              <td>  
-                <div class="checkbox">
-                <label><input type="checkbox" name="minat[]" id="Pengiring_Ibadah" value=" Pengiring ibadah">Pengiring ibadah</label>
-                </div> 
-              </td>
-              
-              <td>  
-                <div class="checkbox">
-                <label><input type="checkbox" name="minat[]" id="Menjadi_Majelis" value="Menjadi majelis">Menjadi majelis</label>
-                </div> 
-              </td>
-            </tr>
-
-             <tr>
-              <td>  
-                <div class="checkbox">
-                <label><input type="checkbox" name="minat[]" id="Memimpin_PA" value="Memimpin PA">Memimpin PA</label>
-                </div> 
-              </td>
-              
-              <td>  
-                <div class="checkbox">
-                <label><input type="checkbox" name="minat[]" id="bahan_pa" value="Membuat bahan PA">Membuat bahan PA</label>
-                </div> 
-              </td>
-            </tr>
-
-             <tr>
-              <td>  
-                <div class="checkbox">
-                <label><input type="checkbox" name="minat[]" id="guru_minggu" value="Guru sekolah minggu">Guru sekolah minggu</label>
-                </div> 
-              </td>
-              
-              <td>  
-                <div class="checkbox">
-                <label><input type="checkbox" name="minat[]" id="pendamping_pemuda" value="Mendampingi anak/remaja/pemuda">Mendampingi Anak/Remaja/Pemuda</label>
-                </div> 
-              </td>
-            </tr>
-
-             <tr>
-              <td>  
-                <div class="checkbox">
-                <label><input type="checkbox" name="minat[]" id="Panitia_Pembangunan" value="Panitia pembangunan">Panitia Pembangunan</label>
-                </div> 
-              </td>
-              
-              <td>  
-                <div class="checkbox">
-                <label><input type="checkbox" name="minat[]" id="Multimedia" value="Multimedia">Multimedia</label>
-                </div> 
-              </td>
-            </tr>
-
-             <tr>
-              <td>  
-                <div class="checkbox">
-                <label><input type="checkbox" name="minat[] " id="Administrasi" value="Administrasi gereja">Administrasi Gereja</label>
-                </div> 
-              </td>
-              
-              <td>  
-                <div class="checkbox">
-                <label><input type="checkbox" name="minat[]" id="Lain_lain" value="Lain_lain">Lain-lain</label>
-                </div> 
-              </td>
-            </tr> -->
-
-            
           </table>
           <br>
             <?php if($this->session->userdata('group_id')==='6'):?>
@@ -143,15 +58,15 @@
 
 <script type="text/javascript">
 function validateForm() {
-  var gereja = $('#gereja').val()
-  if (gereja == "") {
-      alert("Gereja tidak boleh kosong!!");
-      return false;
-  }
-
   var status = $('input[name="minat[]"]:checked').length;
   if (!status) {
       alert("Status Pelayanan tidak boleh kosong!!");
+      return false;
+  }
+
+  var gereja = $('#gereja').val()
+  if (gereja == "") {
+      alert("Gereja tidak boleh kosong!!");
       return false;
   }
   
@@ -186,6 +101,13 @@ function initDropdown() {
 }
 $(document).ready(function () {
   initDropdown()
+  $("form").submit(function(e) { 
+    if(! validateForm()) {
+      e.preventDefault();
+      return;
+    }
+    this.submit();
+  }); 
 });
 </script>
 

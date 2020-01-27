@@ -25,6 +25,26 @@ class M_manajemenpenghasilan extends CI_Model
 		return $res;
 	}
 
+	function getDataForGraph($gereja,$partsNo)
+	{
+		$hasil=$this->db->query("SELECT 
+			COUNT(penghasilan) AS jumlah,
+			penghasilan AS penghasilan 
+		From 
+			jemaats 
+		WHERE
+			penghasilan in ($partsNo)
+			AND
+				gerejaid = $gereja
+			AND
+				status = 'Hidup'
+		GROUP BY 
+			penghasilan
+		");
+		
+		return $hasil->result();
+	}
+
 	function getPDF($penghasilan,$gereja)
 	{
 		$q = "SELECT 

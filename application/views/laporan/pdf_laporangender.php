@@ -51,27 +51,27 @@
       <tr>
         <td style="font-size:12px;text-align: center;">A</td>
         <td style="font-size:12px;text-align: center;"><?= $data->darah_A; ?> </td>
-        <td style="font-size:12px;text-align: center;"><?= ($data->darah_A / $JumlahJemaat) * 100; ?>%</td>
+        <td style="font-size:12px;text-align: center;"><?= number_format(($data->darah_A / $JumlahJemaat) * 100,2); ?>%</td>
       </tr>
       <tr>
         <td style="font-size:12px;text-align: center;">B</td>
         <td style="font-size:12px;text-align: center;"><?= $data->darah_B; ?> </td>
-        <td style="font-size:12px;text-align: center;"><?= ($data->darah_B / $JumlahJemaat) * 100; ?>%</td>
+        <td style="font-size:12px;text-align: center;"><?= number_format(($data->darah_B / $JumlahJemaat) * 100,2); ?>%</td>
       </tr>
       <tr>
         <td style="font-size:12px;text-align: center;">AB</td>
         <td style="font-size:12px;text-align: center;"><?= $data->darah_AB; ?> </td>
-        <td style="font-size:12px;text-align: center;"><?= ($data->darah_AB / $JumlahJemaat) * 100; ?>%</td>
+        <td style="font-size:12px;text-align: center;"><?= number_format(($data->darah_AB / $JumlahJemaat) * 100,2); ?>%</td>
       </tr>
       <tr>
         <td style="font-size:12px;text-align: center;">O</td>
         <td style="font-size:12px;text-align: center;"><?= $data->darah_O; ?> </td>
-        <td style="font-size:12px;text-align: center;"><?= ($data->darah_O / $JumlahJemaat) * 100; ?>%</td>
+        <td style="font-size:12px;text-align: center;"><?= number_format(($data->darah_O / $JumlahJemaat) * 100,2); ?>%</td>
       </tr>
       <tr>
         <td style="font-size:12px;text-align: center;"><b>Total</b></td>
         <td style="font-size:12px;text-align: center;"><b><?= $data->JumlahJemaat ?> Jemaat</b></td>
-        <td style="font-size:12px;text-align: center;"><b>100%</b></td>
+        <td style="font-size:12px;text-align: center;"><b><?= number_format($Persentase,2)?>%</b></td>
       </tr>
      
 </table>

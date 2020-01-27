@@ -118,6 +118,20 @@ class Manajemengender extends CI_Controller {
 			$writer->save('php://output');
 			exit;
 			 
+		}elseif ($this->input->post('hasil_id') == 'GRAPH') {
+			$columnGender = $this->input->post('gender');
+			$columnDarah = $this->input->post('darah');
+			$gereja = $this->input->post('gereja');
+			if ( ! is_array($columnGender)) {
+				redirect('ManajemenGender');
+			}
+			
+			$arr = [
+				'columnGender' => $columnGender,
+				'columnDarah' => $columnDarah,
+				'gereja' => $gereja
+			];
+			redirect('Graph/Gender?' . http_build_query($arr));	
 		}
 		
 	}

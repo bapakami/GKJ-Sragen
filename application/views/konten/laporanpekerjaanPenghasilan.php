@@ -28,7 +28,7 @@
               <h5>Menampilkan data pendidikan jemaat berdasarkan penghasilan dan pekerjaan yang dimiliki</h5>
             <label>Penghasilan</label>
            <br>
-          <select class='form-control' id='Penghasilan' name="Penghasilan_id" style="z-index:2000; width:310px;">
+          <select class='form-control' id='penghasilan' name="Penghasilan_id" style="z-index:2000; width:310px;">
           </select> 
           </td>
           <td>
@@ -42,7 +42,7 @@
             <?php if($this->session->userdata('group_id')==='6'):?>
              <label>Asal Gereja : </label>
              <select class='form-control' id='gereja' name="gereja">
-                <option value='0'>--pilih--</option>
+                <option value=''>--pilih--</option>
                   <?php 
                     foreach ($gereja as $grj) {
                       echo "<option value='$grj[id]'>$grj[namagereja]</option>";
@@ -50,7 +50,7 @@
                   ?>
               </select>
             <?php elseif($this->session->userdata('group_id')==='1'):?>
-              <input type="hidden" name="gereja" value="<?= $this->session->userdata('gereja_id') ?>">
+              <input type="hidden" id="gereja" name="gereja" value="<?= $this->session->userdata('gereja_id') ?>">
             <?php endif;?> <br>
             <label>Output</label>
              <select class="form-control" name="hasil_id">
@@ -69,43 +69,16 @@
   </div>
 
 <script type="text/javascript">
-$(document).ready(function () {
-   $('#example1').DataTable( {
-        responsive: true
-    } );
- 
-    new $.fn.dataTable.FixedHeader( table );
-
-});
-    
 function validateForm() {
-  if($("#penghasilan").find(":selected").text() == '-- Select Penghasilan --'){
-      alert("Penghasilan tidak boleh kosong!!");
-      return false;
-  } else if ($("#gereja").find(":selected").text() == '--pilih--'){
+  var gereja = $('#gereja').val()
+  if (gereja == "") {
       alert("Gereja tidak boleh kosong!!");
       return false;
   }
-  
-    if($('#username').val() == ''){
-        alert("Username tidak boleh kosong!!");
-        return false;
-    } else if($('#fullname').val() == ''){
-        alert("FullName tidak boleh kosong!!");
-        return false;
-    } else if(resultPassword == "false"){
-        alert("Password tidak Sama!!");
-        return false;
-    } else if($('#telephone').val() == ''){
-        alert("Telephone tidak boleh kosong!!");
-        return false;
-    } else if($('#email').val() == ''){
-        alert("Email tidak boleh kosong!!");
-        return false;
-    } 
 
-
+  return true;
 }
+
 function initDropdownPenghasilan() {
   $.ajax({
     type: "GET",
@@ -115,7 +88,7 @@ function initDropdownPenghasilan() {
       var data = res.data
       for(var i = 0; i < data.length; i++){
         console.log(data[i])
-        $('#Penghasilan').append(
+        $('#penghasilan').append(
           '<option value="{0}"> {0} </option>'.format(data[i])
         )
       }
@@ -148,6 +121,13 @@ function initDropdownPekerjaan() {
 $(document).ready(function () {
   initDropdownPenghasilan()
   initDropdownPekerjaan()
+   $("form").submit(function(e) { 
+    if(! validateForm()) {
+      e.preventDefault();
+      return;
+    }
+    this.submit();
+  }); 
 });
 </script>
 

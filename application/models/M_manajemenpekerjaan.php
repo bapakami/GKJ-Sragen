@@ -36,6 +36,8 @@ class M_manajemenpekerjaan extends CI_Model
 			pekerjaan in ($partsNo)
 			AND
 				gerejaid = $gereja
+			AND
+				status = 'Hidup'
 		GROUP BY 
 			pekerjaan
 		");

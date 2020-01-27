@@ -26,61 +26,11 @@
 
             <!-- /.box-header -->
             <div class="box-body table-responsive">
-            <form name="myForm" class="form-horizontal" action="<?php echo base_url('Manajemenpendidikan/report_Data')?>" onsubmit="return validateForm()" method="post" enctype="multipart/form-data" role="form">
+            <form name="myForm" class="form-horizontal" action="<?php echo base_url('Manajemenpendidikan/report_Data')?>" method="post" enctype="multipart/form-data" role="form">
                <h4>Keterangan : yang diberi tanda * wajib diisi</h4>
             <label>Pilihlah tingkat pendidikan berikut (*)</label> <br>
             <table id="checkbox-table" style="width:100%"> 
               <tbody></tbody>
-                <!-- <tr>
-                  <td>  
-                    <div class="checkbox">
-                      <label><input type="checkbox" id="tidak_sekolah" name="pendidikan[]" value="Tidak sekolah">Tidak Sekolah</label>
-                    </div> 
-                    <div class="checkbox">
-                      <label><input type="checkbox" id="SD" name="pendidikan[]" value="SD">SD</label>
-                    </div> 
-                    <div class="checkbox">
-                      <label><input type="checkbox" id="SMP" name="pendidikan[]" value="SMP">SMP</label>
-                    </div> 
-                    <div class="checkbox">
-                      <label><input type="checkbox" id="SMA" name="pendidikan[]" value="SMA">SMA</label>
-                    </div>
-                  </td>
-                  <td width="105">
-                    
-                  </td>
-                  <td>
-                    <div class="checkbox">
-                      <label><input type="checkbox" id="D1" name="pendidikan[]" value="D1">D1</label>
-                    </div>
-                    <div class="checkbox">
-                      <label><input type="checkbox" id="D2" name="pendidikan[]" value="D2">D2</label>
-                    </div>
-                    <div class="checkbox">
-                      <label><input type="checkbox" id="D3" name="pendidikan[]" value="D3">D3</label>
-                    </div>
-                    <div class="checkbox">
-                      <label><input type="checkbox" id="D4" name="pendidikan[]" value="D4">D4</label>
-                    </div>
-                  </td>
-                  <td width="105">
-                    
-                  </td>
-                  <td>  
-                    <div class="checkbox">
-                      <label><input type="checkbox" id="Sarjana" name="pendidikan[]" value="Sarjana">Sarjana</label>
-                    </div> 
-                    <div class="checkbox">
-                      <label><input type="checkbox" id="S2" name="pendidikan[]" value="S2">S2</label>
-                    </div> 
-                    <div class="checkbox">
-                      <label><input type="checkbox" id="S3" name="pendidikan[]" value="S3">S3</label>
-                    </div> 
-                    <div class="checkbox">
-                      <label><input type="checkbox" id="Lain_lain" name="pendidikan[]" value="Lain-lain">Lain-lain</label>
-                    </div> 
-                  </td>
-                </tr> -->
             </table>
             <br>
             <?php if($this->session->userdata('group_id')==='6'):?>
@@ -114,17 +64,19 @@
 
 <script type="text/javascript">
 function validateForm() {
+  var status = $('input[name="pendidikan[]"]:checked').length;
+  if (!status) {
+      alert("Pendidikan tidak boleh kosong!!");
+      return false;
+  }
+  
   var gereja = $('#gereja').val()
   if (gereja == "") {
       alert("Gereja tidak boleh kosong!!");
       return false;
   }
 
-  var status = $('input[name="pendidikan[]"]:checked').length;
-  if (!status) {
-      alert("Pendidikan tidak boleh kosong!!");
-      return false;
-  }
+  return true;
 }
 
 function initDropdown() {
@@ -154,6 +106,13 @@ function initDropdown() {
 }
 $(document).ready(function () {
   initDropdown()
+  $("form").submit(function(e) { 
+    if(! validateForm()) {
+      e.preventDefault();
+      return;
+    }
+    this.submit();
+  }); 
 });
     
 </script>

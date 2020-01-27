@@ -19,15 +19,15 @@ class M_Jemaat_Gereja extends CI_Model
 		$query = $this->db->query("SELECT a.*,b.namagereja,c.namapepantan FROM jemaats a 
 			LEFT JOIN gereja b ON b.id = a.gerejaid
 			LEFT JOIN pepantans c ON c.id = a.pepantan_id
-			WHERE a.id = $idJemaat and a.status = 'Hidup'");
+			WHERE a.id = $idJemaat and a.status = 'Hidup' and a.type = 1");
         return $query;
 	}
 
 	function DataList($idgereja){
-		$query = $this->db->query("SELECT a.*,b.namagereja,c.namapepantan FROM jemaats a 
+		$query = $this->db->query("SELECT a.*,b.namagereja,c.namapepantan, TIMESTAMPDIFF(YEAR, tgl_lahir, CURDATE()) AS usia FROM jemaats a 
 			LEFT JOIN gereja b ON b.id = a.gerejaid
 			LEFT JOIN pepantans c ON c.id = a.pepantan_id
-			WHERE a.gerejaid = $idgereja and a.status = 'Hidup'");
+			WHERE a.gerejaid = $idgereja and a.status = 'Hidup' and a.type = 1");
         return $query;
 	}
 
@@ -76,6 +76,11 @@ class M_Jemaat_Gereja extends CI_Model
 	    $this->db->order_by('nama_strata','ASC');
 	    $pendidikan= $this->db->get('pendidikan');
 	    return $pendidikan->result_array();
+    }
+    function Status_nikah(){
+	    $this->db->order_by('nama_status','ASC');
+	    $status= $this->db->get('master_status');
+	    return $status->result_array();
     }
     
     function PeranDalamGereja(){

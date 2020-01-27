@@ -1,67 +1,49 @@
 <table>
   <tr>
     <td><b><h2>Laporan Usia Jemaat</h2></b>
-      <b><h2><?=$namagereja[0]->namagereja?></h2></b>
-      <h5>Usia : <?= $berdasarUsia ?> </h5>
+<!--       <b><h2><?=$namagereja[0]->namagereja?></h2></b> -->
+<!--       <h5>Umur : 
+      <?php 
+      $lahir_start  =new DateTime($usia_start);
+      $lahir_end    =new DateTime($usia_end);
+      $today        =new DateTime();
+      $umur = $today->diff($lahir_start);
+      $umur_end = $today->diff($lahir_end);
+    echo $umur->y; echo " Tahun Hingga "; echo $umur_end->y;
+?></h5> -->
+<h5> Tanggal Lahir : <?= $usia_start; ?> hingga <?= $usia_end; ?></h5>
       <h5>Status : <?= $berdasarStatus ?> </h5>
     </td>
   </tr>
 </table>
 <br>
-<h4>Tabel Statistik : </h4>
-<?php $i=1; foreach ($statistik as $data) {
-        if($data->JumlahJemaat == 0 || is_null($data->JumlahJemaat)) 
-            $JumlahJemaat = 1;
+ <h4>Tabel Statistik : </h4>
+<!-- <?php $i=1; foreach ($statistik as $data) {
+        if($data->jumlah == 0 || is_null($data->jumlah)) 
+            $jumlah = 1;
         else
-            $JumlahJemaat = $data->JumlahJemaat;
-        $Persentase = ($data->JumlahJemaat / $JumlahJemaat) * 100
-?>
+            $jumlah = $data->jumlah;
+        $Persentase = ($data->jumlah / $jumlah) * 100
+?> -->
 <table border="1" style="border-collapse: collapse;width: 100%;">
       <tr>
-        <th style="background-color: blue;font-size:12px;">Usia</th>
-        <th style="background-color: blue;font-size:12px;">Jumlah Jemaat</th>
-        <th style="background-color: blue;font-size:12px;">Persentase</th>
+        <td style="font-size:12px;text-align: center;"><b>Usia</b></td>
+        <td style="font-size:12px;text-align: center;"><b>Jumlah Jemaat</b></td>
+        <td style="font-size:12px;text-align: center;"><b>Presentase%</b></td>
       </tr>
-     
-      <tr>
-        <td style="font-size:12px;text-align: center;">Anak (Kurang 12 th) </td>
-        <td style="font-size:12px;text-align: center;"><?= $data->Kurang12; ?> </td>
-        <td style="font-size:12px;text-align: center;"><?= number_format(($data->Kurang12 / $JumlahJemaat) * 100,2); ?>%</td>
-      </tr>
-       <tr>
-        <td style="font-size:12px;text-align: center;">Remaja (13-17 th)</td>
-        <td style="font-size:12px;text-align: center;"><?= $data->Remaja; ?> </td>
-        <td style="font-size:12px;text-align: center;"><?= number_format(($data->Remaja / $JumlahJemaat) * 100,2); ?>%</td>
-      </tr>
-       <tr>
-        <td style="font-size:12px;text-align: center;">Pemuda (18-25 th)</td>
-        <td style="font-size:12px;text-align: center;"><?= $data->Pemuda; ?> </td>
-        <td style="font-size:12px;text-align: center;"><?= number_format(($data->Pemuda / $JumlahJemaat) * 100,2); ?>%</td>
-      </tr>
-       <tr>
-        <td style="font-size:12px;text-align: center;">Dewasa Muda/Keluarga Muda (26-40 th)</td>
-        <td style="font-size:12px;text-align: center;"><?= $data->DewasaMuda; ?> </td>
-        <td style="font-size:12px;text-align: center;"><?= number_format(($data->DewasaMuda / $JumlahJemaat) * 100,2); ?>%</td>
-      </tr>
-       <tr>
-        <td style="font-size:12px;text-align: center;">Dewasa (41-60 th)</td>
-        <td style="font-size:12px;text-align: center;"><?= $data->Dewasa; ?> </td>
-        <td style="font-size:12px;text-align: center;"><?= number_format(($data->Dewasa / $JumlahJemaat) * 100,2); ?>%</td>
-      </tr>
-      <tr>
-        <td style="font-size:12px;text-align: center;">Adiyuswa (>60 th)</td>
-        <td style="font-size:12px;text-align: center;"><?= $data->Adiyuswa; ?> </td>
-        <td style="font-size:12px;text-align: center;"><?= number_format(($data->Adiyuswa / $JumlahJemaat) * 100,2); ?>%</td>
-      </tr>
-      <tr>
-        <td style="font-size:12px;text-align: center;"><b>Total</b></td>
-        <td style="font-size:12px;text-align: center;"><b><?= $data->JumlahJemaat ?> Jemaat</b></td>
-        <td style="font-size:12px;text-align: center;"><b><?= $Persentase?>%</b></td>
-      </tr>
+
+      <?php $sum = 0; foreach ($statistik1 as $stat)  {  
+         ?>
+<tr>
+  <td><?php echo $stat->range_umur; ?></td>
+  <td><?php echo $stat->jumlah; ?></td>
+  <td><?php echo  $stat->jumlah  ; ?></td>
+</tr>
+      <?php }?>
      
 </table>
 <br><br>
-<table border="1" style="border-collapse: collapse;width: 100%;">
+<!-- <table border="1" style="border-collapse: collapse;width: 100%;">
       <tr>
         <th style="background-color: blue;font-size:12px;">Status Pernikahan</th>
         <th style="background-color: blue;font-size:12px;">Jumlah Jemaat</th>
@@ -128,3 +110,4 @@
       </tr>
      <?php $i++; } ?>
 </table>
+  -->

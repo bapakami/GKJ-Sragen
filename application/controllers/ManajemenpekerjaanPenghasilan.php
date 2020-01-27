@@ -123,6 +123,21 @@ public function report_Data()
 			$writer->save('php://output');
 			exit;
 			 
+		}elseif ($this->input->post('hasil_id') == 'GRAPH') {
+			
+			$columnPenghasilan = $this->input->post('Penghasilan_id');
+			$columnPekerjaan = $this->input->post('Pekerjaan_id');
+			$gereja = $this->input->post('gereja');
+			if ( $columnPenghasilan == null) {
+				redirect('ManajemenpekerjaanPenghasilan');
+			}
+			
+			$arr = [
+				'columnPenghasilan' => $columnPenghasilan,
+				'columnPekerjaan' => $columnPekerjaan,
+				'gereja' => $gereja
+			];
+			redirect('Graph/PekerjaanPenghasilan?' . http_build_query($arr));	
 		}
 		
 	}

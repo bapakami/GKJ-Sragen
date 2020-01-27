@@ -25,7 +25,7 @@
 
             <!-- /.box-header -->
             <div class="box-body table-responsive">
-              <form class="form-horizontal" onsubmit="return validateForm()" action="<?php echo base_url('Manajemenkeluarga/report_Data')?>" method="post" enctype="multipart/form-data" role="form">
+              <form class="form-horizontal" action="<?php echo base_url('Manajemenkeluarga/report_Data')?>" method="post" enctype="multipart/form-data" role="form">
               <label>Status Keluarga </label>
               <table id="checkbox-table" style="width:100%">
                 <tbody></tbody>
@@ -78,12 +78,6 @@
 
 <script type="text/javascript">
 function validateForm() {
-  var gereja = $('#gereja').val()
-  if (gereja == "") {
-      alert("Gereja tidak boleh kosong!!");
-      return false;
-  }
-
   var status = $('input[name="status[]"]:checked').length;
   if (!status) {
       alert("Status Keluarga tidak boleh kosong!!");
@@ -96,6 +90,13 @@ function validateForm() {
       return false;
   }
 
+  var gereja = $('#gereja').val()
+  if (gereja == "") {
+      alert("Gereja tidak boleh kosong!!");
+      return false;
+  }
+
+
   return true;
 }
 
@@ -107,7 +108,6 @@ function initDropdown() {
     url: base_url + "Manajemenkeluarga/dropdown",
     dataType: "json",
     success: function(res){
-      console.log(res)
       var data = res.data
       var tbl = $('#checkbox-table tbody')
       $.each(data, function(i, val) {
@@ -117,7 +117,7 @@ function initDropdown() {
         var elem = tbl.find("tr").last();
         fmt = "<td><div class='checkbox'><label><input type='checkbox' name='status[]' value='{0}'>{0}</label></div></td>"
         elem.append(fmt.format(val))
-        console.log(val)
+        
       })
     },
     error: function(XMLHttpRequest, textStatus, errorThrown) { 
@@ -127,6 +127,13 @@ function initDropdown() {
 }
 $(document).ready(function () {
   initDropdown()
+  $("form").submit(function(e) { 
+    if(! validateForm()) {
+      e.preventDefault();
+      return;
+    }
+    this.submit();
+  }); 
 });
     
 </script>

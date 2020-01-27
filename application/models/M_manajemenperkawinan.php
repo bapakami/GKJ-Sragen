@@ -9,6 +9,26 @@ class M_manajemenperkawinan extends CI_Model
 		$this->load->database();
 	}
 
+	function getDataForGraph($gereja,$partsNo)
+	{
+		$hasil=$this->db->query("SELECT 
+			COUNT(status_perkawinan) AS jumlah,
+			status_perkawinan AS perkawinan 
+		From 
+			jemaats 
+		WHERE
+			status_perkawinan in ($partsNo)
+			AND
+				gerejaid = $gereja
+			AND
+				status = 'Hidup'
+		GROUP BY 
+			status_perkawinan
+		");
+		
+		return $hasil->result();
+	}
+
 	function getPDF($gereja,$parts)
 	{
 		 $hasil=$this->db->query("SELECT a.Nama_Lengkap as NamaLengkap,a.status_perkawinan as status_perkawinan,a.tatacara_nikah as tatacara_nikah,a.tgl_nikah as tgl_nikah,a.jml_anak as jumlah_anak,b.namagereja as namagereja from jemaats a Left join gereja b ON a.gerejaid = b.id WHERE a.gerejaid=$gereja and a.status_perkawinan in ($parts)");

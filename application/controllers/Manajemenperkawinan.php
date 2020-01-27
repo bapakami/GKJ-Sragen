@@ -114,6 +114,18 @@ class Manajemenperkawinan extends CI_Controller {
 			$writer->save('php://output');
 			exit;
 			 
+		}elseif ($this->input->post('hasil_id') == 'GRAPH') {
+			$column = $this->input->post('perkawinan');
+			$gereja = $this->input->post('gereja');
+			if ( ! is_array($column)) {
+				redirect('Manajemenperkawinan');
+			}
+			
+			$arr = [
+				'column' => $column,
+				'gereja' => $gereja
+			];
+			redirect('Graph/Perkawinan?' . http_build_query($arr));	
 		}
 		
 	}
