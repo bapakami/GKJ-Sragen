@@ -1,1 +1,0 @@
-<strong>Password : <?php echo $password ?></strong>
