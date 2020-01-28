@@ -109,7 +109,7 @@ class Login extends CI_Controller
 		}
 
 		$cek_login = $this->M_login->cek_login($username, $password);
-
+		echo $this->db->last_query();
 		if ($cek_login->num_rows() < 1) {
 			echo $this->session->set_flashdata('msg', 'Username or Password is Wrong or Username is not active');
 			redirect(base_url('login'));
@@ -123,7 +123,8 @@ class Login extends CI_Controller
 		$email = $data['email'];
 		$group_id = $data['group_id'];
 		$gerejaid = $data['gereja_id'];
-
+		// print_r($group_id);
+		// exit;
 
 		$sesdata = array(
 			'id'		=> $id,
@@ -136,16 +137,16 @@ class Login extends CI_Controller
 		);
 		$this->session->set_userdata($sesdata);
 		// access login for admin
-		if ($group_id === '1') {
+		if ($group_id == 1) {
 			redirect(base_url('AdminGereja/beranda'));
 
 			// access login for staff
-		} else if ($group_id === '6') {
+		} else if ($group_id == 6) {
 			redirect(base_url("beranda/admin_aja"));
 
 			// access login for author
 		} else {
-			redirect('login');
+			redirect(base_url('login'));
 		}
 	}
 

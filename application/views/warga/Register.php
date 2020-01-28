@@ -48,8 +48,14 @@
 							</button>
 							<?php echo $this->session->flashdata('message'); ?>
 						</div>
+					<?php } elseif ($this->session->flashdata('status') == 'gagal') { ?>
+						<div role="alert" class="alert alert-danger alert-dismissible fade-in wrap-input100">
+							<button aria-label="Close" data-dismiss="alert" class="close text-right" type="button">
+								<span aria-hidden="true" class="fa fa-times"></span>
+							</button>
+							<?php echo $this->session->flashdata('message'); ?>
+						</div>
 					<?php } ?>
-
 
 					<div class="wrap-input100 validate-input m-b-26" data-validate="Nama Perlu Diisi">
 						<span class="label-input100">Nama</span>

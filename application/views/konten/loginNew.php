@@ -40,8 +40,15 @@
                         <h5> GKJ Klasis Gunung Kidul</h>
                     </span>
                 </div>
-
                 <form class="login100-form validate-form" onsubmit="return validateForm()" action="<?php echo base_url('Login/aksi_login') ?>" method="post" enctype="multipart/form-data" role="form">
+                    <?php if ($this->session->flashdata('status') == 'sukses') { ?>
+                        <div role="alert" class="alert alert-success alert-dismissible fade-in wrap-input100">
+                            <button aria-label="Close" data-dismiss="alert" class="close text-right" type="button">
+                                <span aria-hidden="true" class="fa fa-times"></span>
+                            </button>
+                            <?php echo $this->session->flashdata('message'); ?>
+                        </div>
+                    <?php } ?>
                     <div class="wrap-input100 validate-input m-b-26" data-validate="Username is required">
                         <span class="label-input100">Username</span>
                         <input class="input100" type="text" id="username" name="username" placeholder="Enter username">
