@@ -68,6 +68,8 @@
             <a href="<?php echo base_url();?>Beranda/admin_aja">
           <?php elseif($this->session->userdata('group_id')==='1'):?>
             <a href="<?php echo base_url();?>AdminGereja/Beranda">
+          <?php elseif($this->session->userdata('group_id')==='8'):?>
+            <a href="<?php echo base_url();?>Pendetaa/pastorr">
           <?php endif;?>
             <i class="fa fa-dashboard"></i> <span>Dashboard</span>
             <span class="pull-right-container"></span>
@@ -81,6 +83,8 @@
             <span>Fasilitas</span>
             <?php elseif($this->session->userdata('group_id')==='1'):?>
               <span>Manajemen</span>
+            <?php elseif($this->session->userdata('group_id')==='8'):?>
+              <span>Menu PASTOR</span>
             <?php endif;?>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>

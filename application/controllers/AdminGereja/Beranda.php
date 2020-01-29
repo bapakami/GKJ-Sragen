@@ -32,4 +32,11 @@ class Beranda extends CI_Controller {
 		$this->load->view('template/footer');
 	}
 	
+	public function pastorr()
+	{
+		$this->load->view('template/header');
+		$this->load->view('template/menu');
+		$this->load->view('konten/v_pendeta');
+		$this->load->view('template/footer');
+	}
 }

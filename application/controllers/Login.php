@@ -143,6 +143,10 @@ class Login extends CI_Controller
 		} else if ($group_id === '6') {
 			redirect(base_url("beranda/admin_aja"));
 
+			//access login for pastor
+		} else if ($group_id === '8') {
+			redirect(base_url("pendetaa/pastorr"));
+
 			// access login for author
 		} else {
 			redirect('login');
