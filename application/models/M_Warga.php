@@ -111,4 +111,14 @@ class M_Warga extends CI_Model
 	{
 		return $this->db->get_where('users', array('email' => $mail))->num_rows();
 	}
+	function cekEmail($email)
+	{
+		return $this->db->get_where('users', array('email' => $email));
+	}
+	function resetPassword($data)
+	{
+		$cekToken = $this->db->get_where('mail_log', array('token' => $data['token']))->row();
+		$idUSer = $cekToken->id_user;
+		return $this->db->set('password', $data['password'])->where('id', $idUSer)->update('users');
+	}
 }

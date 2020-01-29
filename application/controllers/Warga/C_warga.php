@@ -1,8 +1,5 @@
 <?php
 
-/**
- * 
- */
 class C_warga extends CI_Controller
 {
 	public function __construct()
@@ -302,6 +299,68 @@ class C_warga extends CI_Controller
 
 		echo json_encode($json);
 	}
+	function rePass()
+	{
+		$this->load->view('konten/repass');
+	}
+	function proccReset()
+	{
+		$post = $this->input->post();
+		$email = $post['email'];
+		$json['s'] = 'gagal';
+		$random = substr(sha1(rand()), 0, 30);
 
-	// end 
-}// end of class
+		$findEmail = $this->M_Warga->cekEmail($email);
+		if ($findEmail->num_rows() == 1) {
+			$data = array(
+				'nama' => $findEmail->row()->fullname,
+				'id_user' => $findEmail->row()->id,
+				'tujuan' => 'Reset Password',
+				'mail_to' => $post['email'],
+				'token' => $random,
+			);
+
+			$this->M_Warga->simpanEmail($data);   // simpan data untuk log email
+
+			$dataEmail = array(
+				'token' => $random,
+			);
+			$this->session->unset_userdata('token');
+			$this->session->set_userdata($dataEmail);
+
+			redirect('Email/kirimEmailResetPassword/');
+		} else {
+			$flas = array('status' => 'gagal', 'message' => 'Email yang anda masukkan tidak terdaftar');
+			$this->session->set_flashdata($flas);
+			redirect(base_url('login'));
+		}
+	}
+	function proRePass($token)
+	{
+		$cariEmail = $this->M_Warga->cekVerifikasi($token);
+		$data['jemaat'] = $cariEmail->result_array();
+		$this->load->view('warga/rePass', $data);
+	}
+	function prossResetPassword()
+	{
+		$post = $this->input->post();
+		$data['token'] = $post['token'];
+		$data['password'] = md5($post['password']);
+		if ($post['konPass'] != $post['password']) {
+			$sess = array('status' => 'gagal', 'message' => 'Kolom konfirmasi password tidak sesuai');
+			$this->session->set_flashdata($sess);
+			redirect('warga/C_warga/proRePass/' . $post['token']);
+		}
+
+		$rePass = $this->M_Warga->resetPassword($data);
+		if ($rePass) {
+			$sess = array('status' => 'sukses', 'message' => 'Password Berhasil di Perbaharui');
+			$this->session->set_flashdata($sess);
+			redirect(base_url('Login'));
+		} else {
+			$sess = array('status' => 'gagal', 'message' => 'Password Gagal di Perbaharui');
+			$this->session->set_flashdata($sess);
+			redirect('warga/C_warga/proRePass/' . $post['token']);
+		}
+	}
+}

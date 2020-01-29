@@ -7,7 +7,7 @@ class Mailer
 {
     protected $_ci;
     protected $email_pengirim = 'sandlewoodmarapu@gmail.com'; // Isikan dengan email pengirim
-    protected $nama_pengirim = 'GKJ Klases Gunung Kidul'; // Isikan dengan nama pengirim
+    protected $nama_pengirim = 'GKJ Klasis Gunung Kidul'; // Isikan dengan nama pengirim
     protected $password = 'nabramprqnilinsk'; // Isikan dengan password email pengirim
     public function __construct()
     {
@@ -30,7 +30,7 @@ class Mailer
         $mail->setFrom($this->email_pengirim, $this->nama_pengirim);
         $mail->addAddress($data['email_penerima'], '');
         $mail->isHTML(true); // Aktifkan jika isi emailnya berupa html
-        $mail->Subject = 'Verifikasi Pendaftaran';
+        $mail->Subject = $data['subject'];
         $mail->Body = $data['content'];
         $mail->AddEmbeddedImage('image/logoGKJ.png', 'logo_mynotescode', 'logoGKJ.png'); // Aktifkan jika ingin menampilkan gambar dalam email
         $send = $mail->send();
@@ -55,7 +55,7 @@ class Mailer
         $mail->setFrom($this->email_pengirim, $this->nama_pengirim);
         $mail->addAddress($data['email_penerima'], '');
         $mail->isHTML(true); // Aktifkan jika isi emailnya berupa html
-        $mail->Subject = $data['subjek'];
+        $mail->Subject = $data['subject'];
         $mail->Body = $data['content'];
         $mail->AddEmbeddedImage('image/logo.png', 'logo_mynotescode', 'logo.png'); // Aktifkan jika ingin menampilkan gambar dalam email
         if ($data['attachment']['size'] <= 25000000) { // Jika ukuran file <= 25 MB (25.000.000 bytes)

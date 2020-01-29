@@ -15,8 +15,8 @@
         <p>
             <!-- fuck liverpool, -->
             Syallom, <?= $nama ?>. <br>
-            Berikut adalah link aktivasi akun anda, klik tombol aktivasi untuk melakukan proses aktivasi akun anda. <br>
-            <a href="http://localhost/gkj/warga/C_warga/verifikasi/<?= $link ?>" class="button">Aktivasi</a>
+            Berikut adalah link Reset akun anda, klik tombol Reset Password untuk melakukan proses Reset Password akun anda. <br>
+            <a href="http://localhost/gkj/warga/C_warga/proRePass/<?= $link ?>" role="button" class="btn btn-success btn-sm">Reset Password</a>
 
         </p>
     </div><br><br><br>
