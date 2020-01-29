@@ -27,11 +27,11 @@ class Beranda extends CI_Controller
 		$this->load->view('template/footer');
 	}
 
-	public function admin_aja()
-	{
-		$this->load->view('template/header');
-		$this->load->view('template/menu_admin');
-		$this->load->view('konten/v_login');
-		$this->load->view('template/footer');
-	}
+	// public function admin_aja()
+	// {
+	// 	$this->load->view('template/header');
+	// 	$this->load->view('template/menu_admin');
+	// 	$this->load->view('konten/v_login');
+	// 	$this->load->view('template/footer');
+	// }
 }

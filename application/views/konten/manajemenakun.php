@@ -141,7 +141,8 @@
                         <select class='form-control' name="user_group_edit">
                           <option value='<?php echo $id; ?>'><?php echo $groupname; ?></option>
                              <option value="6">Induk</option>
-                             <option value="1">Admin Gereja</option>    
+                             <option value="1">Admin Gereja</option>  
+                             <option value="8">Pendeta</option>
                         </select>
 
                   </div>
@@ -356,7 +357,8 @@ $username = $i['username'];
                 <div class="col-md-4 col-sm-9 col-xs-12">
                     <select class="form-control" name="user_group">
                         <option value='6'>Induk</option>
-                        <option value='1'>Admin Gereja</option>                       
+                        <option value='1'>Admin Gereja</option>         
+                        <option value="8">Pendeta</option>              
                     </select>
                 </div>
             </div>
