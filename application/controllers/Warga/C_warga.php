@@ -26,7 +26,6 @@ class C_warga extends CI_Controller
 			'fullname' => $post['nama'],
 			'email'    => $post['email'],
 			'telpno'   => 0,
-			'active'   => 0,
 			'status'   => 0,
 		);
 
@@ -35,6 +34,7 @@ class C_warga extends CI_Controller
 		// exit;
 		if ($cekNik <= 0) {
 
+			$dataUser['active'] = 0;
 			$simpanUser = $this->M_Warga->simpanUser($dataUser);  // simpan data user
 			$dataJemaat = array(
 				'id_user' => $simpanUser,
@@ -72,6 +72,7 @@ class C_warga extends CI_Controller
 			// print_r($simpanEmail);
 			// exit;
 		} elseif ($cekNik == 1) {
+			$dataUser['active'] = 1;
 			$simpanUser = $this->M_Warga->simpanUser($dataUser);  // simpan data user
 			$dataJemaat = array(
 				'id_user' => $simpanUser,
@@ -286,6 +287,20 @@ class C_warga extends CI_Controller
 			$this->session->set_flashdata('msg', 'data telah diubah');
 			redirect(base_url('Warga/C_warga/dasboard'));
 		}
+	}
+	function cekEmail()
+	{
+		$post = $this->input->post();
+
+		$cekMail = $this->M_Warga->cekMail($post['email']);
+		if ($cekMail >= 1) {
+			$json['s'] = 1;
+			$json['m'] = 'Maaf, Email sudah pernah digunakan';
+		} else {
+			$json['s'] = 0;
+		}
+
+		echo json_encode($json);
 	}
 
 	// end 

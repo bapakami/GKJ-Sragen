@@ -107,4 +107,8 @@ class M_Warga extends CI_Model
 	{
 		return $this->db->set('active', 1)->where('id', $idUSer)->update('users');
 	}
+	function cekMail($mail)
+	{
+		return $this->db->get_where('users', array('email' => $mail))->num_rows();
+	}
 }
