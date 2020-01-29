@@ -26,6 +26,7 @@
 	<!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/aset/css/util.css') ?>">
 	<link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/aset/css/main.css') ?>">
+	<script src="<?php echo base_url('assets/plugins/jQuery/jquery-2.2.3.min.js') ?>"></script>
 	<!--===============================================================================================-->
 </head>
 
@@ -78,7 +79,7 @@
 
 					<div class="wrap-input100 validate-input m-b-18" data-validate="Isikan Email Terlebih dahulu">
 						<span class="label-input100">Email</span>
-						<input class="input100" type="text" id="email" name="email" placeholder="Isikan Email">
+						<input class="input100" onblur="cekEmail();" type="text" id="email" name="email" placeholder="Isikan Email">
 						<span class="focus-input100"></span>
 					</div>
 					<div class="wrap-input100 validate-input m-b-18" data-validate="Isikan Password Terlebih dahulu">
@@ -87,19 +88,44 @@
 						<span class="focus-input100"></span>
 					</div>
 					<br>
+					<span style="color: red;" id="emailStatus"></span>
 					<?php echo $this->session->flashdata('msg'); ?>
 
 					<div class="container-login100-form-btn">
-						<button class="login100-form-btn" type="submit" value="Login">
+						<button class="login100-form-btn" id="btnSubmit" type="submit" value="Login">
 							Register
 						</button>
-						<a href="<?php echo base_url('warga/C_Warga/login') ?>" style="margin-left: 3em" class="login100-form-btn">Login</a>
+						<a href="<?php echo base_url('login') ?>" style="margin-left: 3em" class="login100-form-btn">Login</a>
 					</div>
 				</form>
 			</div>
 		</div>
 	</div>
+	<script>
+		$(document).ready(function() {
+			document.getElementById('btnSubmit').setAttribute('disabled', 'disabled');
+		});
 
+		function cekEmail() {
+			var value = $('#email').val();
+			$.ajax({
+				url: "<?= site_url('warga/C_warga/cekEmail') ?>",
+				data: 'email=' + value,
+				type: "POST",
+				success: function(respon) {
+					var m = JSON.parse(respon);
+					if (m.s == 1) {
+						console.log(value)
+						$('#emailStatus').text('Maaf, Email sudah pernah digunakan');
+					} else {
+						$('#emailStatus').text('');
+						document.getElementById('btnSubmit').removeAttribute('disabled');
+					}
+				},
+				error: function() {}
+			});
+		}
+	</script>
 	<!--===============================================================================================-->
 	<script src="<?php echo base_url('assets/aset/vendor/jquery/jquery-3.2.1.min.js') ?>"></script>
 	<!--===============================================================================================-->

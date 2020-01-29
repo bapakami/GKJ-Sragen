@@ -1,19 +1,27 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
-class Beranda extends CI_Controller {
+class Pendetaa extends CI_Controller
+{
 
-	
 
-	function __construct(){
+
+	function __construct()
+	{
 		parent::__construct();
+<<<<<<< HEAD
 	
 		if($this->session->userdata('group_id') !='9'){
+=======
+
+		if ($this->session->userdata('group_id') != '9') {
+>>>>>>> d2e8b2c60b1e55022e82127122612737bc0a4da3
 			redirect(base_url("login"));
 		}
 	}
- 
-	function index(){
+
+	function index()
+	{
 		// $data = unpack('C*', "tes tes tes");
 		// $key = unpack('C*', "fti uksw");
 		// $this->data["encrypt"] = implode(" ", $this->encrypt($data, $key));
@@ -33,5 +41,4 @@ class Beranda extends CI_Controller {
 		$this->load->view('paspen/v_pendeta');
 		$this->load->view('template/footer');
 	}
-
 }
