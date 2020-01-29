@@ -8,7 +8,7 @@ class Beranda extends CI_Controller {
 	function __construct(){
 		parent::__construct();
 	
-		if($this->session->userdata('group_id') !='8'){
+		if($this->session->userdata('group_id') !='9'){
 			redirect(base_url("login"));
 		}
 	}
