@@ -9,13 +9,8 @@ class Pendetaa extends CI_Controller
 	function __construct()
 	{
 		parent::__construct();
-<<<<<<< HEAD
-	
-		if($this->session->userdata('group_id') !='9'){
-=======
 
-		if ($this->session->userdata('group_id') != '9') {
->>>>>>> d2e8b2c60b1e55022e82127122612737bc0a4da3
+		if($this->session->userdata('group_id') !='9'){
 			redirect(base_url("login"));
 		}
 	}
