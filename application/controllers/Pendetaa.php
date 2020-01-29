@@ -13,19 +13,19 @@ class Beranda extends CI_Controller {
 		}
 	}
  
-	// function index(){
-	// 	// $data = unpack('C*', "tes tes tes");
-	// 	// $key = unpack('C*', "fti uksw");
-	// 	// $this->data["encrypt"] = implode(" ", $this->encrypt($data, $key));
-	// 	// $this->data["decrypt"] = implode(" ", $this->decrypt($this->data["encrypt"], $key));
+	function index(){
+		// $data = unpack('C*', "tes tes tes");
+		// $key = unpack('C*', "fti uksw");
+		// $this->data["encrypt"] = implode(" ", $this->encrypt($data, $key));
+		// $this->data["decrypt"] = implode(" ", $this->decrypt($this->data["encrypt"], $key));
 
-	// 	$this->load->view('template/header');
-	// 	$this->load->view('template/menu_superadmin');
-	// 	$this->load->view('konten/dashboard');
-	// 	//$this->load->view('konten/dashboard', $this->data);
-	// 	$this->load->view('template/footer');
+		$this->load->view('template/header');
+		$this->load->view('template/menu_superadmin');
+		$this->load->view('konten/dashboard');
+		//$this->load->view('konten/dashboard', $this->data);
+		$this->load->view('template/footer');
 		
-	// }
+	}
 
 	public function pastorr()
 	{

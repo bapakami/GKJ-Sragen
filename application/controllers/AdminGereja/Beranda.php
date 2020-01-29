@@ -34,16 +34,4 @@ class Beranda extends CI_Controller
 		$this->load->view('konten/v_login');
 		$this->load->view('template/footer');
 	}
-<<<<<<< HEAD
-	
-	public function pastorr()
-	{
-		$this->load->view('template/header');
-		$this->load->view('template/menu');
-		$this->load->view('konten/v_pendeta');
-		$this->load->view('template/footer');
-	}
 }
-=======
-}
->>>>>>> d0ac608c636adbf73c0f033e9f1d52f360538f8a
