@@ -145,7 +145,7 @@ class Login extends CI_Controller
 			redirect(base_url("beranda/admin_aja"));
 
 			//access login for pastor
-		} else if ($group_id == 8) {
+		} else if ($group_id == 9) {
 			redirect(base_url("pendetaa/pastorr"));
 
 			// access login for author
