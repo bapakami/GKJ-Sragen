@@ -19,40 +19,106 @@ class C_warga extends CI_Controller
 		$post = $this->input->post();
 		$nik = $this->input->post('nik');
 		$random = substr(sha1(rand()), 0, 30);
-		$data = array(
-			'nama' => $this->input->post('nama'),
-			'nik' => $this->input->post('nik'),
-			'username' => $this->input->post('username'),
-			'email' => $this->input->post('email'),
-			'password' => $this->input->post('password')
+		$dataUser = array(
+			'username' => $post['nik'],
+			'password' => md5($post['password']),
+			'group_id' => 8,
+			'fullname' => $post['nama'],
+			'email'    => $post['email'],
+			'telpno'   => 0,
+			'active'   => 0,
+			'status'   => 0,
 		);
 
 		$cekNik = $this->M_Warga->cekNik($nik);
+		// print_r($cekNik);
+		// exit;
 		if ($cekNik <= 0) {
+
+			$simpanUser = $this->M_Warga->simpanUser($dataUser);  // simpan data user
+			$dataJemaat = array(
+				'id_user' => $simpanUser,
+				'nama_lengkap' => $post['nama'],
+				'alamat_email' => $post['email'],
+				'no_ktp'       => $post['nik'],
+			);
 			$data = array(
 				'nama' => $post['nama'],
+				'id_user' => $simpanUser,
 				'tujuan' => 'Verifikasi Pendaftaran',
+				'mail_to' => $post['email'],
 				'token' => $random,
 			);
-			// $simpanEmail = $this->M_Warga->simpanEmail($data);
+			$simpanJemaat = $this->M_Warga->simpanJemaat($dataJemaat);   // simpan data jemaat
+			if ($simpanJemaat) {
+				$this->M_Warga->simpanEmail($data);   // simpan data untuk log email
+
+				$dataEmail = array(
+					'token' => $random,
+				);
+				$this->session->unset_userdata('token');
+				$this->session->set_userdata($dataEmail);
+				// $this->load->view('layout/email');
+				redirect('Email/kirimEmailRegistrasi/');  // controller kirim email
+			} else {
+				$flash = array(
+					'message' => 'Gagal Melakukan Proses Registrasi, Mohon Ulangi Proses',
+					'status' => 'gagal',
+				);
+				echo $this->session->set_flashdata($flash);
+				redirect('warga/C_warga');
+			}
 			// echo "<pre>";
 			// print_r($simpanEmail);
 			// exit;
-			// $dataEmail = array(
-			// 	'agenda' => 'pendaftaran',
-			// 	'id_user' => $simpanEmail,
-			// );
-			$this->load->view('layout/email');
-			// redirect('Email/kirimEmailRegistrasi/' . $dataEmail);
 		} elseif ($cekNik == 1) {
-			// $this->M_Warga->register($data);
+			$simpanUser = $this->M_Warga->simpanUser($dataUser);  // simpan data user
+			$dataJemaat = array(
+				'id_user' => $simpanUser,
+				'nama_lengkap' => $post['nama'],
+				'alamat_email' => $post['email'],
+			);
+			$simpanJemaat = $this->M_Warga->simpanJemaat($dataJemaat);   // simpan data jemaat
+			if ($simpanJemaat) {
+				$flash = array(
+					'message' => 'Registrasi Sukses',
+					'status' => 'sukses',
+				);
+				echo $this->session->set_flashdata($flash);
+				redirect(base_url('warga/C_warga'));
+			}
 		}
-		$flash = array(
-			'message' => 'Registrasi Sukses',
-			'status' => 'sukses',
-		);
-		echo $this->session->set_flashdata($flash);
-		redirect(base_url('warga/C_warga'));
+	}
+	function verifikasi($token)
+	{
+		$data['token'] = $token;
+		$cekToken = $this->M_Warga->cekVerifikasi($token);
+
+		if ($cekToken->num_rows() == 1) {
+			$this->load->view('konten/verifikasi', $data);
+		} else {
+			show_404();
+		}
+	}
+	function prosesVerifikasi($token)
+	{
+		$cekToken = $this->M_Warga->cekVerifikasi($token);
+		// print_r($cekToken->num_rows());
+		// exit;
+		if ($cekToken->num_rows() == 1) {
+			$idUser = $cekToken->row()->id_user;
+			$updateUser = $this->M_Warga->updateUser($idUser);
+			if ($updateUser) {
+				$flash = array(
+					'message' => 'Verifikasi Berhasil, Silahkan login dengan NIK yang telah anda daftarkan',
+					'status' => 'sukses',
+				);
+				echo $this->session->set_flashdata($flash);
+				redirect(base_url('Login'));
+			}
+		} else {
+			show_404();
+		}
 	}
 	function email()
 	{

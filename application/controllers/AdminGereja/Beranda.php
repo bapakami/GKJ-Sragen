@@ -1,27 +1,30 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
-class Beranda extends CI_Controller {
+class Beranda extends CI_Controller
+{
 
-	
 
-	function __construct(){
-		parent::__construct();		
-		if($this->session->userdata('group_id') !='1'){
+
+	function __construct()
+	{
+		parent::__construct();
+		if ($this->session->userdata('group_id') != '1') {
 			redirect(base_url("login"));
-		}else {
+		} else {
 			$this->load->model('M_login');
 			$this->load->model('M_laporan');
 		}
 	}
- 
-	function index(){
-		$data['gereja']=$this->M_login->gereja();
-		$data['NamaGereja'] = $this->M_laporan->GetNamaGereja($this->session->userdata('gereja_id'));  
+
+	function index()
+	{
+		$data['gereja'] = $this->M_login->gereja();
+		$data['NamaGereja'] = $this->M_laporan->GetNamaGereja($this->session->userdata('gereja_id'));
 		$this->load->view('template/header');
-        $this->load->view('template/menu');
-        $this->load->view('userGereja/dashboard',$data);
-        $this->load->view('template/footer');		
+		$this->load->view('template/menu');
+		$this->load->view('userGereja/dashboard', $data);
+		$this->load->view('template/footer');
 	}
 
 	public function admin_aja()
@@ -31,6 +34,7 @@ class Beranda extends CI_Controller {
 		$this->load->view('konten/v_login');
 		$this->load->view('template/footer');
 	}
+<<<<<<< HEAD
 	
 	public function pastorr()
 	{
@@ -40,3 +44,6 @@ class Beranda extends CI_Controller {
 		$this->load->view('template/footer');
 	}
 }
+=======
+}
+>>>>>>> d0ac608c636adbf73c0f033e9f1d52f360538f8a

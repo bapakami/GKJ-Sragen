@@ -88,4 +88,23 @@ class M_Warga extends CI_Model
 		$insert_id = $this->db->insert_id();
 		return $insert_id;
 	}
+	public function simpanUser($data)
+	{
+		$this->db->insert('users', $data);
+		$insert_id = $this->db->insert_id();
+		return $insert_id;
+	}
+	public function simpanJemaat($data)
+	{
+		return $this->db->insert('jemaats', $data);
+	}
+	public function cekVerifikasi($token)
+	{
+		$cekToken = $this->db->get_where('mail_log', array('token' => $token));
+		return $cekToken;
+	}
+	public function updateUser($idUSer)
+	{
+		return $this->db->set('active', 1)->where('id', $idUSer)->update('users');
+	}
 }
