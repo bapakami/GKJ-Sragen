@@ -79,10 +79,13 @@
         <li class="treeview">
           <a href="#">
             <i class="fa fa-files-o"></i>
+            <!-- yehuda -->
             <?php if($this->session->userdata('group_id')==='6'):?>
             <span>Fasilitas</span>
+            <!-- aji -->
             <?php elseif($this->session->userdata('group_id')==='1'):?>
               <span>Manajemen</span>
+              <!-- pastor -->
             <?php elseif($this->session->userdata('group_id')==='9'):?>
               <span>Menu PASTOR</span>
             <?php endif;?>
@@ -90,6 +93,7 @@
               <i class="fa fa-angle-left pull-right"></i>
             </span>
           </a>
+          <!-- yehuda -->
           <ul class="treeview-menu">
             <?php if($this->session->userdata('group_id')==='6'):?>
               <li><a href="<?php echo base_url();?>Manajemenakun"><i class="fa fa-user-o"></i>Manajemen Akun</a></li>
@@ -97,7 +101,16 @@
               <li><a href="<?php echo base_url();?>ManajemenBerita/"><i class="fa fa-list"></i> Manajemen Berita</a></li>
               <li><a href="<?php echo base_url();?>Klasis/ManajemenJemaat/"><i class="fa fa-users"></i> Manajemen Jemaat</a></li>             
               <li><a href="<?php echo base_url();?>Klasis/Datapersembahan/"><i class="fa fa-money"></i> Manajemen Persembahan </a></li>
+              
+              <!-- pastor -->
+              <?php elseif($this->session->userdata('group_id')==='9'):?>
+              <li><a href="<?php echo base_url();?>Atestasikeluar"><i class="fa fa-sign-out"></i> Atestasi Keluar</a></li>
+              <li><a href="<?php echo base_url();?>Manajemendatagereja"><i class="fa fa-sign-in"></i> Atestasi Masuk</a></li>
+              <li><a href="<?php echo base_url();?>ManajemenBerita/"><i class="fa fa-spinner"></i> Pindah Iman</a></li>
+              <li><a href="<?php echo base_url();?>Klasis/ManajemenJemaat/"><i class="fa fa-file"></i> Surat Baptis Dewasa</a></li>             
+              <li><a href="<?php echo base_url();?>Klasis/Datapersembahan/"><i class="fa fa-file-image-o"></i> Surat Sidi </a></li>
 
+              <!-- aji -->
               <?php elseif($this->session->userdata('group_id')==='1'):?>
               <li><a href="<?php echo base_url();?>AdminGereja/DataPepantans"><i class="fa fa-book"></i> Data Pepanthan</a></li>
               <li class="treeview"><a href="#"><i class="fa fa-user-o"></i><span>Akun</span>
@@ -140,6 +153,8 @@
                     <li><a href="<?php echo base_url();?>AdminGereja/Kelola_Pembangunan"><i class="fa fa-circle-o text-aqua"></i> Pembangunan</a></li>
                   </ul>
               </li>
+              <!-- pastor -->
+
               <?php endif;?>
           </ul>
         </li>
