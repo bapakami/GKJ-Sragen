@@ -40,7 +40,7 @@ class Baptisanak extends CI_Controller {
 		$this->load->view('bptanak/v_bptanak', $data);
 		$this->load->view('template/footer');
 	}
-
+ 
 	function data_detail_iuran_search(){
   
         $data=$this->M_baptisanak->data_detail_list_search($id);
