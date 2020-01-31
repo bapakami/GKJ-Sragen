@@ -126,7 +126,7 @@ class Login extends CI_Controller
 		// print_r($group_id);
 		// exit;
 
-		$sesdata = array(
+		$sesdata = array( 
 			'id'		=> $id,
 			'fullname'  => $name,
 			'username'  => $username,
@@ -139,15 +139,14 @@ class Login extends CI_Controller
 		// access login for admin
 		if ($group_id == 1) {
 			redirect(base_url('AdminGereja/beranda'));
-
 			// access login for staff
 		} else if ($group_id == 6) {
 			redirect(base_url("beranda/admin_aja"));
-
-			//access login for pastor
+		} else if ($group_id == 8) {
+			redirect(base_url("warga/jemaat"));
 		} else if ($group_id == 9) {
+			//access login for pastor
 			redirect(base_url("pendetaa/pastorr"));
-
 			// access login for author
 		} else {
 			redirect(base_url('login'));
