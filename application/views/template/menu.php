@@ -116,10 +116,11 @@
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
+          </a>
 
-            </a>
             <!-- yehuda -->
             <?php if ($this->session->userdata('group_id') === '6') { ?>
+
               <ul class="treeview-menu">
                 <li><a href="<?php echo base_url(); ?>Manajemenakun"><i class="fa fa-user-o"></i>Manajemen Akun</a></li>
                 <li><a href="<?php echo base_url(); ?>Manajemendatagereja"><i class="fa fa-home"></i> Manajemen Gereja</a></li>
@@ -127,15 +128,17 @@
                 <li><a href="<?php echo base_url(); ?>Klasis/ManajemenJemaat/"><i class="fa fa-users"></i> Manajemen Jemaat</a></li>
                 <li><a href="<?php echo base_url(); ?>Klasis/Datapersembahan/"><i class="fa fa-money"></i> Manajemen Persembahan </a></li>
 
-                <!-- pastor -->
+                <!-- pendeta -->
               <?php  } elseif ($this->session->userdata('group_id') === '9') { ?>
                 <li><a href="<?php echo base_url(); ?>Atestasikeluar"><i class="fa fa-sign-out"></i> Atestasi Keluar</a></li>
                 <li><a href="<?php echo base_url(); ?>Manajemendatagereja"><i class="fa fa-sign-in"></i> Atestasi Masuk</a></li>
                 <li><a href="<?php echo base_url(); ?>ManajemenBerita/"><i class="fa fa-spinner"></i> Pindah Iman</a></li>
+                <li><a href="<?php echo base_url();?>Bptanak/Baptisanak/"><i class="fa fa-file"></i> Surat Baptis Anak</a></li>  
                 <li><a href="<?php echo base_url(); ?>Klasis/ManajemenJemaat/"><i class="fa fa-file"></i> Surat Baptis Dewasa</a></li>
                 <li><a href="<?php echo base_url(); ?>Klasis/Datapersembahan/"><i class="fa fa-file-image-o"></i> Surat Sidi </a></li>
 
                 <!-- jemaat -->
+
                 <!-- aji -->
               <?php } elseif ($this->session->userdata('group_id') === '1') { ?>
                 <li><a href="<?php echo base_url(); ?>AdminGereja/DataPepantans"><i class="fa fa-book"></i> Data Pepanthan</a></li>
