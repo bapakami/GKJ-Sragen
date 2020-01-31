@@ -107,6 +107,7 @@
               <li><a href="<?php echo base_url();?>Atestasikeluar"><i class="fa fa-sign-out"></i> Atestasi Keluar</a></li>
               <li><a href="<?php echo base_url();?>Manajemendatagereja"><i class="fa fa-sign-in"></i> Atestasi Masuk</a></li>
               <li><a href="<?php echo base_url();?>ManajemenBerita/"><i class="fa fa-spinner"></i> Pindah Iman</a></li>
+              <li><a href="<?php echo base_url();?>Baptisanak"><i class="fa fa-file"></i> Surat Baptis Anak</a></li>  
               <li><a href="<?php echo base_url();?>Klasis/ManajemenJemaat/"><i class="fa fa-file"></i> Surat Baptis Dewasa</a></li>             
               <li><a href="<?php echo base_url();?>Klasis/Datapersembahan/"><i class="fa fa-file-image-o"></i> Surat Sidi </a></li>
 
@@ -184,7 +185,7 @@
         </li>
         <?php endif;?>
 
-
+        <?php if($this->session->userdata('group_id')==='6'):?>
         <li class="treeview">
           <a href="#">
             <i class="fa fa-edit"></i> <span>Laporan</span>
@@ -208,7 +209,7 @@
            <li ><a href="<?php echo base_url();?>ManajemenKematian"><i class="fa fa-circle-o text-red"></i> Laporan Daftar warga <br>meninggal</a></li>
           </ul>
         </li>
-       
+        <?php endif;?>
       </ul>
     </section>
     <!-- /.sidebar -->
