@@ -7,7 +7,7 @@
         <small></small>
       </h1>
       <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-briefcase"></i> Menu PASTOR </a></li>
+        <li><a href="pendetaa/pastorr"><i class="fa fa-briefcase"></i> Menu PASTOR </a></li>
         <li class="active">Atestasi keluar </li>
       </ol>
     </section>
