@@ -12,11 +12,11 @@ class M_baptisanak extends CI_Model
 		$this->db->insert("jemaats", $data);
 	}
 
-	function DataList($idgereja){
+	function DataList($idgereja,$status){
 		$query = $this->db->query("SELECT a.*,b.namagereja,c.namapepantan FROM jemaats a 
             LEFT JOIN gereja b ON b.id = a.gerejaid
             LEFT JOIN pepantans c ON c.id = a.pepantan_id
-            WHERE a.gerejaid = $idgereja");
+            WHERE a.gerejaid = $idgereja and a.status = '$status'");
         return $query;
 	}
 

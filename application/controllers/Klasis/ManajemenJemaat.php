@@ -47,28 +47,6 @@ class ManajemenJemaat extends CI_Controller {
         echo json_encode($data);
     }
 
-	public function editData()
-	{
-		$data = array (
-			"nama_lengkap" => $this->input->post('nama_lengkap'),
-			"nama_panggilan" => $this->input->post('nama_panggilan'),
-			"no_ktp" => $this->input->post('no_ktp'),
-			"no_kk" => $this->input->post('no_kk'),
-			"jenis_kelamin" => $this->input->post('jenis_kelamin'),
-			"alamat_tinggal" => $this->input->post('alamat_tinggal'),
-			"telepon" => $this->input->post('telepon'),
-			"gerejaid" => $this->input->post('gerejaid'),
-			"no_induk" => $this->input->post('no_induk')
-		);
-		$this->M_datajemaat->editData($this->input->post('idedit'),$data);
-		redirect('datajemaat');
-	}
-
-	public function hapusData()
-	{
-		$this->M_datajemaat->hapusData($this->input->post('idhapus'));
-		redirect('datajemaat');
-	}
 
 	public function detail($kode)
 	{

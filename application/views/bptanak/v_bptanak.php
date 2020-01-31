@@ -21,7 +21,7 @@
 
             <div class="box-header" style="color: #000000">
             <div class="form-group">
-            <form class="form-horizontal" action="<?php echo base_url('Klasis/ManajemenPerGereja/')?>" method="post" enctype="multipart/form-data" role="form">
+            <form class="form-horizontal" action="<?php echo base_url('Bptanak/Baptisanakpergereja/')?>" method="post" enctype="multipart/form-data" role="form">
                 <div class="col-md-4">
                   <label class="control-label">Pilih Gereja&nbsp;&nbsp;&nbsp;&nbsp;</label>
                     <select class="form-control" name="pilihgereja">
@@ -34,8 +34,8 @@
                   </select>       
                 </div>
                 <div class="col-md-4">
-                  <label class="control-label">Status&nbsp;&nbsp;&nbsp;&nbsp;</label>
-                    <!-- <select class="form-control" name="statuskematian">                        
+                  <!-- <label class="control-label">Status&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                    <select class="form-control" name="statuskematian">                        
                         <option value="Hidup">Hidup</option>
                         <option value="Wafat">Wafat</option>
                     </select> -->
@@ -88,7 +88,7 @@
                           </a>
                         </span> 
                         <span data-toggle="tooltip" data-placement="top" data-original-title="Cetak">
-                          <a href="<?php echo base_url().'Klasis/ManajemenJemaat/report_Data/'.$id; ?>" target="_blank">
+                          <a href="<?php echo base_url().'Baptisanak/report_Data/'.$id; ?>" target="_blank">
                             <button type="button" class="btn btn-info btn-xs" title="Cetak"><i class="fa fa-print"></i> Cetak</button>
                           </a>
                         </span>                     
