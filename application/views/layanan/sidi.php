@@ -172,12 +172,12 @@ $diff = $today->diff($lahir);
             var bapt2 = $('#foto_surat_baptis_anak').val();
 
             var state = true;
-            // if(value[6] == 'avatar5.png' || value[6] == 'avatar2.png'){      
-            //     toastr.error('Pastikan anda mengupload pas foto terbaru anda terlebih dahulu.');
-            //     toastr.success('Gunakan menu ubah data dan ganti foto profile anda dengan yang terbaru.');
-            //     e.preventDefault(e);                
-            //     var state = false;
-            // } 
+            if(value[6] == 'avatar5.png' || value[6] == 'avatar2.png'){      
+                toastr.error('Pastikan anda mengupload pas foto terbaru anda terlebih dahulu.');
+                toastr.success('Gunakan menu ubah data dan ganti foto profile anda dengan yang terbaru.');
+                e.preventDefault(e);                
+                var state = false;
+            } 
 
             if(akte1 == '' && akte2 == ''){
                 toastr.error('Pastikan anda mengupload dokumen akte lahir anda terlebih dahulu.');
