@@ -126,7 +126,7 @@ class Login extends CI_Controller
 		// print_r($group_id);
 		// exit;
 
-		$sesdata = array( 
+		$sesdata = array(
 			'id'		=> $id,
 			'fullname'  => $name,
 			'username'  => $username,

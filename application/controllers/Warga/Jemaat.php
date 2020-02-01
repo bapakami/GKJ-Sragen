@@ -12,6 +12,7 @@ class Jemaat extends CI_Controller
             $this->load->model('M_login');
             $this->load->model('M_jemaat');
             $this->load->model('M_Jemaat_Gereja');
+            $this->load->library('lib');
         }
     }
 
@@ -37,9 +38,13 @@ class Jemaat extends CI_Controller
     {
         $data['active'] = 'layanan';
         $data['user'] = $this->session->userdata('fullname');
+        $data1['katekesasi'] = $this->lib->katekesasi();        
+        $data1['baptis'] = $this->lib->baptis();
+        $data1['sidi'] = $this->lib->baptis();        
+        $data1['nikah'] = $this->lib->nikahan();
         $this->load->view('template/header');
         $this->load->view('template/menu', $data);
-        $this->load->view('jemaat/layanan');
+        $this->load->view('jemaat/layanan', $data1);
         $this->load->view('template/footer');
     }
     function dataJemaat()
@@ -53,6 +58,26 @@ class Jemaat extends CI_Controller
         $this->load->view('template/menu', $data);
         $this->load->view('jemaat/dataPribadi', $data1);
         $this->load->view('template/footer');
+    }
+    function editProfil()
+    {        
+        $data1['pendidikan'] = $this->M_Jemaat_Gereja->Pendidikan();
+        $data1['pekerjaan'] = $this->M_Jemaat_Gereja->Pekerjaan();
+        $data1['penghasilan'] = $this->M_Jemaat_Gereja->Penghasilan();
+        $data1['jemaat'] = $this->M_jemaat->dataJemaat($this->session->userdata('id'));
+        $this->load->view('warga/edit_profile', $data1);
+    }
+    function katekesasi()
+    {
+        redirect(base_url('warga/layanan/katekesasi'));
+    }
+    function baptis()
+    {
+        redirect(base_url('warga/layanan/baptis'));
+    }
+    function sidhi()
+    {
+        redirect(base_url('warga/layanan/sidhi'));
     }
     function editData()
     {
@@ -81,7 +106,7 @@ class Jemaat extends CI_Controller
             'telepon_wa' => $post['NoTelpwa'],
             'gol_darah' => $post['golonganDarah'],
             'status_keluarga' => $post['status_keluarga'],
-            'status_rumah_tinggal' => $post['StatusRumahTinggal'],
+            'status_rumah_tinggal' => $post['StatusRumahTinggal'], 
             'pendidikan' => $post['PendidikanTerakhir'],
             'pekerjaan' => $post['PekerjaanPokok'],
             'pekerjaan_sampingan' => $post['PekerjaanSampingan'],
@@ -134,7 +159,7 @@ class Jemaat extends CI_Controller
         $name = "file_" . $nmxxxx[0] . "_" . $rand . "." . $ext;
         $config['file_name']        = $name;
         $config['upload_path']      = $path;
-        $config['allowed_types']    = array('jpg', 'jpeg', 'gif', 'png', 'mp4');
+        $config['allowed_types']    = array('jpg', 'jpeg', 'gif', 'png', 'mp4', 'pdf', 'word');
         // $config['max_size']         = 5000;
         $link = $path . "/" . $name;
 

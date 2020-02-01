@@ -38,6 +38,7 @@ class C_warga extends CI_Controller
 				'nama_lengkap' => $post['nama'],
 				'alamat_email' => $post['email'],
 				'no_ktp'       => $post['nik'],
+				'status'	   => 'Hidup',
 			);
 			$data = array(
 				'nama' => $post['nama'],
@@ -75,6 +76,7 @@ class C_warga extends CI_Controller
 				'id_user' => $simpanUser,
 				'nama_lengkap' => $post['nama'],
 				'alamat_email' => $post['email'],
+				'status'	   => 'Hidup',
 			);
 			$simpanJemaat = $this->M_Warga->simpanJemaat($dataJemaat);   // simpan data jemaat
 			if ($simpanJemaat) {

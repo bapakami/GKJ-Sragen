@@ -18,25 +18,7 @@
                 <div class="box">
                     <div class="box-body table-responsive">
                         <div class="right_col" role="main">
-                            <div class="">
-                                <div class="page-title">
-                                    <div class="title_left">
-                                        <h3>Selamat Datang</h3>
-                                    </div>
-                                </div>
-
-                                <div class="clearfix"></div>
-
-                                <div class="">
-                                    <!-- <div class="x_panel"> -->
-                                    <div class="x_content">
-                                        <p class="text-muted font-13 m-b-30">
-                                            <!-- Klasis Gunungkidul merupakan klasis yang terdiri dari 13 GKJ (Gereja Kristen Jawa) sehingga tergolong klasis yang besar dan luas area pelayanannya. -->
-                                        </p>
-                                    </div>
-                                    <!-- </div> -->
-                                </div>
-                            </div>
+                            <div id="kontenxx">holla</div>
                         </div>
                     </div>
                 </div>
@@ -44,3 +26,8 @@
         </div>
     </section>
 </div>
+<script>
+    $(document).ready(function() {
+        $('#kontenxx').load('<?= site_url("warga/jemaat/editProfil")?>');
+    });
+</script>

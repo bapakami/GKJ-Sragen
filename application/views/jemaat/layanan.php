@@ -10,7 +10,7 @@
 
         </ol>
     </section>
-
+ 
     <!-- Main content -->
     <section class="content">
         <div class="row">
@@ -23,7 +23,7 @@
                                     <div class="small-box bg-green">
                                         <div class="inner">
                                             <h3>Katekesasi</h3>
-                                            <p>Daftar Katekesasi</p>
+                                            <?= $katekesasi; ?>
                                         </div>
                                         <div class="icon"><i class="fa fa-user"></i></div>
                                         <div class="small-box-footer">Lebih Lanjut <i class="fa fa-arrow-circle-right"></i></div>
@@ -35,7 +35,7 @@
                                     <div class="small-box bg-yellow">
                                         <div class="inner">
                                             <h3>Baptis</h3>
-                                            <p>Daftar Baptis</p>
+                                            <?= $baptis; ?>
                                         </div>
                                         <div class="icon"><i class="fa fa-file"></i></div>
                                         <div class="small-box-footer">Lebih Lanjut <i class="fa fa-arrow-circle-right"></i></div>
@@ -47,19 +47,19 @@
                                     <div class="small-box bg-aqua">
                                         <div class="inner">
                                             <h3>Sidhi</h3>
-                                            <p>Daftar Sidhi</p>
+                                            <?= $sidi; ?>
                                         </div>
                                         <div class="icon"><i class="fa fa-users"></i></div>
                                         <div class="small-box-footer">Lebih Lanjut <i class="fa fa-arrow-circle-right"></i></div>
                                     </div>
                                 </div>
                             </a>
-                            <a href="<?= site_url('warga/jemaat/nikah') ?>">
+                            <a href="<?= site_url('warga/layanan/nikah') ?>">
                                 <div class="col-lg-3 col-xs-6" id="dataPribadi">
                                     <div class="small-box bg-blue">
                                         <div class="inner">
                                             <h3>Nikah</h3>
-                                            <p>Daftar Nikah Gerejawi</p>
+                                            <?= $nikah; ?>
                                         </div>
                                         <div class="icon"><i class="fa fa-users"></i></div>
                                         <div class="small-box-footer">Lebih Lanjut <i class="fa fa-arrow-circle-right"></i></div>
