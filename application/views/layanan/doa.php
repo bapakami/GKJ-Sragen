@@ -1,18 +1,7 @@
 <?php
-$foto = $jemaat['foto'];
-if ($foto == '' || $foto == null) {
-    if ($jemaat['jenis_kelamin'] == 'Perempuan') {
-        $fotox = base_url() . 'assets/img/avatar2.png';
-    } else {
-        $fotox = base_url() . 'assets/img/avatar5.png';
-    }
-} else {
-    $fotox = base_url($jemaat['foto']);
-}
-
-$kat = $nikah->num_rows();
+$kat = $doa->num_rows();
 if ($kat == 1) {
-    $kate = $nikah->row_array();
+    $kate = $doa->row_array();
     $st = $kate['state'];
     if ($st == 1) {
         $marquee = "<marquee behavior='alternate'>Selamat Permohonan Nikah Anda Diterima</marquee>";
@@ -56,7 +45,7 @@ $diff = $today->diff($lahir);
                             <div class="row" id="formDatax">
                                 <div class="col-md-12">
                                     <center>
-                                        <h3>Pendaftaran Nikah</h3>
+                                        <h3>Pendaftaran Pelayanan Doa</h3>
                                     </center>
                                     <hr />
                                 </div>
@@ -64,34 +53,23 @@ $diff = $today->diff($lahir);
                                     <form id="xyz">
                                         <div class="col-md-6">
                                             <div class="form-group col-md-12">
-                                                <label>Nama Suami</label>
-                                                <input type="hidden" name="id" value="<?= $jemaat['id']; ?>">
-                                                <input type="text" name="suami" id="suami" class="form-control" required="required">
+                                                <label>Jenis Pelayanan</label>
+                                                <input type="text" name="jenis" id="suami" class="form-control" required="required">
                                             </div>
                                             <div class="form-group col-md-12">
-                                                <label>Nama Istri</label>
-                                                <input type="text" name="istri" id="istri" class="form-control" required="required">
-                                            </div>
-                                            <div class="col-md-6">
-                                                <label>Tanggal Lahir Suami</label>
-                                                <input type="text" name="tgl_suami" id="tgl_suami" class="form-control tanggal" required="required">
-                                            </div>
-                                            <div class="col-md-6">
-                                                <label>Tanggal Lahir Istri</label>
-                                                <input type="text" name="tgl_istri" id="tgl_istri" class="form-control tanggal" required="required">
+                                                <label>Nama Pelayan 1</label>
+                                                <input type="text" disabled name="pelayan1" id="istri" class="form-control" required="required" value="<?php (isset($doa->row()->nama_pelayan1)?$doa->row()->nama_pelayan1 : '')?>">
                                             </div>
                                             <div class="form-group col-md-12">
-                                                <label>Nama Saksi</label>
-                                                <input type="text" name="saksi" id="saksi" class="form-control" required="required">
+                                                <label>Nama Pelayan 2</label>
+                                                <input type="text" disabled name="pelayan2" id="saksi" class="form-control" required="required" value="<?php (isset($doa->row()->nama_pelayan2)?$doa->row()->nama_pelayan2 : '')?>">
                                             </div>
                                             <br><br><br>
                                         </div>
                                         <div class="col-md-6">                                        
                                             <div class="col-md-12">
-                                                <div style="margin-bottom: 3%;">
-                                                    <h4 class="card-title text-center">Foto Berpasangan</h4><br>
-                                                    <input <?= $disabled; ?> onchange="simpanFoto('foto_berpasang')" type="file" id="foto_berpasang" class="dropify" <?php if ($dokumen['foto_berpasang'] != '' || $dokumen['foto_berpasang'] != null) { ?> data-default-file="<?= base_url($dokumen['foto_berpasang']) ?>" <?php } ?> /><br>
-                                                </div>
+                                                <label>Keterangan</label>
+                                                <textarea name="keterangan" id="keterangan" class="form-control "></textarea>
                                             </div>
                                             <div class="col-md-12" id="announ"></div>
                                             <div class="col-md-12">
@@ -117,59 +95,29 @@ $diff = $today->diff($lahir);
 </div>
 
 <script>
-    function simpanFoto(nm) {
-        var fd = new FormData();
-        var id = '<?= $id_jemaat; ?>';
-        var files = $('#' + nm)[0].files[0];
-        fd.append('file', files);
-        fd.append('jenis', nm);
-        fd.append('id', id);
-
-        $.ajax({
-            url: '<?= site_url("warga/jemaat/asyncr") ?>',
-            type: 'post',
-            data: fd,
-            dataType: "json",
-            contentType: false,
-            processData: false,
-            success: function(response) {
-                if (response.status == 'sukses') {
-                    toastr.success(response.message);
-                } else {
-                    toastr.error(response.message);
-                }
-            },
-        });
-    }
-
     $(document).ready(function() {
         $('.tanggal').datepicker({
             format: "dd-mm-yyyy",
             autoclose:true
         });
 
+        $('textarea').wysihtml5({
+            "font-styles": true, //Font styling, e.g. h1, h2, etc. Default true
+            "emphasis": true, //Italics, bold, etc. Default true
+            "lists": true, //(Un)ordered lists, e.g. Bullets, Numbers. Default true
+            "html": false, //Button which allows you to edit the generated HTML. Default false
+            "link": true, //Button to insert a link. Default true
+            "image": true, //Button to insert an image. Default true,
+            "color": false //Button to change color of font  
+        });
+
         $('#xyz').on('submit', (function(e) {
             e.preventDefault();
-
-            var akte1 = '<?= $dokumen["foto_berpasang"]?>';
-            var akte2 = $('#foto_berpasang').val();
-
             var state = true;
-
-            if(akte1 == '' && akte2 == ''){
-                toastr.error('Pastikan anda mengupload dokumen Foto Berpasangan anda terlebih dahulu.');
-                e.preventDefault(e);  
-                var state = false;              
-            }
             
             if(state == true) {
-                var fd = new FormData();
-                var id = '<?= $jemaat['id'] ?>';
-                var nama = '<?= $jemaat['nama_lengkap'] ?>';
-                fd.append('id', id);
-                fd.append('nama', nama);
                 $.ajax({
-                    url: '<?= site_url("warga/layanan/daftarNikah/") ?>' + id,
+                    url: '<?= site_url("warga/layanan/daftarDoa/") ?>',
                     type: 'POST',
                     data: new FormData(this),
                     dataType: 'json',

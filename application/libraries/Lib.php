@@ -45,7 +45,7 @@ class Lib {
 				$marquee1 = "<marquee>Permohonan Katekesasi Anda Sedang Diproses</marquee>";
 			}
 		} else {
-			$marquee1 = "Daftar Katekesasi";
+			$marquee1 = "Daftar Baptis";
 		}
 
 		return $marquee1;
@@ -95,7 +95,33 @@ class Lib {
 				$marquee = "<marquee>Permohonan Nikah Anda Sedang Diproses</marquee>";
 			}
 		} else {
-			$marquee = "Daftar Sidi";
+			$marquee = "Daftar Nikah";
+		}
+
+		return $marquee;
+	}
+
+	function doa()
+	{
+		$CI = & get_instance();
+		$CI->load->model('M_jemaat');        
+		$katekesasi = $CI->M_jemaat->dataDoa($CI->session->userdata('id'));
+		// echo $CI->db->last_query();exit;
+
+		$kat = $katekesasi->num_rows();
+		if ($kat == 1) {
+			$kate = $katekesasi->row_array();
+
+			$st = $kate['state'];
+			if ($st == 1) {
+				$marquee = "<marquee>Selamat Permohonan Pelayanan Doa Anda Diterima</marquee>";
+			} elseif ($st == 2) {
+				$marquee = "<marquee>Mohon Maaf, Permohonan Pelayanan Doa Anda Ditolak</marquee>";
+			} elseif ($st == 3) {
+				$marquee = "<marquee>Permohonan Pelayanan Doa Anda Sedang Diproses</marquee>";
+			}
+		} else {
+			$marquee = "Daftar Pelayanan Doa";
 		}
 
 		return $marquee;

@@ -53,7 +53,7 @@ $diff = $today->diff($lahir);
                 <div class="box">
                     <div class="box-body table-responsive">
                         <div class="right_col" role="main">
-                            <div class="row">
+                            <div class="row" id="formDatax">
                                 <div class="col-md-12">
                                     <center>
                                         <h3>Pendaftaran Ketekesasi</h3>
@@ -63,7 +63,7 @@ $diff = $today->diff($lahir);
                                 <div class="col-md-4">
                                     <img src="<?= $fotox; ?>" alt="Foto User" id="fotoUser" width="200">
                                 </div>
-                                <div class="col-md-8" id="formDatax">
+                                <div class="col-md-8">
                                     <div class="col-md-3">
                                         <label>No KTP </label>
                                     </div>
@@ -214,7 +214,7 @@ $diff = $today->diff($lahir);
         });
 
         $('#ubah').on('click', function() {
-            $('#formDatax').hide();
+            $('#formDatax').load('<?= site_url("warga/jemaat/editProfil")?>');
         });
 
         $('.dropify').dropify();

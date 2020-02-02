@@ -59,7 +59,7 @@ if($diff->y <= 13) {
                 <div class="box">
                     <div class="box-body table-responsive">
                         <div class="right_col" role="main">
-                            <div class="row">
+                            <div class="row" id="formDatax">
                                 <div class="col-md-12">
                                     <center>
                                         <h3>Pendaftaran Baptis <?= $jns?></h3>
@@ -69,7 +69,7 @@ if($diff->y <= 13) {
                                 <div class="col-md-4">
                                     <img src="<?= $fotox; ?>" alt="Foto User" id="fotoUser" width="200">
                                 </div>
-                                <div class="col-md-8" id="formDatax">
+                                <div class="col-md-8">
                                     <div class="col-md-3">
                                         <label>No KTP </label>
                                     </div>
@@ -86,25 +86,25 @@ if($diff->y <= 13) {
                                         <label>Nama Ayah </label>
                                     </div>
                                     <div class="col-md-8">
-                                        <label>: <?= $jemaat['nama_ayah'] ?></label>
+                                        <label>: <?= (isset($jemaat['nama_ayah'])?$jemaat['nama_ayah']:'') ?></label>
                                     </div>
                                     <div class="col-md-3">
                                         <label>Nama Ibu </label>
                                     </div>
                                     <div class="col-md-8">
-                                        <label>: <?= $jemaat['nama_ibu'] ?></label>
+                                        <label>: <?= (isset($jemaat['nama_ibu'])?$jemaat['nama_ibu']:'') ?></label>
                                     </div>
                                      <div class="col-md-3">
                                         <label>Saksi 1</label>
                                     </div>
                                     <div class="col-md-9">
-                                        <label><input type="text" name="saksi1" id="saksi1" class="form-control" value="<?= $baptis->row()->saksi1;?>"></label>
+                                        <label><input type="text" name="saksi1" id="saksi1" class="form-control" value="<?= (isset($baptis->row()->saksi1)?$baptis->row()->saksi1:'')?>"></label>
                                     </div>
                                     <div class="col-md-3">
                                         <label>Saksi 2</label>
                                     </div>
                                     <div class="col-md-9">
-                                        <label><input type="text" name="saksi2" id="saksi2" class="form-control" value="<?= $baptis->row()->saksi2;?>"></label>
+                                        <label><input type="text" name="saksi2" id="saksi2" class="form-control" value="<?= (isset($baptis->row()->saksi2)?$baptis->row()->saksi2:'')?>"></label>
                                     </div>
                                     <div class="col-md-3">
                                         <label>Berkas </label>
@@ -164,6 +164,10 @@ if($diff->y <= 13) {
     }
 
     $(document).ready(function() {
+        $('#ubah').on('click', function() {
+            $('#formDatax').load('<?= site_url("warga/jemaat/editProfil")?>');
+        });
+
         $('#daftar').on('click', function(e) {
             e.preventDefault();
             var foto = document.getElementById('fotoUser');
@@ -229,10 +233,6 @@ if($diff->y <= 13) {
                     },
                 });
             }
-        });
-
-        $('#ubah').on('click', function() {
-            $('#formDatax').hide();
         });
 
         $('.dropify').dropify();

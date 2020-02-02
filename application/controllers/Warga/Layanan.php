@@ -67,6 +67,17 @@ class Layanan extends CI_Controller
         $this->load->view('layanan/nikah', $data1);
         $this->load->view('template/footer');
     }
+    function doa()
+    {
+        $data['active'] = 'layanan';
+        $data['user'] = $this->session->userdata('fullname');
+        $data1['doa'] = $this->M_jemaat->dataDoa($this->session->userdata('id'));
+        $data1['jemaat'] = $this->M_jemaat->dataJemaat($this->session->userdata('id'));       
+        $this->load->view('template/header');
+        $this->load->view('template/menu', $data);
+        $this->load->view('layanan/doa', $data1);
+        $this->load->view('template/footer');
+    }
     function daftarKatekesasi($id)
     {
         $json['s'] = 'gagal';
@@ -78,6 +89,11 @@ class Layanan extends CI_Controller
         );
         $daftar = $this->M_jemaat->daftarKatekesasi($data);
         if ($daftar) {
+            $log = array(
+                'id_user' => $this->session->userdata('id'),
+                'jenis_log' => 'Anda Mendaftar Katekesasi',
+            );
+            $this->M_jemaat->dataAktifitas($log);
             $json = array('s' => 'sukses', 'm' => 'Proses Daftar Katekesasi Berhasil');
         } else {
             $json = array('s' => 'gagal', 'm' => 'Proses Daftar Katekesasi Gagal');
@@ -101,6 +117,11 @@ class Layanan extends CI_Controller
         );  
         $daftar = $this->M_jemaat->daftarBaptis($data);
         if($daftar){
+            $log = array(
+                'id_user' => $this->session->userdata('id'),
+                'jenis_log' => 'Anda Mendaftar Baptis',
+            );
+            $this->M_jemaat->dataAktifitas($log);
             $json = array('s' => 'sukses', 'm' => 'Proses Daftar Baptisan Berhasil');
         } else {
             $json = array('s' => 'gagal', 'm' => 'Proses Daftar Baptisan Gagal');
@@ -120,6 +141,11 @@ class Layanan extends CI_Controller
         );
         $daftar = $this->M_jemaat->daftarSidi($data);
         if ($daftar) {
+            $log = array(
+                'id_user' => $this->session->userdata('id'),
+                'jenis_log' => 'Anda Mendaftar Sidi',
+            );
+            $this->M_jemaat->dataAktifitas($log);
             $json = array('s' => 'sukses', 'm' => 'Proses Daftar Sidi Berhasil');
         } else {
             $json = array('s' => 'gagal', 'm' => 'Proses Daftar Sidi Gagal');
@@ -142,6 +168,34 @@ class Layanan extends CI_Controller
 
         $simpanNikah = $this->M_jemaat->simpanNikah($data);
         if($simpanNikah) {
+            $log = array(
+                'id_user' => $this->session->userdata('id'),
+                'jenis_log' => 'Anda Mendaftar Nikah',
+            );
+            $this->M_jemaat->dataAktifitas($log);
+            $json = array('s' => 'sukses', 'm' => 'Proses Daftar Berhasil');
+        } else {
+            $json = array('s' => 'gagal', 'm' => 'Proses Daftar Gagal');
+        }
+
+        echo json_encode($json);
+    }    
+    function daftarDoa()
+    {
+        $post = $this->input->post();
+        $data = array(
+            'id_jemaat' => $this->session->userdata('id'),
+            'jenis_pelayanan' => $post['jenis'],
+            'tujuan' => $post['keterangan'],
+            'state' => 3,
+        );
+        $daftar = $this->M_jemaat->daftarDoa($data);
+        if($daftar) {
+            $log = array(
+                'id_user' => $this->session->userdata('id'),
+                'jenis_log' => 'Anda Mendaftar Pelayanan Doa',
+            );
+            $this->M_jemaat->dataAktifitas($log);
             $json = array('s' => 'sukses', 'm' => 'Proses Daftar Berhasil');
         } else {
             $json = array('s' => 'gagal', 'm' => 'Proses Daftar Gagal');
@@ -149,4 +203,5 @@ class Layanan extends CI_Controller
 
         echo json_encode($json);
     }
+
 }
