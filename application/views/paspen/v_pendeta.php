@@ -34,7 +34,6 @@
                           <p class="text-muted font-13 m-b-30">
                             Pada halaman ini, pastor dapat melakukan atestasi keluar maupun masuk kepada jamaat, manajemen pindah iman, serta surat Baptis dan surat Sidi.
                           </p>
-                          <iframe src="https://docs.google.com/document/d/1rTa_UdDZahA89KAKP1lbyzQVs_ZKbeUYQeRF70TRePM/edit?usp=sharing?embedded=true" width="1000" height="700"></iframe>            
                         </div>
                       <!-- </div> -->
                     </div>

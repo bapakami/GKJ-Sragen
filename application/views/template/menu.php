@@ -119,9 +119,9 @@
           </a>
 
             <!-- yehuda -->
+              <ul class="treeview-menu"> // ini ketutupan
             <?php if ($this->session->userdata('group_id') === '6') { ?>
 
-              <ul class="treeview-menu">
                 <li><a href="<?php echo base_url(); ?>Manajemenakun"><i class="fa fa-user-o"></i>Manajemen Akun</a></li>
                 <li><a href="<?php echo base_url(); ?>Manajemendatagereja"><i class="fa fa-home"></i> Manajemen Gereja</a></li>
                 <li><a href="<?php echo base_url(); ?>ManajemenBerita/"><i class="fa fa-list"></i> Manajemen Berita</a></li>
@@ -213,7 +213,8 @@
             </li>
           <?php } ?>
 
-          <?php if ($this->session->userdata('group_id') != 8) { ?>
+            <?php $array= array('8','9');?>
+          <?php if (!in_array($this->session->userdata('group_id'), $array) ) { ?>
             <li class="treeview">
               <a href="#">
                 <i class="fa fa-edit"></i> <span>Laporan</span>
