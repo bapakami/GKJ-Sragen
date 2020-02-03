@@ -27,6 +27,7 @@
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> -->
   <script src="<?php echo base_url() . 'assets/plugins/datatables/jquery.dataTables.min.js'; ?>"></script>
   <script src="<?php echo base_url() . 'assets/plugins/datatables/dataTables.bootstrap.min.js'; ?>"></script>
+  <link rel="stylesheet" href="<?php echo base_url() . 'assets/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.css'; ?>">
   <script>
     // for general purpose
     String.prototype.format = function() {

@@ -5,10 +5,12 @@ class NonJemaat extends CI_Controller {
 
     public function __construct(){
         parent::__construct();
-        if($this->session->userdata('group_id') !='1'){
+        $array = array('1', '8');
+        if(!in_array($this->session->userdata('group_id'), $array)){
             redirect(base_url("login"));
         }else {
             $this->load->model('M_NonJemaat');
+            $this->load->model('M_jemaat');
             $this->load->library('encrypt'); 
         }
     }
@@ -48,6 +50,12 @@ class NonJemaat extends CI_Controller {
     {
         $kode_gereja = $this->M_NonJemaat->getKodeGereja($this->session->userdata('gereja_id'));
         $typeNonJemaat = 0 ;
+        $group_id = $this->session->userdata('group_id');
+        if($group_id == 8) {
+            $relasi_jemaat = $this->session->userdata('id');
+        } else {
+            $relasi_jemaat = '';
+        }
         $data = array (
             "nama_lengkap" => $this->input->post('namaLengkap'),
             "nama_panggilan" => $this->input->post('NamaPanggilan'),
@@ -104,10 +112,22 @@ class NonJemaat extends CI_Controller {
             "kode_gereja" => $kode_gereja,
             "type" => $typeNonJemaat,
             "no_pencatatan_sipil" => $this->input->post('no_sipil'),
-            "tempat_pernikahan" => $this->input->post('tempat_nikah')
+            "tempat_pernikahan" => $this->input->post('tempat_nikah'),
+            "relasi_jemaat" => $relasi_jemaat,
         );
-        $this->M_NonJemaat->insertData($data);
-        redirect('AdminGereja/NonJemaat');
+        $this->M_NonJemaat->insertData($data); 
+        if($this->session->userdata('group_id') == 8) {
+            $log = array(
+                'id_user' => $this->session->userdata('id'),
+                'jenis_log' => 'Anda Menambahkan Data Keluarga Non Jemaat',
+            );
+            $this->M_jemaat->dataAktifitas($log);
+            $sess = array('status' => 'sukses', 'message' => 'Data Berhasil di Simpan');
+            $this->session->set_flashdata($sess);
+            redirect('warga/jemaat/dataNonJemaat');
+        } else {
+            redirect('AdminGereja/NonJemaat');
+        }
     }
 
    public function hapusData()
@@ -197,7 +217,13 @@ class NonJemaat extends CI_Controller {
 
         );
         $this->M_NonJemaat->updateData($id,$data);
-        redirect('AdminGereja/NonJemaat');
+        if($this->session->userdata('group_id') != 8) {
+            redirect('AdminGereja/NonJemaat');
+        } else {
+            $sess = array('status' => 'sukses', 'message' => 'Data Berhasil di Perbaharui');
+            $this->session->set_flashdata($sess);
+            redirect('warga/jemaat/dataNonJemaat');
+        }
     }
 
     public function KematianJemaat(){

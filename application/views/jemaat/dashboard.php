@@ -1,3 +1,15 @@
+<?php
+$foto = $jemaat['foto'];
+if ($foto == '' || $foto == null) {
+    if ($jemaat['jenis_kelamin'] == 'Perempuan') {
+        $fotox = base_url() . 'assets/img/avatar2.png';
+    } else {
+        $fotox = base_url() . 'assets/img/avatar5.png';
+    }
+} else {
+    $fotox = base_url($jemaat['foto']);
+}
+?>
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -14,33 +26,46 @@
     <!-- Main content -->
     <section class="content">
         <div class="row">
-            <div class="col-xs-12">
-                <div class="box">
-                    <div class="box-body table-responsive">
-                        <div class="right_col" role="main">
-                            <div class="">
-                                <div class="page-title">
-                                    <div class="title_left">
-                                        <h3>Selamat Datang</h3>
-                                    </div>
-                                </div>
-
-                                <div class="clearfix"></div>
-
-                                <div class="">
-                                    <!-- <div class="x_panel"> -->
-                                    <div class="x_content">
-                                        <p class="text-muted font-13 m-b-30">
-                                            <!-- Klasis Gunungkidul merupakan klasis yang terdiri dari 13 GKJ (Gereja Kristen Jawa) sehingga tergolong klasis yang besar dan luas area pelayanannya. -->
-                                        </p>
-                                    </div>
-                                    <!-- </div> -->
-                                </div>
+            <div class="col-xs-4">
+                <ul class="timeline">
+                    <li class="time-label">
+                        <span class="bg-red">Aktifitas</span>
+                    </li>
+                    <?php if($timeline->num_rows() >=1){ foreach($timeline->result_array() as $br => $bb) :?>
+                        <li>
+                            <i class="fa fa-user bg-aqua"></i>
+                            <div class="timeline-item">
+                                <span class="time"><i class="fa fa-clock-o"></i> <?= date('h:i', strtotime($bb['tanggal']))?></span>
+                                <h3 class="timeline-header no-border"><?= $bb['jenis_log']?></h3>
                             </div>
+                        </li>
+                    <?php endforeach; } else {?>
+                     <li>
+                        <i class="fa fa-user bg-aqua"></i>
+                        <div class="timeline-item">
+                            <span class="time"><i class="fa fa-clock-o"></i> Now</span>
+                            <h3 class="timeline-header">Timeline</h3>
+                            <div class="timeline-body">Anda Dapat menemukan aktivitas terdahulu anda disini </div>
+                        </div>
+                    </li>
+                <?php } ?>
+            </ul>
+        </div>
+        <div class="col-xs-8">
+            <div class="box">
+                <div class="box-body table-responsive">
+                    <div class="right_col" role="main">
+                        <div id="kontenxx">
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 </div>
+<script>
+    $(document).ready(function() {
+        $('#kontenxx').load('<?= site_url("warga/jemaat/editProfil")?>');
+    });
+</script>

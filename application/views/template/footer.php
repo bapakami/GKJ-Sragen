@@ -25,6 +25,7 @@
 <script src="<?php echo base_url() . 'assets/plugins/toast/jquery.toast.min.js'; ?>"></script>
 <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 <script src="http://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.2/js/toastr.min.js"></script>
+<script src="<?php echo base_url() . 'assets/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js'; ?>"></script>
 
 <script>
   getDate();

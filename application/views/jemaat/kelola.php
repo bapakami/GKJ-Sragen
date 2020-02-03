@@ -32,8 +32,8 @@
                                 <div class="col-lg-3 col-xs-6" id="dataPribadi">
                                     <div class="small-box bg-green">
                                         <div class="inner">
-                                            <h3>Akun</h3>
-                                            <p>Kelola Data Akun</p>
+                                            <h3>Data Diri</h3>
+                                            <p>Kelola Data Diri</p>
                                         </div>
                                         <div class="icon"><img src="<?= base_url('assets/img/logoGKJ.png') ?>" width="70px" alt="logo GKJ"></div>
                                         <div class="small-box-footer">Lebih Lanjut <i class="fa fa-arrow-circle-right"></i></div>
@@ -46,6 +46,18 @@
                                         <div class="inner">
                                             <h3>Dokumen</h3>
                                             <p>Kelola Data Dokumen</p>
+                                        </div>
+                                        <div class="icon"><img src="<?= base_url('assets/img/logoGKJ.png') ?>" width="70px" alt="logo GKJ"></div>
+                                        <div class="small-box-footer">Lebih Lanjut <i class="fa fa-arrow-circle-right"></i></div>
+                                    </div>
+                                </div>
+                            </a>
+                            <a href="<?= site_url('warga/jemaat/dataNonJemaat') ?>">
+                                <div class="col-lg-3 col-xs-6" id="dataPribadi">
+                                    <div class="small-box bg-aqua">
+                                        <div class="inner">
+                                            <h3>Non Jemaat</h3>
+                                            <p>Kelola Data Non Jemaat</p>
                                         </div>
                                         <div class="icon"><img src="<?= base_url('assets/img/logoGKJ.png') ?>" width="70px" alt="logo GKJ"></div>
                                         <div class="small-box-footer">Lebih Lanjut <i class="fa fa-arrow-circle-right"></i></div>
