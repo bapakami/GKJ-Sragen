@@ -12,6 +12,7 @@ class Jemaat extends CI_Controller
             $this->load->model('M_login');
             $this->load->model('M_jemaat');
             $this->load->model('M_Jemaat_Gereja');
+            $this->load->model('M_NonJemaat');
             $this->load->library('lib');
         }
     }
@@ -64,11 +65,61 @@ class Jemaat extends CI_Controller
         $this->load->view('jemaat/dataPribadi', $data1);
         $this->load->view('template/footer');
     }
+    function dataNonJemaat()
+    {
+        $data['active'] = 'kelola';
+        $this->load->library('lib');
+        $data1['non_jemaat'] = $this->M_jemaat->nonJemaat($this->session->userdata('id'));
+        $this->load->view('template/header');
+        $this->load->view('template/menu', $data); 
+        $this->load->view('jemaat/non_jemaat', $data1);
+        $this->load->view('template/footer');
+    }
+    function tambahNonJemaat()
+    {
+        $data['active'] = 'kelola';
+        $this->load->library('lib');
+        $data1['non_jemaat'] = $this->M_jemaat->nonJemaat($this->session->userdata('id'));
+        $data1['jemaat'] = $this->M_jemaat->dataJemaat($this->session->userdata('id'));
+        $data1['pendidikan'] = $this->M_NonJemaat->Pendidikan();
+        $data1['pekerjaan'] = $this->M_NonJemaat->Pekerjaan();
+        $data1['peranDalamGereja'] = $this->M_NonJemaat->PeranDalamGereja();
+        $data1['minatPelayananUmum'] = $this->M_NonJemaat->MinatPelayanUmum();
+        $data1['minatPelayananGereja'] = $this->M_NonJemaat->MinatPelayananGereja();
+        $data1['pengalamanMelayaniMasyarakat'] = $this->M_NonJemaat->pengalamanMelayaniMasyarakat();
+        $data1['penghasilan'] = $this->M_NonJemaat->Penghasilan();
+        $data1['usiaJemaat'] = $this->M_NonJemaat->UsiaJemaat();
+        $data1['gereja']=$this->M_NonJemaat->gereja();
+        $data1['pepantan']=$this->M_NonJemaat->pepantan($this->session->userdata('gereja_id'));
+        $this->load->view('template/header');
+        $this->load->view('template/menu', $data); 
+        $this->load->view('jemaat/data_non_jemaat', $data1);
+        $this->load->view('template/footer');
+    }
+    function editNonJemaat($id)
+    {
+        $data['active'] = 'kelola';
+        $data1['data']=$this->M_NonJemaat->DataListJemaatEdit($id);
+        $data1['pendidikan'] = $this->M_NonJemaat->Pendidikan();
+        $data1['pekerjaan'] = $this->M_NonJemaat->Pekerjaan();
+        $data1['peranDalamGereja'] = $this->M_NonJemaat->PeranDalamGereja();
+        $data1['minatPelayananUmum'] = $this->M_NonJemaat->MinatPelayanUmum();
+        $data1['minatPelayananGereja'] = $this->M_NonJemaat->MinatPelayananGereja();
+        $data1['pengalamanMelayaniMasyarakat'] = $this->M_NonJemaat->pengalamanMelayaniMasyarakat();
+        $data1['penghasilan'] = $this->M_NonJemaat->Penghasilan();
+        $data1['usiaJemaat'] = $this->M_NonJemaat->UsiaJemaat();
+        $data1['gereja']=$this->M_NonJemaat->gereja();
+        $data1['pepantan']=$this->M_NonJemaat->pepantan($this->session->userdata('gereja_id'));
+        $this->load->view('template/header');
+        $this->load->view('template/menu', $data); 
+        $this->load->view('jemaat/edit_non_jemaat', $data1);
+        $this->load->view('template/footer');
+    }
     function editProfil()
     {        
+        $data1['penghasilan'] = $this->M_Jemaat_Gereja->Penghasilan();
         $data1['pendidikan'] = $this->M_Jemaat_Gereja->Pendidikan();
         $data1['pekerjaan'] = $this->M_Jemaat_Gereja->Pekerjaan();
-        $data1['penghasilan'] = $this->M_Jemaat_Gereja->Penghasilan();
         $data1['jemaat'] = $this->M_jemaat->dataJemaat($this->session->userdata('id'));
         $data1['data'] = $this->M_jemaat->getDataUser($this->session->userdata('id'));
         $this->load->view('warga/edit_profile', $data1);

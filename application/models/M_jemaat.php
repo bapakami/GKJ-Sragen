@@ -55,6 +55,10 @@ class M_jemaat extends CI_Model
     {
         return $this->db->insert('katekesasi', $data);
     }
+    function nonJemaat($id)
+    {
+        return $this->db->get_where('jemaats', array('relasi_jemaat' => $id));
+    }
     function dataBaptis($id)
     {
         return $this->db->get_where('tb_baptisan', array('id_warga' => $id));
@@ -110,5 +114,9 @@ class M_jemaat extends CI_Model
     function dataTimeLine($id)
     {
         return $this->db->get_where('log_aktivitas', array('id_user' => $id));
+    }
+    function get_gereja($idgereja)
+    {
+        return $this->db->get_where('gereja', array('id' => $idgereja))->row_array();
     }
 }

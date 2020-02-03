@@ -127,4 +127,13 @@ class Lib {
 		return $marquee;
 	}
 
+	function nama_gereja($idgereja)
+	{
+		$CI = & get_instance();
+		$CI->load->model('M_jemaat');
+		$namaGereja = $CI->M_jemaat->get_gereja($idgereja);
+
+		echo $namaGereja['namagereja'];
+	}
+
 }
