@@ -29,6 +29,8 @@ if ($kat == 1) {
     $marquee = '<button class="btn btn-info btn-sm pull-left" id="daftar" type="submit" style="margin: 4px;">Daftar Sekarang</button>';
 }
 
+$n = $nikah->row();
+
 $today = new DateTime();
 $lahir = new DateTime($jemaat['tgl_lahir']);
 $diff = $today->diff($lahir);
@@ -66,23 +68,23 @@ $diff = $today->diff($lahir);
                                             <div class="form-group col-md-12">
                                                 <label>Nama Suami</label>
                                                 <input type="hidden" name="id" value="<?= $jemaat['id']; ?>">
-                                                <input type="text" name="suami" id="suami" class="form-control" required="required">
+                                                <input type="text" name="suami" id="suami" class="form-control" required="required" value="<?= isset($n->nama_suami)?$n->nama_suami:''?>">
                                             </div>
                                             <div class="form-group col-md-12">
                                                 <label>Nama Istri</label>
-                                                <input type="text" name="istri" id="istri" class="form-control" required="required">
+                                                <input type="text" name="istri" id="istri" class="form-control" required="required" value="<?= isset($n->nama_istri)?$n->nama_istri:''?>">
                                             </div>
                                             <div class="col-md-6">
                                                 <label>Tanggal Lahir Suami</label>
-                                                <input type="text" name="tgl_suami" id="tgl_suami" class="form-control tanggal" required="required">
+                                                <input type="text" name="tgl_suami" id="tgl_suami" class="form-control tanggal" required="required" value="<?= isset($n->tgl_lahir_suami)?date('d-m-Y', strtotime($n->tgl_lahir_suami)):''?>">
                                             </div>
                                             <div class="col-md-6">
                                                 <label>Tanggal Lahir Istri</label>
-                                                <input type="text" name="tgl_istri" id="tgl_istri" class="form-control tanggal" required="required">
+                                                <input type="text" name="tgl_istri" id="tgl_istri" class="form-control tanggal" required="required" value="<?= isset($n->tgl_lahir_istri)?date('d-m-Y', strtotime($n->tgl_lahir_istri)):''?>">
                                             </div>
                                             <div class="form-group col-md-12">
                                                 <label>Nama Saksi</label>
-                                                <input type="text" name="saksi" id="saksi" class="form-control" required="required">
+                                                <input type="text" name="saksi" id="saksi" class="form-control" required="required" value="<?= isset($n->saksi_pernikahan)?$n->saksi_pernikahan:''?>">
                                             </div>
                                             <br><br><br>
                                         </div>
