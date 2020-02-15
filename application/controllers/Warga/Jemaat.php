@@ -220,6 +220,7 @@ class Jemaat extends CI_Controller
         $jemaat = $this->M_jemaat->dataJemaat($this->session->userdata('id'));
         $data1['dokumen'] = $this->M_jemaat->getDokumen($jemaat['id_jemaats']);
         $data1['id_jemaat'] = $jemaat['id_jemaats'];
+        // print_r($jemaat['id_jemaats']);exit;
         $this->load->view('template/menu', $data1);
         $this->load->view('jemaat/dataDokumen');
         $this->load->view('template/footer');
@@ -233,6 +234,7 @@ class Jemaat extends CI_Controller
             mkdir($path, 0777, TRUE);
             fopen($path . "/index.php", "w");
         }
+        // echo "<pre>"; print_r($post);exit;
         $jenis = $post['jenis'];
         $id = $post['id'];
         // print_r($jenis);
@@ -248,16 +250,20 @@ class Jemaat extends CI_Controller
         $config['allowed_types']    = array('jpg', 'jpeg', 'gif', 'png', 'mp4', 'pdf', 'word');
         // $config['max_size']         = 5000;
         $link = $path . "/" . $name;
-
-        // print_r($link);
-        // exit;
+        $data = array(
+            'link' => $link,
+            'jenis' => $jenis,
+            'id'    => $id
+        );
+        // print_r($data);
+        // exit; 
         $this->load->library('upload', $config);
         $this->upload->initialize($config);
 
         if ($this->upload->do_upload('file')) {
             $jumlah = $this->M_jemaat->saveFoto($jenis, $link, $id);
             if ($jumlah <= 0) {
-                $saveFile = $this->M_jemaat->saveFile($jenis, $link);
+                $saveFile = $this->M_jemaat->saveFile($jenis, $link, $id);
                 $json['status'] = 'sukses';
                 $json['message'] = 'Berhasil Upload File';
             } else {
