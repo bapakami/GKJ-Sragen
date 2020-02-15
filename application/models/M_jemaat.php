@@ -27,9 +27,10 @@ class M_jemaat extends CI_Model
         $cekUser = $this->db->get_where('tb_dokumen_warga', array('id_warga' => $id))->num_rows();
         return $cekUser;
     }
-    function saveFile($jenis, $link)
+    function saveFile($jenis, $link, $id)
     {
         $data = array(
+            'id_warga' => $id,
             $jenis => $link,
         );
         return $this->db->insert('tb_dokumen_warga', $data);
