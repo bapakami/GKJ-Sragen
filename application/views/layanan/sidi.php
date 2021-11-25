@@ -113,6 +113,11 @@ $diff = $today->diff($lahir);
                                             <?php } ?>
                                         </div>
                                         <button <?= $disabled; ?> class="btn btn-danger btn-sm pull-left" id="ubah" style="margin: 4px;">Ubah Data</button>
+                                        <button class="btn btn-warning btn-sm pull-left" id="chat" style="margin: 4px;">Chat</button>
+                                    </div>
+
+                                    <div id="modal_form2" class="modal" data-width="800" data-height="400">
+                                        <div style="width: 100%;" id="tampil_form2"></div>
                                     </div>
                                 </div>
                             </div>
@@ -151,6 +156,13 @@ $diff = $today->diff($lahir);
     }
 
     $(document).ready(function() {
+        $(document).on('click','#chat',function(){
+            $('#tampil_form2').load("<?=site_url()?>/warga/layanan/chat/3",function(){
+                $('#modal_form2').modal('show');
+            });
+        });
+
+
         var ready = $('#reff').val();
         if(ready <= 0) {
             $('#daftar').attr('disabled', 'disabled').off('click');

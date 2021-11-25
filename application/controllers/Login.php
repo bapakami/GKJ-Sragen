@@ -145,8 +145,8 @@ class Login extends CI_Controller
 		} else if ($group_id == 8) {
 			redirect(base_url("warga/jemaat"));
 		} else if ($group_id == 9) {
-			//access login for pastor
-			redirect(base_url("pendetaa/pastorr"));
+			//access login for pendeta
+			redirect(base_url("pendetaa/pendeta"));
 			// access login for author
 		} else {
 			redirect(base_url('login'));

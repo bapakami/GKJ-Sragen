@@ -12,29 +12,32 @@ class M_manajemenusia extends CI_Model
 	function pilihan()
 	{
 		$q = "SELECT
-			usia, deskripsi
+			usia
 		FROM
 			usiajemaat
 		";
 		$hasil=$this->db->query($q);
-		return $hasil->result();
+		$res = [];
+		foreach ($hasil->result() as $row)
+		{
+			array_push($res, $row->usia);
+		}
+		return $res;
 	}
 
-	function getDataForGraph($gereja,$partsUsia,$partsStatus)
-	{
+	function getDataForGraph($id,$partsUsia)
+	{	$id = $this->session->userdata('gereja_id');
 		$hasil=$this->db->query("SELECT 
 			COUNT(usia) AS jumlah,
-			usia AS usia,
-			status_perkawinan AS status 
+			usia AS usia 
 		From 
 			jemaats 
 		WHERE 
-			gerejaid = $gereja
+				gerejaid = $id
 			AND 
-			status = 'Hidup'
+				status = 'Hidup'
 			AND 
-			((status_perkawinan in ($partsStatus)) AND (usia in ($partsUsia)))
-				
+				usia in ($partsUsia)
 		GROUP BY 
 			usia
 		");
@@ -42,27 +45,36 @@ class M_manajemenusia extends CI_Model
 		return $hasil->result();
 	}
 
-	function getPDF($partsUsia,$partsStatus,$gereja)
-	{		
-		 $hasil=$this->db->query("SELECT a.Nama_Lengkap as NamaLengkap,a.alamat_tinggal as alamat,a.jenis_kelamin as gender,a.usia as usia,b.namagereja as namagereja, a.status_perkawinan as status_perkawinan from jemaats a Left join gereja b ON a.gerejaid = b.id WHERE a.gerejaid=$gereja and a.status = 'Hidup' and ((a.status_perkawinan in ($partsStatus)) AND (a.usia in ($partsUsia)))");
+	function getPDF($parts,$id)
+	{	 
+		$this->output->enable_profiler(TRUE);$id = $this->session->userdata('gereja_id');
+		 $hasil=$this->db->query("SELECT a.Nama_Lengkap as NamaLengkap,
+		 a.alamat_tinggal as alamat,
+		 a.jenis_kelamin as gender,
+		 a.usia as usia,
+		 b.namagereja as namagereja 
+		 from jemaats a 
+		 Left join gereja b ON a.gerejaid = b.id
+		 WHERE a.gerejaid=$id 
+		 and a.status = 'Hidup' 
+		 AND (a.usia in ($parts))
+		 ORDER BY a.usia ASC");
 		 
 		 return $hasil->result();
 	}
-
-	function getStatistik($usiastart,$usiaend,$gereja, $berdasarStatus)
-	{		
-		 $hasil=$this->db->query("SELECT     
-CASE
-        WHEN umur < 12 THEN 'anak kurang dari 12 th'
-        WHEN umur BETWEEN 13 and 17 THEN 'Remaja (13 - 17th)'
-        WHEN umur BETWEEN 18 and 25 THEN 'Pemuda (18 - 25th)'
-        WHEN umur BETWEEN 26 and 40 THEN 'Dewasa Muda / Keluarga Muda (26 - 40th)'
-                WHEN umur BETWEEN 41 and 60 THEN 'Dewasa (41 - 60th)'
-        WHEN umur > 60 THEN 'Adiyuswa'
-        WHEN umur IS NULL THEN '(NULL)'
-	    END as range_umur, COUNT(*) AS jumlah FROM (select TIMESTAMPDIFF(YEAR, tgl_lahir, CURDATE()) AS umur from jemaats WHERE tgl_lahir BETWEEN '".$usiastart."' AND '".$usiaend."' AND peran_gereja = 'Jemaat' AND gerejaid = '".$gereja."' AND status_perkawinan IN ('".$berdasarStatus."')) as dummy_table
-GROUP BY range_umur
-ORDER BY range_umur");
+	function getStatistik($parts,$id)
+	{	$id = $this->session->userdata('gereja_id');	
+		 $hasil=$this->db->query("SELECT COUNT(a.Nama_Lengkap) as JumlahJemaat,
+		 COUNT(IF(a.usia='<12 th',1, NULL)) as Anak,
+		 COUNT(IF(a.usia='13-17 th',1, NULL)) as Remaja,
+		 COUNT(IF(a.usia='18-25 th',1, NULL)) as Dewasa, 
+		 COUNT(IF(a.usia='41-60 th',1, NULL)) as Tua,
+		 COUNT(IF(a.usia='>60 th',1, NULL)) as Lansia 
+		 from jemaats a 
+		 Left join gereja b ON a.gerejaid = b.id 
+		 WHERE a.gerejaid = $id 
+		 and a.status = 'Hidup' 
+		 and (a.usia in ($parts))");
 		 
 		 return $hasil->result();
 	}

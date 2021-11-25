@@ -6,9 +6,9 @@ use PHPMailer\PHPMailer\Exception;
 class Mailer
 {
     protected $_ci;
-    protected $email_pengirim = 'sandlewoodmarapu@gmail.com'; // Isikan dengan email pengirim
-    protected $nama_pengirim = 'GKJ Klasis Gunung Kidul'; // Isikan dengan nama pengirim
-    protected $password = 'nabramprqnilinsk'; // Isikan dengan password email pengirim
+    protected $email_pengirim = 'gkjklasisyogyakarta@gmail.com'; // Isikan dengan email pengirim
+    protected $nama_pengirim = 'GKJ Klasis Yogyakarta'; // Isikan dengan nama pengirim
+    protected $password = 'srsmdrkjdwwjealy'; // Isikan dengan password email pengirim
     public function __construct()
     {
         $this->_ci = &get_instance(); // Set variabel _ci dengan Fungsi2-fungsi dari Codeigniter

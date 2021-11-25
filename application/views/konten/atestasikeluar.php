@@ -7,9 +7,9 @@
         <small></small>
       </h1>
       <ol class="breadcrumb">
-        <li><a href="pendetaa/pastorr"><i class="fa fa-briefcase"></i> Menu PASTOR </a></li>
-        <li class="active">Atestasi keluar </li>
-      </ol>
+        <li><a href="pendetaa/pendeta"><i class="fa fa-briefcase"></i> Menu Pendeta </a></li>
+        <li class="active">Permintaan Atestasi Keluar </li>
+      </ol> 
     </section>
 
     <!-- Main content -->
@@ -26,489 +26,324 @@
             <div class="box-body table-responsive">
               <table id="example1" class="table table-striped table-bordered table-responsive" style="width:100%;font-size:13px;">
                 <thead>
-                <tr>
+                  <tr>
                     <th style="width:38px;">#</th>
-                    <th>Username</th>
+                    
                     <th>Nama Lengkap</th>
-                    <th>Email</th>
-                    <th>No. Telp</th>
-                    <th>Asal Gereja</th>
+                    <th>Gereja Baru</th>
+                    <th>Pepantan</th>
+                    <th>Keterangan</th>
+                    <!-- <th>Asal Gereja</th> -->
                     <th style="text-align:center;">Aksi</th>
-                </tr>
+                  </tr>
                 </thead>
                 <tbody>
-                        <?php
-                            $no = 0;
-                             foreach ($data->result_array() as $i) :
-                                    $no++;
-                                    $id = $i['id'];                                    
-                                    $username = $i['username'];
-                                    $fullname = $i['fullname'];
-                                    $email = $i['email'];                                    
-                                    $telpno = $i['telpno'];
-                                    $namagereja = $i['namagereja'];
-                         ?>
-                <tr>
-                    <td style="text-align:left;width:38px;"><?php echo $no; ?></td>
-                    <td><?php echo $username; ?></td>
-                    <td><?php echo $fullname; ?></td>
-                    <td><?php echo $email; ?></td>
-                    <td><?php echo $telpno; ?></td>
-                    <td><?php echo $namagereja; ?></td>
-                    <td style="text-align:center;"> 
-                        <span data-toggle="tooltip" data-placement="top" data-original-title="Lihat Detail">
-                          <a data-toggle="modal" data-target="#detail_data<?php echo $id; ?>">
-                            <button type="button" class="btn btn-white btn-xs" title="View Details"><i class="fa fa-eye"> Detail</i></button>
-                          </a>
+                  <?php
+                  $no = 0;
+                  foreach ($data->result_array() as $i) :
+                    $no++;
+                    $id = $i['id_jemaat'];                 
+                                    // $namagereja = $i['namagereja'];
+                    ?>
+                    <tr>
+                      <td style="text-align:left;width:38px;"><?php echo $no; ?></td>
+                      <td><?php  echo $i['nama_lengkap'];  ?></td>
+                      <td><?php $this->lib->nama_gereja($i['id_gereja_baru']);  ?></td>
+                      <td><?php $this->lib->nama_pepantan($i['pepantan']); ?></td>
+                      <td><?php echo $i['keterangan']; ?></td>
+                      <td style="text-align:center;"> 
+                        <span data-toggle="tooltip" data-placement="top" data-original-title="Tinjau">
+                          <!-- <a data-toggle="modal" data-target="#detail_data<?php echo $id; ?>">
+                            <button type="button" class="btn btn-white btn-xs" title="View Details"><i class="fa fa-eye"> Tinjau</i></button>
+                          </a> -->
                         </span> 
-                        <span data-toggle="tooltip" data-placement="top" data-original-title="Edit ">
+                        <span data-toggle="tooltip" data-placement="top" data-original-title="Ambil Tindakan ">
                           <a data-toggle="modal" data-target="#edit_data<?php echo $id; ?>">
-                            <button type="button" class="btn btn-info btn-xs" title="Edit"><i class="fa fa-pencil"></i> Edit</button>
+                            <button type="button" class="btn btn-info btn-xs" title="Edit"><i class="fa fa-switch"></i> Ambil Tindakan</button>
                           </a>
                         </span> 
                        <!-- <span data-toggle="tooltip" data-placement="top" data-original-title="Hapus">
                           <a data-toggle="modal" data-target="#ModalHapus<?php echo $id; ?>">
                             <button type="button" class="btn btn-danger btn-xs" title="Hapus"><i class="fa fa-trash"></i> Hapus</button>
                           </a>
-                       </span>   -->
-                    
-                    </td>
-                </tr>   
-    <?php endforeach; ?>
+                        </span>   -->
+
+                      </td>
+                    </tr>   
+                  <?php endforeach; ?>
                 </tbody>
               </table>
             </div>
-     
 
-    </section>
-  </div>
 
-<?php foreach ($data->result_array() as $i) :
-    $id = $i['id'];
-    $username = $i['username'];
-    $fullname = $i['fullname'];
-    $email = $i['email'];  
-    $active = $i['active'];                                    
-    $telpno = $i['telpno'];
-    $namagereja = $i['namagereja'];
-    $gerejaid = $i['gerejaid'];
-    $groupname = $i['groupname'];
-?>
-<!--EDIT DATA -->
-<div class="modal fade" id="edit_data<?php echo $id; ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-      <div class="modal-content">
-        <div class="modal-header modal-header-success">
-          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
-          <h3>Edit Akun Pemakai</h3>
+          </section>
         </div>
-        <form class="form-horizontal" action="<?php echo base_url('Atestasikeluar/editData')?>" method="post" enctype="multipart/form-data" role="form">
-          <input type="hidden" name="idedit" value="<?php echo $id; ?>">
-          <div class="modal-body">
-              <div class="form-group col-md-6">
-                <div class="input-group col-md-10">
-                  <label>Username</label>
-                  <input id="username_edit" name="username_edit" value="<?php echo $username; ?>" class="form-control" type="text" readonly="readonly"/>
+        <!-- jk===================================================================================================================================================================== -->
+
+
+        <!-- UPDATE -->
+
+        <?php foreach ($data->result_array() as $i) :
+          $id = $i['id_jemaat'];         
+          $dokumen = $this->db->get_where('tb_dokumen_warga', array('id_warga' => $i['id']))->row_array();       
+          $nama_lengkap = $i['nama_lengkap'];
+          $id_gereja_baru = $i['id_gereja_baru'];
+          $pepantan = $i['pepantan'];                                    
+          $keterangan = $i['keterangan'];
+          $state = $i['state'];
+          ?>
+
+
+
+          <div class="modal fade" id="edit_data<?php echo $id; ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+              <div class="modal-content">
+                <div class="modal-header modal-header-success">
+                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+                  <h3>Tinjau berkas Atestasi Keluar</h3> 
                 </div>
-              </div>
-              <div class="form-group col-md-6">
-                <div class="input-group col-md-10">
-                  <label for='text'>Fullname</label>
-                  <input id="fullname_edit" name="fullname_edit" value="<?php echo $fullname; ?>" class="form-control" type="text" readonly="readonly" />
-                </div>
-              </div>              
-                  <br>
-                  <div class="form-group col-md-6">
-                  <div class="input-group col-md-10">
-                    <label>Status Aktif Akun Pemakai</label>                      
-                        <?php 
-                        if($active == 1){
-                          $active = 'Aktif';
-                        }else{
-                           $active = 'Tidak Aktif';
-                        } 
-                        ?>
-                  <input readonly="readonly" value="<?php echo $active; ?>" class="form-control" type="text" />
-                  </div>
-              </div>
-                  <br>
-              <div class="form-group col-md-6">
-                  <div class="input-group col-md-10">
-                      <label>User Group</label>
-                        <select class='form-control' name="user_group_edit">
-                          <option value='<?php echo $id; ?>'><?php echo $groupname; ?></option>
-                             
-                        </select>
-
-                  </div>
-              </div>
-                  <br>
-              <div class="form-group col-md-6">
-                  <div class="input-group col-md-10">
-                      <label>Telephone</label>
-                      <input id="telephone_edit" value="<?php echo $telpno; ?>" name="telephone_edit" class="form-control" type="Text" readonly="readonly" />
-                  </div>
-              </div>
-                  <br>
-              <div class="form-group col-md-6">
-                  <div class="input-group col-md-10">
-                      <label>Email</label>
-                        <input id="email_edit" value="<?php echo $email; ?>" name="email_edit" class="form-control" type="text" readonly="readonly"/>
-                  </div>
-              </div>
-                <br>
-
-                  <br>
-              <div class="form-group col-md-12">
-                  <div class="input-group col-md-5">
-                    <label>Asal Gereja</label>
-                    <select class='form-control' id='gereja_edit' name="gereja_edit">
-                      <option value='<?php echo $gerejaid; ?>'><?php echo $namagereja; ?></option>
-                          <?php 
-                            foreach ($gereja as $grj) {
-                              echo "<option value='$grj[id]'>$grj[namagereja]</option>";
-                            }
-                          ?>
-                    </select>
-                  </div>
-              </div>      
-                <br>
-              <div class="modal-footer">
-                  <span id='error'></span>
-                   <button class="btn btn-info" type="submit">Update</button>
-                  <button class="btn btn-default" data-dismiss="modal">close</button>
-              </div>                
-          </div>
-      </form>
-    </div>
-   </div>
-</div>
-<!--tutup EDIT DATA -->
-<?php endforeach; ?>
-
-
-
-<?php foreach ($data->result_array() as $i) :
-    $id = $i['id'];
-    $username = $i['username'];
-    $fullname = $i['fullname'];
-    $email = $i['email'];  
-    $active = $i['active'];                                    
-    $telpno = $i['telpno'];
-    $namagereja = $i['namagereja'];
-    $gerejaid = $i['gerejaid'];
-    $groupname = $i['groupname'];
-?>
-<!--Detail DATA -->
-<div class="modal fade" id="detail_data<?php echo $id; ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-      <div class="modal-content">
-        <div class="modal-header modal-header-success">
-          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
-          <h3>Detail Akun Pemakai</h3>
-        </div>
-       
-          <input type="hidden" name="idedit" value="<?php echo $id; ?>">
-          <div class="modal-body">
-              <div class="form-group col-md-6">
-                <div class="input-group col-md-10">
-                  <label>Username</label>
-                  <input value="<?php echo $username; ?>" class="form-control" type="text" readonly="readonly" />
-                </div>
-              </div>
-              <div class="form-group col-md-6">
-                <div class="input-group col-md-10">
-                  <label for='text'>Fullname</label>
-                  <input readonly="readonly" value="<?php echo $fullname; ?>" class="form-control" type="text" />
-                </div>
-              </div>              
-                  <br>
-              <div class="form-group col-md-6">
-                  <div class="input-group col-md-10">
-                    <label>Status Aktif Akun Pemakai</label>                      
-                        <?php 
-                        if($active == 1){
-                          $active = 'Aktif';
-                        }else{
-                           $active = 'Tidak Aktif';
-                        } 
-                        ?>
-                  <input readonly="readonly" value="<?php echo $active; ?>" class="form-control" type="text" />
-                  </div>
-              </div>
-                  <br>
-              <div class="form-group col-md-6">
-                  <div class="input-group col-md-10">
-                      <label>User Group</label>
-                        <select class='form-control' name="user_group_edit">
-                          <option value='<?php echo $id; ?>'><?php echo $groupname; ?></option>   
-                        </select>
-
-                  </div>
-              </div>
-                  <br>
-              <div class="form-group col-md-6">
-                  <div class="input-group col-md-10">
-                      <label>Telephone</label>
-                      <input readonly="readonly" value="<?php echo $telpno; ?>" class="form-control" type="Text" />
-                  </div>
-              </div>
-                  <br>
-              <div class="form-group col-md-6">
-                  <div class="input-group col-md-10">
-                      <label>Email</label>
-                        <input readonly="readonly" value="<?php echo $email; ?>" class="form-control" type="text"/>
-                  </div>
-              </div>
-                <br>
-
-                  <br>
-              <div class="form-group col-md-12">
-                  <div class="input-group col-md-5">
-                    <label>Asal Gereja</label>
-                    <input readonly="readonly" value="<?php echo $namagereja; ?>" class="form-control" type="text"/>
-                  </div>
-              </div>      
-                <br>
-              <div class="modal-footer">
-                  <span id='error'></span>
-                   
-                  <button class="btn btn-default" data-dismiss="modal">close</button>
-              </div>                
-          </div>
-    </div>
-   </div>
-</div>
-<!--tutup Detail DATA -->
-<?php endforeach; ?>
-
-
-
-<?php foreach ($data->result_array() as $i) :
-$id = $i['id'];
-$username = $i['username'];
-?>
-        <div class="modal fade" id="ModalHapus<?php echo $id; ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><span class="fa fa-close"></span></span></button>
-                        <h4 class="modal-title" id="myModalLabel">Hapus Barang</h4>
-                    </div>
-                    <form class="form-horizontal" action="<?php echo base_url().'Atestasikeluar/hapusData'; ?>" method="post" enctype="multipart/form-data">
-                    <div class="modal-body">
-                            <input type="hidden" name="kode" value="<?php echo $id; ?>"/>
-                            <p>Apakah Anda yakin mau menghapus Username  <b><?php echo $username; ?></b> ?</p>
-
+                <div class="modal-body">
+                  <form id="xyz_<?= $id; ?>">
+                    <div class="row">
+                      <div class="form-group">
+                        <div class="col-md-2">Nama</div>
+                        <div class="col-md-10">: <?= $i['nama_lengkap']?></div>
+                      </div>
+                      <div class="form-group">
+                        <div class="col-md-2">Gereja Tujuan</div>
+                        <div class="col-md-10">: <?php $this->lib->nama_gereja($i['id_gereja_baru']);?></div>
+                      </div>
+                      <div class="form-group">
+                        <div class="col-md-2">Alamat Tinggal</div>
+                        <div class="col-md-10">: <?= $i['alamat_tinggal']?></div>
+                      </div>
+                      <div class="form-group">
+                        <div class="col-md-2">Alasan Atestasi</div>
+                        <div class="col-md-10">: <?= str_replace('<p>', '', $i['keterangan'])?></div>
+                        </div>
+                        <div class="form-group">
+                          <div class="col-md-2">Email</div>
+                          <div class="col-md-10">: <?= $i['alamat_email']?></div>
+                        </div>
+                        <div class="form-group">
+                          <div class="col-md-2">Telepon Rumah</div>
+                          <div class="col-md-10">: <?= $i['telepon_rumah']?></div>
+                        </div>
+                        <div class="form-group">
+                          <div class="col-md-2">No handphone</div>
+                          <div class="col-md-10">: <?= $i['telepon_wa']?></div>
+                        </div>
+                        <div class="form-group">
+                          <div class="col-md-2">&nbsp;</div>
+                          <div class="col-md-5">: 
+                            <label style="margin-left: 50px;"><b>Akte Lahir</b></label><br>
+                            <input disabled="disabled" type="file" id="akte_lahir" class="dropify" <?php if ($i['akte_lahir'] != '' || $$i['akte_lahir'] != null) { ?> data-default-file="<?= base_url($i['akte_lahir']) ?>" <?php } ?> />
+                          </div>
+                          <div class="col-md-5">
+                            <label style="margin-left: 130px; "><b>Surat Atestasi</b></label><br>
+                            <input type="hidden" name="idx" id="idx_<?= $id?>" value="<?= $dokumen['id_warga']?>">
+                            <input onchange="simpanFoto('astestasi_<?= $id?>')" type="file" id="astestasi_<?= $id?>" class="dropify" <?php if ($dokumen['astestasi'] != '' || $dokumen['astestasi'] != null) { ?> data-default-file="<?= base_url($dokumen['astestasi']) ?>" <?php } ?> />
+                          </div>
+                        </div><br>
+                        <div class="form-group">
+                          <div class="col-md-2">Status Jemaat</div>
+                          <div class="col-md-10">
+                            <div class="form-group" style="margin-left: 5px;">
+                              <input type="radio" value="1" required name="pilih">
+                              <label for="terima">Terima</label>
+                              <input type="radio" value="2" required name="pilih">
+                              <label for="tolak">Tolak</label>
+                            </div>
+                          </div><br>
+                        </div>
+                        <div class="form-group">
+                          <div class="col-md-2">Alasan Penolakan</div>
+                          <div class="col-md-10">
+                            <input type="hidden" name="id" value="<?= $i['id_jemaat']?>">
+                            <textarea width="400" name="alasan" placeholder="Isikan Alasan Jika Menolak"></textarea>
+                          </div>
+                        </div><br>
+                      </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-default btn-flat" data-dismiss="modal"><i class="fa fa-close"></i> Close</button>
-                        <button type="submit" class="btn btn-danger btn-flat" id="simpan"><i class="fa fa-trash"></i> Hapus</button>
+                      <button type="submit" class="btn btn-primary">Proses</button>
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                     </div>
-                    </form>
+                  </form>
                 </div>
+              </div>
             </div>
-       </div>
-    <?php endforeach; ?>
+            <script>
+              var id = "<?= $i['id_jemaat'] ?>";
 
-<!-- <div class="modal fade" id="tambah_data" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header modal-header-success">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
-                <h3>Tambah Data</h3>
-            </div>
-        <form class="form-horizontal" onsubmit="return validateForm()" action="<?php echo base_url('Atestasikeluar/insertData')?>" method="post" enctype="multipart/form-data" role="form">
+              $('#xyz_'+ id).on('submit', (function(e) {
+                e.preventDefault();
 
-            <div class="form-group">
-                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Username <span class="required">*</span>
-                </label>
-                <div class="col-md-6 col-sm-6 col-xs-12">
-                    <input type="text" id="username" placeholder="Username" name="username" class="form-control col-md-7 col-xs-12">
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Full Name <span class="required">*</span>
-                </label>
-                <div class="col-md-6 col-sm-6 col-xs-12">
-                    <input type="text" id="fullname" placeholder ="Full Name" name="fullname" class="form-control col-md-7 col-xs-12">
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">Password</label>
-                <div class="col-md-6 col-sm-6 col-xs-12">
-                    <input id="password" class="form-control col-md-7 col-xs-12" name="password" type="password" placeholder="Password">
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">Re-type Password</label>
-                <div class="col-md-6 col-sm-6 col-xs-12">
-                    <input id="confirm_password" class="form-control col-md-7 col-xs-12" type="password" placeholder="Re-Type Password">
-                </div>
-                <span id='message'></span>
-            </div>
-            <div class="form-group">
-                <label class="control-label col-md-3 col-sm-3 col-xs-12">User Group</label>
-                <div class="col-md-4 col-sm-9 col-xs-12">
-                    <select class="form-control" name="user_group">
-                        <option value='6'>Induk</option>
-                        <option value='1'>Admin Gereja</option>         
-                        <option value="9">Pendeta</option>              
-                    </select>
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="control-label col-md-3 col-sm-3 col-xs-12">Status Aktif Akun Pemakai</label>
-                <div class="col-md-6 col-sm-6 col-xs-12">
-                    <div id="gender" class="btn-group" data-toggle="buttons">
-                        <label data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
-                        <input type="radio" name="status" checked="checked" value="1"> &nbsp; Aktif &nbsp;
-                        </label>
-                        <label data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
-                        <input type="radio" name="status" value="0"> Tidak Aktif
-                        </label>
-                    </div>
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="control-label col-md-3 col-sm-3 col-xs-12">Nomor Telepon <span class="required">*</span>
-                </label>
-                <div class="col-md-6 col-sm-6 col-xs-12">
-                    <input id="telephone" class="form-control col-md-7 col-xs-12" name="telephone" placeholder="Telephone" type="text">
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="control-label col-md-3 col-sm-3 col-xs-12">Email <span class="required">*</span>
-                </label>
-                <div class="col-md-6 col-sm-6 col-xs-12">
-                    <input id="email" name="email" class="form-control col-md-7 col-xs-12" type="email" placeholder="Email@mail.com">
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="control-label col-md-3 col-sm-3 col-xs-12">Asal Gereja</label>
-                <div class="col-md-4 col-sm-9 col-xs-12">
-                    <select class='form-control' id='gereja' name="gereja">
-                        <option value='0' id='gereja' name="gereja">--pilih--</option>
-                            <?php 
-                                foreach ($gereja as $grj) {
-                                    echo "<option value='$grj[id]'>$grj[namagereja]</option>";
-                                }
-                            ?>
-                    </select>
-                </div>
-            </div>
-            <div class="ln_solid"></div>
-            <div class="form-group">
-                <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3 pull-right">
-                    <button class="btn btn-primary" data-dismiss="modal" type="button">Cancel</button>                    
-                    <button type="submit" class="btn btn-success">Submit</button>
-                </div>
-            </div>
-            <br>
-            <br>
-        </form>
-        </div>
-    </div>
-</div> -->
+                $.ajax({
+                  url: '<?= site_url("Atestasi/Atestasikeluar/insertData/") ?>',
+                  type: 'POST',
+                  data: new FormData(this),
+                  dataType: 'json',
+                  contentType: false,
+                  cache: false,
+                  processData: false,
+                  success: function(response) {
+                    if (response.s == 'sukses') {
+                      toastr.success(response.m);
+                      setTimeout(function() {
+                        location.reload();
+                      }, 1500);
+                    } else {
+                      toastr.error(response.m);
+                    }
+                  },
+                });
 
-<script type="text/javascript">
-$(document).ready(function () {
-   $('#example1').DataTable( {
-        responsive: true
-    } );
- 
-    new $.fn.dataTable.FixedHeader( table );
+              }));
+
+              function simpanFoto(nm) {
+                var idx = "<?= $i['id_jemaat'] ?>";
+                var fd = new FormData();
+                var id = $('#idx_'+idx).val();
+                var nmx = nm.split('_');
+                var nma = nmx[0];
+                console.log(nmx)
+                var files = $('#' + nm)[0].files[0];
+                fd.append('file', files);
+                fd.append('jenis', nma);
+                fd.append('id', id);
+                console.log($('#' + nm).val())
+
+                $.ajax({
+                  url: '<?= site_url("warga/jemaat/asyncr") ?>',
+                  type: 'post',
+                  data: fd,
+                  dataType: "json",
+                  contentType: false,
+                  processData: false,
+                  success: function(response) {
+                    if (response.status == 'sukses') {
+                      toastr.success(response.message);
+                    } else {
+                      toastr.error(response.message);
+                    }
+                  },
+                });
+              } 
+            </script>
+          <?php endforeach; ?>
+
+          <script type="text/javascript">
+
+            $(document).ready(function () {
+
+              $('#example1').DataTable( {
+                responsive: true
+              });
+
+              
+              $('#alasan').hide();
+              $('#pilih').on('change', function() {    
+               if($('#pilih').val() == '2') {
+                 $('#alasan').show();
+                 $('#alasan').attr('required', 'required');
+               } else {
+                $('#alasan').hide();
+                $('#astestasi').attr('required', 'required');
+                $('#alasan').removeAttr('required');
+              } 
+            });
+
+              $('textarea').wysihtml5({
+            "font-styles": true, //Font styling, e.g. h1, h2, etc. Default true
+            "emphasis": true, //Italics, bold, etc. Default true
+            "lists": true, //(Un)ordered lists, e.g. Bullets, Numbers. Default true
+            "html": false, //Button which allows you to edit the generated HTML. Default false
+            "link": true, //Button to insert a link. Default true
+            "image": true, //Button to insert an image. Default true,
+            "color": false //Button to change color of font  
+          });
+
+              new $.fn.dataTable.FixedHeader( table );
 
     //Update Barang
-        $('#btn_edit').click(function(){
-            alert("ehe");
-            return false;
-            var kobar=$('#kode_barang2').val();
-            var nabar=$('#nama_barang2').val();
-            var harga=$('#harga2').val();
-            $.ajax({
-                type : "POST",
-                url  : "<?php echo base_url('index.php/barang/update_barang')?>",
-                dataType : "JSON",
-                data : {kobar:kobar , nabar:nabar, harga:harga},
-                success: function(data){
-                    $('[name="kobar_edit"]').val("");
-                    $('[name="nabar_edit"]').val("");
-                    $('[name="harga_edit"]').val("");
-                    $('#ModalaEdit').modal('hide');
-                    tampil_data_barang();
-                }
+    $('#btn_edit').click(function(){
+      alert("ehe");
+      return false;
+      var kobar=$('#kode_barang2').val();
+      var nabar=$('#nama_barang2').val();
+      var harga=$('#harga2').val();
+      $.ajax({
+        type : "POST",
+        url  : "<?php echo base_url('index.php/barang/update_barang')?>",
+        dataType : "JSON",
+        data : {kobar:kobar , nabar:nabar, harga:harga},
+        success: function(data){
+          $('[name="kobar_edit"]').val("");
+          $('[name="nabar_edit"]').val("");
+          $('[name="harga_edit"]').val("");
+          $('#ModalaEdit').modal('hide');
+          tampil_data_barang();
+        }
+      });
+      return false;
+    });
+  });
+
+
+            var resultPassword = "";
+
+            $('#password, #confirm_password').on('keyup', function () {
+              if ($('#password').val() == $('#confirm_password').val()) {
+                $('#message').html('Matching').css('color', 'green');
+                $('#btn_tambah').prop('disabled', false);
+                resultPassword = "true";
+              } else {
+                $('#btn_tambah').prop('disabled', true);
+                $('#message').html('Not Matching').css('color', 'red');
+                resultPassword = "false";
+              }
+
             });
-            return false;
-        });
-});
-    
+            $('#ubah_password').prop('disabled', true);
+            $('#password_edit, #confirm_password_edit').on('keyup', function () {
+              if ($('#password_edit').val() == $('#confirm_password_edit').val()) {
+                $('#message_edit').html('Matching').css('color', 'green');
 
-// if($('#username_edit').val() == ''){
-//                alert("Username tidak boleh kosong!!");
-//                return false;
-//            } else if($('#fullname_edit').val() == ''){
-//                alert("FullName tidak boleh kosong!!");
-//                return false;
-//            } else if($('#telephone_edit').val() == ''){
-//                alert("Telephone tidak boleh kosong!!");
-//                return false;
-//            } else if($('#email_edit').val() == ''){
-//                alert("Email tidak boleh kosong!!");
-//                return false;
-//            } else {}
+                $('#ubah_password').prop('disabled', false);
+              } else {
+                $('#ubah_password').prop('disabled', true);
+                $('#message_edit').html('Not Matching').css('color', 'red');
 
+              }
 
-var resultPassword = "";
+            });
 
-$('#password, #confirm_password').on('keyup', function () {
-  if ($('#password').val() == $('#confirm_password').val()) {
-    $('#message').html('Matching').css('color', 'green');
-    $('#btn_tambah').prop('disabled', false);
-    resultPassword = "true";
-  } else {
-    $('#btn_tambah').prop('disabled', true);
-    $('#message').html('Not Matching').css('color', 'red');
-    resultPassword = "false";
-  }
+            function validateForm() {
+              if($('#username').val() == ''){
+                alert("Username tidak boleh kosong!!");
+                return false;
+              } else if($('#fullname').val() == ''){
+                alert("FullName tidak boleh kosong!!");
+                return false;
+              } else if(resultPassword == "false"){
+                alert("Password tidak Sama!!");
+                return false;
+              } else if($('#telephone').val() == ''){
+                alert("Telephone tidak boleh kosong!!");
+                return false;
+              } else if($('#email').val() == ''){
+                alert("Email tidak boleh kosong!!");
+                return false;
+              } else if ($("#gereja").find(":selected").text() == '--pilih--'){
+                alert("Asal Gereja tidak boleh kosong!!");
+                return false;
+              }
+            }
 
-});
-$('#ubah_password').prop('disabled', true);
-$('#password_edit, #confirm_password_edit').on('keyup', function () {
-  if ($('#password_edit').val() == $('#confirm_password_edit').val()) {
-    $('#message_edit').html('Matching').css('color', 'green');
-    
-    $('#ubah_password').prop('disabled', false);
-  } else {
-    $('#ubah_password').prop('disabled', true);
-    $('#message_edit').html('Not Matching').css('color', 'red');
-    
-  }
-
-});
-
-function validateForm() {
-    if($('#username').val() == ''){
-        alert("Username tidak boleh kosong!!");
-        return false;
-    } else if($('#fullname').val() == ''){
-        alert("FullName tidak boleh kosong!!");
-        return false;
-    } else if(resultPassword == "false"){
-        alert("Password tidak Sama!!");
-        return false;
-    } else if($('#telephone').val() == ''){
-        alert("Telephone tidak boleh kosong!!");
-        return false;
-    } else if($('#email').val() == ''){
-        alert("Email tidak boleh kosong!!");
-        return false;
-    } else if ($("#gereja").find(":selected").text() == '--pilih--'){
-        alert("Asal Gereja tidak boleh kosong!!");
-        return false;
-    }
-}
-
-</script>
+            $(document).ready(function() {
+              $('.dropify').dropify();
+            }); 
+          </script>
 
 

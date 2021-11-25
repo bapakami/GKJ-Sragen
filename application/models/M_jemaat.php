@@ -114,10 +114,55 @@ class M_jemaat extends CI_Model
     }
     function dataTimeLine($id)
     {
-        return $this->db->get_where('log_aktivitas', array('id_user' => $id));
+        return $this->db->limit(6)->order_by('id', 'desc')->get_where('log_aktivitas', array('id_user' => $id));
     }
     function get_gereja($idgereja)
     {
         return $this->db->get_where('gereja', array('id' => $idgereja))->row_array();
     }
+
+    function get_iman($idiman){
+        return $this->db->get_where('iman', array('id' => $idiman))->row_array();
+    }
+
+    function get_pepantans($idgereja)
+    {
+        return $this->db->get_where('pepantans', array('id' => $idgereja))->row_array();
+    }
+
+    function get_jemaats($idgereja)
+    {
+        return $this->db->get_where('jemaats', array('id' => $idgereja))->row_array();
+    }
+
+    function astestasiKeluar($data)
+    {
+        return $this->db->insert('astestasi', $data);
+    }
+    function dataAstestasi($id)
+    {
+        return $this->db->get_where('astestasi', array('id_jemaat' => $id));
+    }
+    function cekAtestasi($id)
+    {
+        return $this->db->get_where('astestasi', array('id_jemaat' => $id, 'state' => 2));
+    }
+    function astestasiKeluarUpdate($data, $id)
+    {
+        return $this->db->where('id_jemaat', $id)->where('state', 2)->update('astestasi', $data);
+    }
+    function dataIman($id)
+    {
+        $this->db->select('*')->from('jemaats a')->join('pindah_iman b', 'a.id_user = b.id_jemaat')->where('a.id_user', $id);
+        return $this->db->get();
+    }
+    function daftarIman()
+    {
+        return $this->db->get('iman')->result_array();
+    }
+    function daftarPindahIman($data)
+    {
+        return $this->db->insert('pindah_iman', $data);
+    }
+    
 }

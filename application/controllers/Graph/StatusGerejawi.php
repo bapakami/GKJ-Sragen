@@ -10,20 +10,18 @@ class StatusGerejawi extends CI_Controller {
 
 	public function index()
 	{	
-		$columnStatus = $this->input->get('columnStatus');
-		$HanyaSidhi = $this->input->get('HanyaSidhi');
-		$HanyaBaptis = $this->input->get('HanyaBaptis');
-		$BaptisdanSidhi = $this->input->get('BaptisdanSidhi');
-		$BelumBaptisSidhi = $this->input->get('BelumBaptisSidhi');
+		$columnstatus = $this->input->get('columnstatus');
+		$columnstatuswarga =$this->input->get('columnstatuswarga');
 		$gereja = $this->input->get('gereja');
-		if ( $columnStatus == null) {
+		if ( $columnstatus == null) {
 			$column = $this->M_manajemenstatusgerejawi->pilihan();
 		}
-		$data['HanyaSidhi'] = $HanyaSidhi;
-		$data['HanyaBaptis'] = $HanyaBaptis;
-		$data['BaptisdanSidhi'] = $BaptisdanSidhi;
-		$data['BelumBaptisSidhi'] = $BelumBaptisSidhi;
-		$data['columnStatus'] = $columnStatus;
+		$data['sdh_sidhi'] = "";
+		$data['sdh_baptis'] = "";
+		$data['sdh_baptis_blm_sidhi'] = "";
+		$data['sdh_sidhi_blm_baptis'] = "";
+		$data['columnstatuswarga'] = $columnstatuswarga;
+		$data['columnstatus'] = $columnstatus;
 		$data['gereja'] = $gereja;
 
     	$this->load->view('template/header');
@@ -34,14 +32,11 @@ class StatusGerejawi extends CI_Controller {
 
 	public function data()
 	{
-		$HanyaSidhi = $this->input->get('HanyaSidhi');
-		$HanyaBaptis = $this->input->get('HanyaBaptis');
-		$BaptisdanSidhi = $this->input->get('BaptisdanSidhi');
-		$BelumBaptisSidhi = $this->input->get('BelumBaptisSidhi');
-		$columnStatus = $this->input->get('columnStatus');
+		$columnstatuswarga = $this->input->get('columnstatuswarga');
+		$columnstatus = $this->input->get('columnstatus');
 		$gereja = $this->input->get('gereja');
-		
-		if ( $columnStatus == null) {
+
+		if ( $columnstatus == null) {
 			$column = $this->M_manajemenstatusgerejawi->pilihan();
 		}
 
@@ -51,16 +46,37 @@ class StatusGerejawi extends CI_Controller {
 		}
 
 		$dataGraph = array();
-		$listStatus = '"'.implode('","', $columnStatus).'"';
-		$resultFromTableJemaats = $this->M_manajemenstatusgerejawi->getDataForGraph($gereja,$listStatus,$HanyaSidhi,$HanyaBaptis,$BelumBaptisSidhi,$BaptisdanSidhi);
+		$listStatus = '"'.implode('","', $columnstatus).'"';
+		$columnstatuswargaY = '"'.implode('","', $columnstatuswarga).'"';
+
+		// gereja id gerejaid
+		// liststatuswarga is for in functionn sql
+		// echo "<pre>"; print_r($columnstatus);exit;
+		$resultFromTableJemaats = $this->M_manajemenstatusgerejawi->getDataForGraph($gereja,$columnstatus,$columnstatuswargaY);
 		foreach($resultFromTableJemaats as $row)
 		{
-        	array_push($dataGraph, array("y"=> $row->jumlah, "label"=> $row->kategori));
+			if(in_array('Belum Baptis dan Sidhi', $columnstatus)) {				
+        	array_push($dataGraph, array("y"=> $row->blm_sidhi_blm_baptis, "label"=> $row->kategori." belum sidhi dan belum baptis"));
+			}
+			if(in_array('Hanya Sidhi', $columnstatus)) {
+        	array_push($dataGraph, array("y"=> $row->sdh_sidhi_blm_baptis, "label"=> $row->kategori." sudah sidhi tapi belum baptis"));
+			}
+			if(in_array('Hanya Baptis', $columnstatus)) {
+        	array_push($dataGraph, array("y"=> $row->sdh_baptis_blm_sidhi, "label"=> $row->kategori." sudah baptis tapi belum sidhi"));
+			}
+			if(in_array('Baptis dan Sidhi', $columnstatus)) {
+        	array_push($dataGraph, array("y"=> $row->sudah_semua, "label"=> $row->kategori." sudah baptis dan sudah sidhi"));
+			}
+        	// array_push($dataGraph, array("y"=> $row->jumlah, "label"=> $row->kategori));
+        	// array_push($dataGraph, array("y"=> $row->sdh_baptis_blm_sidhi, "label"=> "Sudah Baptis Tapi Belum Sidhi"));
+        	// array_push($dataGraph, array("y"=> $row->sdh_sidhi_blm_baptis, "label"=> "Sudah Sidhi Tapi Belum Baptis"));
+        	// array_push($dataGraph, array("y"=> $row->blm_sidhi_blm_baptis, "label"=> "Belum Sidhi dan Belum Baptis"));
 		}
 
+		// echo "<pre>"; print_r($resultFromTableJemaats);exit;
 		$name = "";
 		$resultName = $this->M_manajemenstatusgerejawi->getNamaGereja($gereja);
-		$resultStatus = implode(",", $columnStatus);
+		$resultStatus = implode(",", $columnstatus);
 		if (count($resultName) > 0) {
 			$name = $resultName[0]->namagereja;
 		}

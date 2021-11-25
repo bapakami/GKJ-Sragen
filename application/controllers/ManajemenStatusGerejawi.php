@@ -34,39 +34,24 @@ class ManajemenStatusGerejawi extends CI_Controller {
 
 
 	public function report_Data()
-	{
-		$HanyaSidhi = $this->input->post('HanyaSidhi');
-		$HanyaBaptis = $this->input->post('HanyaBaptis');
-		$BaptisdanSidhi = $this->input->post('BaptisdanSidhi');
-		$BelumBaptisSidhi = $this->input->post('BelumBaptisSidhi');
-
-		$a=array();
-		
-
-		if($HanyaSidhi != "" or $HanyaSidhi != null) 
-			array_push($a,$HanyaSidhi);
-		
-		if($HanyaBaptis != "" or $HanyaBaptis != null) 
-			array_push($a,$HanyaBaptis);
-		
-		if($BaptisdanSidhi != "" or $BaptisdanSidhi != null) 
-			array_push($a,$BaptisdanSidhi);
-		
-		if($BelumBaptisSidhi != "" or $BelumBaptisSidhi != null) 
-			array_push($a,$BelumBaptisSidhi);
-		$berdasarStatusGerejawi = implode(",",$a);
-		$statusWarga = $this->input->post('statusWarga');
-		$berdasarWarga = implode(",", $statusWarga);
-		$partsWarga = '"'.implode('","', $statusWarga).'"';
+		{	
+		ini_set('max_execution_time', 0); 
+		ini_set('memory_limit','2048M');
+		$status = $this->input->post('status');
+		$statuswarga = $this->input->post('statuswarga');
 		$gereja = $this->input->post('gereja');
-		
+		$berdasarstatus = implode(",", $status);
+		$berdasarstatuswarga = implode(",", $statuswarga);
+		$partsstatus = '"'.implode('","', $status).'"';
+		$partsstatuswarga = '"'.implode('","', $statuswarga).'"';
+		$gereja = $this->input->post('gereja');		
 
 		if($this->input->post('hasil_id') == 'PDF'){
 			
 			$data['namagereja'] = $this->M_manajemenstatusgerejawi->getNamaGereja($gereja);
-			$data['isi'] = $this->M_manajemenstatusgerejawi->getPDF($gereja,$partsWarga,$HanyaSidhi,$HanyaBaptis,$BelumBaptisSidhi,$BaptisdanSidhi);
-			$data['berdasarWarga'] = $berdasarWarga;
-			$data['berdasarStatus'] = $berdasarStatusGerejawi;
+			$data['isi'] = $this->M_manajemenstatusgerejawi->getPDF($gereja,$partsstatus,$partsstatuswarga);
+			$data['berdasarstatus'] = $berdasarstatus;
+			$data['berdasarstatuswarga'] = $berdasarstatuswarga;
 	  		$html=$this->load->view('laporan/pdf_laporanstatusgerejawi',$data , true);      
 	        //this the the PDF filename that user will get to download
 	  		$pdfFilePath = "Laporan_Gerejawi.pdf";
@@ -80,7 +65,7 @@ class ManajemenStatusGerejawi extends CI_Controller {
 	  		$this->m_pdf->pdf->Output($pdfFilePath, "I");
 		}else if($this->input->post('hasil_id') == 'XLS'){
 			$namagereja = $this->M_manajemenstatusgerejawi->getNamaGereja($gereja);
-			$isi =  $this->M_manajemenstatusgerejawi->getPDF($gereja,$partsWarga);
+			$isi =  $this->M_manajemenstatusgerejawi->getPDF($gereja,$partsstatus,$partsstatuswarga);
 			$spreadsheet = new Spreadsheet();
 			$sheet = $spreadsheet->getActiveSheet();
 			$heading=array('No','Nama Lengkap','Jenis kelamin','Alamat','Tanggal Baptis','Tanggal Sidhi','Status Warga','Asal Gereja'); //Field Header
@@ -138,22 +123,22 @@ class ManajemenStatusGerejawi extends CI_Controller {
 			exit;
 			 
 		}elseif ($this->input->post('hasil_id') == 'GRAPH') {
-			$columnStatus = $this->input->post('statusWarga');
+			$columnstatus = $this->input->post('status');
+			$columnstatuswarga = $this->input->post('statuswarga');
 			$gereja = $this->input->post('gereja');
+			if ( ! is_array($columnstatus)) {
+				redirect('ManajemenStatusGerejawi');
+			}
+
 			$arr = [
-				'columnStatus' => $columnStatus,
-				'HanyaSidhi' => $HanyaSidhi,
-				'HanyaBaptis' => $HanyaBaptis,
-				'BaptisdanSidhi' => $BaptisdanSidhi,
-				'BelumBaptisSidhi' => $BelumBaptisSidhi,
+				'columnstatus' => $columnstatus,
+				'columnstatuswarga' => $columnstatuswarga,
 				'gereja' => $gereja
 			];
 			redirect('Graph/StatusGerejawi?' . http_build_query($arr));		
 		}
 		
 	}
-
-
 
 
 }

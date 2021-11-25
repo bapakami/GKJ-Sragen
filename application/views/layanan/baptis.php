@@ -62,7 +62,8 @@ if($diff->y <= 13) {
                             <div class="row" id="formDatax">
                                 <div class="col-md-12">
                                     <center>
-                                        <h3>Pendaftaran Baptis <?= $jns?></h3>
+                                        <!-- <h3>Pendaftaran Baptis <?= $jns?></h3> -->
+                                        <h3>Pendaftaran Baptis</h3>
                                     </center>
                                     <hr />
                                 </div>
@@ -94,7 +95,7 @@ if($diff->y <= 13) {
                                     <div class="col-md-8">
                                         <label>: <?= (isset($jemaat['nama_ibu'])?$jemaat['nama_ibu']:'') ?></label>
                                     </div>
-                                     <div class="col-md-3">
+                                    <div class="col-md-3">
                                         <label>Saksi 1</label>
                                     </div>
                                     <div class="col-md-9">
@@ -110,22 +111,23 @@ if($diff->y <= 13) {
                                         <label>Berkas </label>
                                     </div>
                                     <div class="col-md-12">
-                                            <div style="margin-bottom: 3%;">
-                                                <h4 class="card-title text-center">Scan Akte Kelahiran</h4><br>
-                                                <input <?= $disabled; ?> onchange="simpanFoto('akte_lahir')" type="file" id="foto_akte_lahir" class="dropify" <?php if ($dokumen['akte_lahir'] != '' || $dokumen['akte_lahir'] != null) { ?> data-default-file="<?= base_url($dokumen['akte_lahir']) ?>" <?php } ?> /><br>
-                                            </div>
+                                        <div style="margin-bottom: 3%;">
+                                            <h4 class="card-title text-center">Scan Akte Kelahiran</h4><br>
+                                            <input <?= $disabled; ?> onchange="simpanFoto('akte_lahir')" type="file" id="foto_akte_lahir" class="dropify" <?php if ($dokumen['akte_lahir'] != '' || $dokumen['akte_lahir'] != null) { ?> data-default-file="<?= base_url($dokumen['akte_lahir']) ?>" <?php } ?> /><br>
+                                        </div>
                                     </div>
                                     <br><br><br>
                                     <div class="col-md-3"></div>
                                     <div class="col-md-12">
                                         <div>
-                                            <?php if ($diff->y >= 17) { ?>
-                                                <?= $marquee; ?>
-                                            <?php } else { ?>
-                                                <button class="btn btn-danger btn-sm pull-right" style="margin: 4px;">Maaf, umur minimum untuk mendaftar katekesasi adalah 17 Tahun</button>
-                                            <?php } ?>
+                                            <?= $marquee; ?>
                                         </div>
                                         <button <?= $disabled; ?> class="btn btn-danger btn-sm pull-left" id="ubah" style="margin: 4px;">Ubah Data</button>
+                                        <button class="btn btn-warning btn-sm pull-left" id="chat" style="margin: 4px;">Chat</button>
+                                    </div>
+
+                                    <div id="modal_form2" class="modal" data-width="800" data-height="400">
+                                        <div style="width: 100%;" id="tampil_form2"></div>
                                     </div>
                                 </div>
                             </div>
@@ -164,6 +166,12 @@ if($diff->y <= 13) {
     }
 
     $(document).ready(function() {
+         $(document).on('click','#chat',function(){
+            $('#tampil_form2').load("<?=site_url()?>/warga/layanan/chat/2",function(){
+                $('#modal_form2').modal('show');
+            });
+        });
+
         $('#ubah').on('click', function() {
             $('#formDatax').load('<?= site_url("warga/jemaat/editProfil")?>');
         });
@@ -173,6 +181,10 @@ if($diff->y <= 13) {
             var foto = document.getElementById('fotoUser');
             var jenis = foto.getAttribute('src');
             var value = jenis.split('/');
+            var ayah = "<?= $jemaat['nama_ayah']?>";
+            var ibu = "<?= $jemaat['nama_ibu']?>";
+            var gereja = "<?= $jemaat['gerejaid']?>";
+            console.log(gereja)
 
             // cek data scan an
 
@@ -203,6 +215,25 @@ if($diff->y <= 13) {
                 e.preventDefault(e);  
                 var state = false;              
             }
+
+            if(ayah == ''){
+                toastr.error('Pastikan nama ayah anda telah dilengkapi.');
+                e.preventDefault(e);  
+                var state = false;              
+            }
+
+            if(ibu == '' ){
+                toastr.error('Pastikan nama Ibu anda telah dilengkapi');
+                e.preventDefault(e);  
+                var state = false;              
+            }
+
+            if(gereja == '' ){
+                toastr.error('Pastikan data gereja anda telah dilengkapi');
+                e.preventDefault(e);  
+                var state = false;              
+            }
+
             if(state == true) {
                 var fd = new FormData();
                 var id = '<?= $jemaat['id'] ?>';

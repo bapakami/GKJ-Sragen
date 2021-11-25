@@ -26,27 +26,23 @@
 </div>
 
 <script>
-	var HanyaSidhi = <?= json_encode($HanyaSidhi) ?>;
-	var HanyaBaptis = <?= json_encode($HanyaBaptis) ?>;
-	var BaptisdanSidhi = <?= json_encode($BaptisdanSidhi) ?>;
-	var BelumBaptisSidhi = <?= json_encode($BelumBaptisSidhi) ?>;
-	var gereja = <?= json_encode($gereja) ?>;
-	var columnStatus = <?= json_encode($columnStatus) ?>;
 </script>
 
 <script>
 window.onload = function() {
+
+	var gereja = <?= json_encode($gereja) ?>;
+	var columnStatus = <?= json_encode($columnstatus) ?>;
+	var columnStatusWarga = <?= json_encode($columnstatuswarga) ?>;
+
 	var dataGraph = [];
 	var id = $('#gereja').val();
 	$.ajax({
 		type: "GET",
 		url: base_url + "Graph/StatusGerejawi/data",
 		data: {
-			"HanyaSidhi": HanyaSidhi,
-			"HanyaBaptis": HanyaBaptis,
-			"BaptisdanSidhi": BaptisdanSidhi,
-			"BelumBaptisSidhi": BelumBaptisSidhi,
-			"columnStatus": columnStatus,
+			"columnstatus": columnStatus,
+			"columnstatuswarga": columnStatusWarga,
 			"gereja": gereja
 		},
 		dataType: "json",

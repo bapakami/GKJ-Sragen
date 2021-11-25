@@ -2,7 +2,7 @@
   <div class="pull-right hidden-xs">
     <!-- <b> user online</b>  -->
   </div>
-  <strong> Copyright &copy; <a href=""> 2019 TI UKSW dan GKJ Klasis GunungKidul </strong></a>. All rights reserved.
+  <strong> Copyright &copy; <a href=""> 2019 TI UKSW dan GKJ Sragen </strong></a>. All rights reserved.
 </footer>
 </div>
 
@@ -14,7 +14,7 @@
 </aside>
 
 
-<script src="<?php echo base_url() . 'assets/js/popper.js'; ?>"></script>
+<script src="<?php echo base_url() . 'assets/aset/vendor/bootstrap/js/popper.js'; ?>"></script>
 <script src="<?php echo base_url() . 'assets/js/dropify/dropify.min.js'; ?>"></script>
 <script src="<?php echo base_url() . 'assets/plugins/slimScroll/jquery.slimscroll.min.js'; ?>"></script>
 <script src="<?php echo base_url() . 'assets/plugins/fastclick/fastclick.js'; ?>"></script>

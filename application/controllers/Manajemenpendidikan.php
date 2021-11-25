@@ -34,7 +34,8 @@ class Manajemenpendidikan extends CI_Controller {
 	}
 
 	public function report_Data()
-	{
+	{	ini_set('max_execution_time', 0); 
+		ini_set('memory_limit','2048M');
 		$pendidikan = $this->input->post('pendidikan');
 		$gereja = $this->input->post('gereja');	
 		$partsNo = '"'.implode('","', $pendidikan).'"';

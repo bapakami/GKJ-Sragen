@@ -15,7 +15,7 @@ if ($kat == 1) {
     $kate = $nikah->row_array();
     $st = $kate['state'];
     if ($st == 1) {
-        $marquee = "<marquee behavior='alternate'>Selamat Permohonan Nikah Anda Diterima</marquee>";
+        $marquee = "<marquee behavior='alternate'>Selamat Permohonan Nikah Anda Diterima </marquee>";
         $disabled = 'disabled';
     } elseif ($st == 2) {
         $marquee = "<marquee bgcolor='red'>Mohon Maaf, Permohonan Nikah Anda Ditolak</marquee>";
@@ -86,6 +86,10 @@ $diff = $today->diff($lahir);
                                                 <label>Nama Saksi</label>
                                                 <input type="text" name="saksi" id="saksi" class="form-control" required="required" value="<?= isset($n->saksi_pernikahan)?$n->saksi_pernikahan:''?>">
                                             </div>
+                                            <div class="form-group col-md-12">
+                                                <label>Nama Saksi</label>
+                                                <input type="text" name="saksi" id="saksi" class="form-control" required="required" value="<?= isset($n->saksi_pernikahan)?$n->saksi_pernikahan:''?>">
+                                            </div>
                                             <br><br><br>
                                         </div>
                                         <div class="col-md-6">                                        
@@ -98,14 +102,15 @@ $diff = $today->diff($lahir);
                                             <div class="col-md-12" id="announ"></div>
                                             <div class="col-md-12">
                                                 <div>
-                                                    <?php if ($diff->y >= 17) { ?>
-                                                        <?= $marquee; ?>
-                                                    <?php } else { ?>
-                                                        <button class="btn btn-danger btn-sm pull-right" style="margin: 4px;">Maaf, umur minimum untuk mendaftar katekesasi adalah 17 Tahun</button>
-                                                    <?php } ?>
+                                                    <?= $marquee; ?>
                                                 </div>
                                             </form>
                                             <button <?= $disabled; ?> class="btn btn-danger btn-sm pull-left" id="ubah" style="margin: 4px;">Ubah Data</button>
+                                            <button class="btn btn-warning btn-sm pull-left" id="chat" style="margin: 4px;">Chat</button>
+                                        </div>
+
+                                        <div id="modal_form2" class="modal" data-width="800" data-height="400">
+                                            <div style="width: 100%;" id="tampil_form2"></div>
                                         </div>
                                     </div>
                                 </div>
@@ -145,6 +150,13 @@ $diff = $today->diff($lahir);
     }
 
     $(document).ready(function() {
+        $(document).on('click','#chat',function(){
+            $('#tampil_form2').load("<?=site_url()?>/warga/layanan/chat/4",function(){
+                $('#modal_form2').modal('show');
+            });
+        });
+
+
         $('.tanggal').datepicker({
             format: "dd-mm-yyyy",
             autoclose:true

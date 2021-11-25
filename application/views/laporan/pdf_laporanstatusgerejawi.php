@@ -2,12 +2,15 @@
   <tr>
     <td><b><h2>Laporan Gerejawi</h2></b>
       <b><h2><?=$namagereja[0]->namagereja?></h2></b>
-      <h5> Berdasar : <?= $berdasarWarga ?> </h5>
-      <h5> Berdasar Status : <?= $berdasarStatus ?> </h5>
+      <h5> Berdasar : <?= $berdasarstatus ?> </h5>
+      <h5> Berdasar Status : <?= $berdasarstatuswarga ?> </h5>
     </td>
   </tr>
 </table>
 <br>
+
+
+
 <table border="1" style="border-collapse: collapse;width: 100%;">
       <tr>
             <th style="background-color: blue;font-size:12px;">Nama Lengkap</th>

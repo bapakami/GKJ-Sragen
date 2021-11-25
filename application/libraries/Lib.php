@@ -40,9 +40,9 @@ class Lib {
 			if ($st == 1) {
 				$marquee1 = "<marquee>Selamat Permohonan Katekesasi Anda Diterima</marquee>";
 			} elseif ($st == 2) {
-				$marquee1 = "<marquee>Mohon Maaf, Permohonan Katekesasi Anda Ditolak</marquee>";
+				$marquee1 = "<marquee>Mohon Maaf, Permohonan Baptis Anda Ditolak</marquee>";
 			} elseif ($st == 3) {
-				$marquee1 = "<marquee>Permohonan Katekesasi Anda Sedang Diproses</marquee>";
+				$marquee1 = "<marquee>Permohonan Baptis Anda Sedang Diproses</marquee>";
 			}
 		} else {
 			$marquee1 = "Daftar Baptis";
@@ -127,6 +127,32 @@ class Lib {
 		return $marquee;
 	}
 
+	function pindah_iman()
+	{
+		$CI = & get_instance();
+		$CI->load->model('M_jemaat');        
+		$katekesasi = $CI->M_jemaat->dataIman($CI->session->userdata('id'));
+		// echo $CI->db->last_query();exit;
+
+		$kat = $katekesasi->num_rows();
+		if ($kat == 1) {
+			$kate = $katekesasi->row_array();
+
+			$st = $kate['state'];
+			if ($st == 1) {
+				$marquee = "<marquee>Selamat Permohonan Pindah Iman Anda Diterima</marquee>";
+			} elseif ($st == 2) {
+				$marquee = "<marquee>Mohon Maaf, Permohonan Pindah Iman Anda Ditolak</marquee>";
+			} elseif ($st == 3) {
+				$marquee = "<marquee>Permohonan Pindah Iman Anda Sedang Diproses</marquee>";
+			}
+		} else {
+			$marquee = "Daftar Pindah Iman";
+		}
+
+		return $marquee;
+	}
+
 	function nama_gereja($idgereja)
 	{
 		$CI = & get_instance();
@@ -134,6 +160,117 @@ class Lib {
 		$namaGereja = $CI->M_jemaat->get_gereja($idgereja);
 
 		echo $namaGereja['namagereja'];
+	}
+
+	function nama_pepantan($idpepantan)
+	{
+		$CI = & get_instance();
+		$CI->load->model('M_jemaat');
+		$namaPepantan = $CI->M_jemaat->get_pepantans($idpepantan);
+
+		echo $namaPepantan['namapepantan'];
+	}
+
+	function nama_lengkap($namalengkap)
+	{
+		$CI = & get_instance();
+		$CI->load->model('M_jemaat');
+		$namaLengkap = $CI->M_jemaat->get_jemaats($namalengkap);
+
+		echo $namaLengkap['namalengkap'];
+	}
+
+	function nama_lengkap2($namalengkap)
+	{
+		$CI = & get_instance();
+		$CI->load->model('M_jemaat');
+		$namaLengkap = $CI->db->get_where('users', array('id' => $namalengkap))->row();
+
+		return $namaLengkap->fullname;
+	}
+
+	function nama_iman($idiman)
+	{
+		$CI = & get_instance();
+		$CI->load->model('M_jemaat');
+		$namaIman = $CI->M_jemaat->get_iman($idiman);
+
+		echo $namaIman['agama'];
+	}
+
+	function getImage($id)
+	{
+		$CI = & get_instance();
+		$CI->load->model('M_jemaat');
+		$namaLengkap = $CI->db->get_where('users', array('id' => $id))->row();
+		$foto = $namaLengkap->foto;
+		if($foto == '') {
+			$foto = 'assets/img/avatar5.png';
+		}
+
+		return $foto;
+	}
+
+	function color($id)
+	{
+		$color = '';
+		switch ($id) {
+			case '1':
+				$color = 'green';
+				break;
+			case '2':
+				$color = 'yellow';
+				break;
+			case '3':
+				$color = 'aqua';
+				break;
+			case '4':
+				$color = 'blue';
+				break;
+			case '5':
+				$color = 'purple';
+				break;
+			case '6':
+				$color = 'pink';
+				break;
+			case '7':
+				$color = 'pink';
+				break;
+			case '8':
+				$color = 'orange';
+				break;
+			
+			default:
+				$color = '';
+				break;
+		}
+
+		return $color;
+	}
+
+	function cekChat($id, $jenis)
+	{
+		$CI = & get_instance();
+		$cekCahttingan = $CI->db->get_where('chat', array('jenis_layanan' => $jenis, 'id_sender' => $id))->num_rows();
+		$jumlah = '';
+		if($cekCahttingan > 0) {
+			$jumlah = '<img src="'.base_url("assets/img/mail2.gif").'" style="width: 30px;" onclick="startChat('. $id .')"></span>';
+		}
+
+		echo $jumlah;
+	}
+
+	function cekDataJemaat($id, $jenis)
+	{
+		$CI = & get_instance();
+		$getData = $CI->db->query("SELECT ". $jenis ." FROM tb_dokumen_warga WHERE id_warga = '$id'")->row();
+		$result = '';
+		if(isset($getData) && $getData->$jenis != '') {
+			$exp = explode('/', $getData->$jenis);
+			$result = '<a download="'. $exp[2] .'" href="'. base_url().$getData->$jenis.'" title="dokumen">Download</a>';
+		}
+
+		return $result;
 	}
 
 }

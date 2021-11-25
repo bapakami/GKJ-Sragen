@@ -8,7 +8,6 @@
            <?php elseif($this->session->userdata('group_id')==='1'):?>
               Laporan Berdasarkan Usia Jemaat Gerejawi <br> <?= $NamaGereja?>
          <?php endif;?>
-       
         <small></small>
       </h1>
       <ol class="breadcrumb">
@@ -22,65 +21,14 @@
       <div class="row">
         <div class="col-xs-12">
           <div class="box">
-
             <!-- /.box-header -->
             <div class="box-body table-responsive">
            <form class="form-horizontal" onsubmit="return validateForm()" action="<?php echo base_url('Manajemenusia/report_Data')?>" method="post" enctype="multipart/form-data" role="form">
-              <label>Range Lahir </label> <br>
-<!--               <table id="checkbox-table" style="width:100%">
-                <tbody></tbody>
-              </table> -->
-              <div class="row">
-                <div class="col-sm-4">
-                  <input type="text" name="startusia" id="startusia" placeholder="from" class="form-control datepicker" required="required">
-                </div>                
-                <div class="col-sm-4">
-                  <input type="text" name="endusia" id="endusia" placeholder="To" class="form-control datepicker" required="required">
-                </div>
-              </div>
-                 <br>
-                 <table>
-                 <label>Status Pernikahan</label> <br>
-
-                   <tr>
-                   <td>  
-                     <div class="checkbox">
-                     <label><input type="checkbox" id="menikah" name="status[]" value="Menikah">Menikah</label>
-                     </div> 
-                   </td>
-
-                   <td>  
-                     <div class="checkbox">
-                     <label><input type="checkbox" id="belum_menikah" name="status[]" value="Belum Menikah">Belum Menikah</label>
-                     </div> 
-                   </td>
-                 </tr>
-
-                  <tr>
-                   <td>  
-                     <div class="checkbox">
-                     <label><input type="checkbox" id="janda" name="status[]" value="Janda">Janda</label>
-                     </div> 
-                   </td>
-                   
-                   <td>  
-                     <div class="checkbox">
-                     <label><input type="checkbox" id="duda" name="status[]" value="Duda">Duda</label>
-                     </div> 
-                   </td>
-                 </tr>
-
-                 <tr>
-                   <td>  
-                     <div class="checkbox">
-                     <label><input type="checkbox" id="single_parent" name="status[]" value="Single Parent">Single Parent</label>
-                     </div> 
-                   </td>
-                 </tr>
-
-                 
-               </table>
-
+           <h5>(boleh dipilih lebih dari satu) </h5>
+           <label>Laporan Jemaat Sesuai Usia</label>
+           <table id="checkbox-table" style="width:100%">
+            <tbody></tbody>
+          </table>
           <br>    
             <?php if($this->session->userdata('group_id')==='6'):?>
              <label>Asal Gereja : </label>
@@ -102,27 +50,17 @@
                <option value="GRAPH"> Grafik </option>
              </select>
             <br>
-
               <input class="btn btn-primary"  type="submit" value="Lihat">
             </form>
             </div>
-     
-
     </section>
   </div>
 
 <script type="text/javascript">
 function validateForm() {
- var usiastart = $('#startusia').length;
- var usiaend = $('#endusia').length;
-  if (!usiastart || !usiaend) {
-      alert("Usia tidak boleh kosong!!");
-      return false;
-  }
-
-  var status = $('input[name="status[]"]:checked').length;
+ var status = $('input[name="usia[]"]:checked').length;
   if (!status) {
-      alert("Kategori status tidak boleh kosong!!");
+      alert("Pilihan Usia tidak boleh kosong!!, Boleh Pilih Lebih Dari Satu!");
       return false;
   }
 
@@ -134,6 +72,7 @@ function validateForm() {
 
   return true;
 }
+
 
 function initDropdown() {
   const col = 2
@@ -151,7 +90,7 @@ function initDropdown() {
         }
         var elem = tbl.find("tr").last();
         fmt = "<td><div class='checkbox'><label><input type='checkbox' name='usia[]' value='{0}'>{0}</label></div></td>"
-        elem.append(fmt.format(val.usia, val.deskripsi))
+        elem.append(fmt.format(val))
         console.log(val)
       })
     },
@@ -161,7 +100,7 @@ function initDropdown() {
   })
 }
 $(document).ready(function () {
-  initDropdown()
+  initDropdown()  
   $("form").submit(function(e) { 
     if(! validateForm()) {
       e.preventDefault();
@@ -170,14 +109,6 @@ $(document).ready(function () {
     this.submit();
   }); 
 });
-</script>
-<script type="text/javascript">
-  $(document).ready(function () {
-          $('.datepicker').datepicker({
-    format: "yyyy-mm-dd",
-          autoclose: true,
-      });
-  });
 </script>
 
 

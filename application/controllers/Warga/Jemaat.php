@@ -6,7 +6,8 @@ class Jemaat extends CI_Controller
     function __construct()
     {
         parent::__construct();
-        if ($this->session->userdata('group_id') != '8') {
+        $arr = array(8,9);
+        if (!in_array($this->session->userdata('group_id'), $arr)) {
             redirect(base_url("login"));
         } else {
             $this->load->model('M_login');
@@ -46,6 +47,7 @@ class Jemaat extends CI_Controller
         $data1['sidi'] = $this->lib->sidi();        
         $data1['nikah'] = $this->lib->nikahan();
         $data1['doa'] = $this->lib->doa();
+        $data1['iman'] = $this->lib->pindah_iman();
         $this->load->view('template/header');
         $this->load->view('template/menu', $data);
         $this->load->view('jemaat/layanan', $data1);
@@ -123,6 +125,53 @@ class Jemaat extends CI_Controller
         $data1['jemaat'] = $this->M_jemaat->dataJemaat($this->session->userdata('id'));
         $data1['data'] = $this->M_jemaat->getDataUser($this->session->userdata('id'));
         $this->load->view('warga/edit_profile', $data1);
+    }
+    function dataAstestasi()
+    {
+        $data['active'] = 'kelola';
+        $data1['gereja']=$this->M_NonJemaat->gereja();
+        $data1['astestasi'] = $this->M_jemaat->dataAstestasi($this->session->userdata('id'));
+        $data1['jemaat'] = $this->M_jemaat->dataJemaat($this->session->userdata('id'));     
+        $data1['id_jemaat'] = $data1['jemaat']['id_jemaats'];
+        $data1['dokumen'] = $this->M_jemaat->getDokumen($data1['jemaat']['id_jemaats']);
+        $this->load->view('template/header');
+        $this->load->view('template/menu', $data); 
+        $this->load->view('jemaat/astestasi', $data1);
+        $this->load->view('template/footer');
+    } 
+
+
+    function astestasiKeluar()
+    {
+        $post = $this->input->post();
+        // echo "<pre>"; print_r($post);exit;
+        $data = array(
+            'id_jemaat' => $post['id_jemaat'],
+            'id_gereja_lama' => $post['gereja_asal'],
+            'id_gereja_baru' => $post['gereja'],
+            'pepantan' => $post['pepantan'],
+            'keterangan' => $post['keterangan'],
+            'state' => 3,
+        );
+
+        $cekAtestasi = $this->M_jemaat->cekAtestasi($post['id_jemaat']);
+        if($cekAtestasi->num_rows() == 1) {
+            $simpan = $this->M_jemaat->astestasiKeluarUpdate($data, $post['id_jemaat']);
+        } else {
+            $simpan = $this->M_jemaat->astestasiKeluar($data);   
+        }
+        if ($simpan) {
+            $log = array(
+                'id_user' => $this->session->userdata('id'),
+                'jenis_log' => 'Anda Mendaftar Atestasi',
+            );
+            $this->M_jemaat->dataAktifitas($log);
+            $json = array('s' => 'sukses', 'm' => 'Berhasil Daftar Astestasi Keluar');
+        } else {
+            $sess = array('s' => 'gagal', 'm' => 'Oops, Terjadi Kesalah, Tidak dapat mendaftar');
+        }
+
+        echo json_encode($json);
     }
     function ubahDataProfile()
     {
@@ -237,8 +286,14 @@ class Jemaat extends CI_Controller
         // echo "<pre>"; print_r($post);exit;
         $jenis = $post['jenis'];
         $id = $post['id'];
-        // print_r($jenis);
+        // print_r($_FILES['file']);
         // exit;
+        if($_FILES['file']['size'] > '2048000') {
+            $json['status'] = 'gagal';
+            $json['message'] = 'Oops, Ukuran File terlalu besar, maksimal 2mb';
+            echo json_encode($json);
+            exit;
+        }
         $file = $_FILES['file'];
         $xxxx = explode('.', $file['name']);
         $nmxxxx = explode(' ', $xxxx[0]);
@@ -247,7 +302,7 @@ class Jemaat extends CI_Controller
         $name = "file_" . $nmxxxx[0] . "_" . $rand . "." . $ext;
         $config['file_name']        = $name;
         $config['upload_path']      = $path;
-        $config['allowed_types']    = array('jpg', 'jpeg', 'gif', 'png', 'mp4', 'pdf', 'word');
+        $config['allowed_types']    = array('jpg', 'jpeg', 'gif', 'png', 'mp4', 'pdf', 'word', 'pdf');
         // $config['max_size']         = 5000;
         $link = $path . "/" . $name;
         $data = array(
@@ -286,8 +341,13 @@ class Jemaat extends CI_Controller
             mkdir($path, 0777, TRUE);
             fopen($path . "/index.php", "w");
         }
-        // print_r($_FILES);
-        // exit;
+
+        if($_FILES['file']['size'] > '2048000') {
+            $json['status'] = 'gagal';
+            $json['message'] = 'Oops, Ukuran File terlalu besar, maksimal 2mb';
+            echo json_encode($json);
+            exit;
+        }
         $file = $_FILES['file'];
         $xxxx = explode('.', $file['name']);
         $nmxxxx = explode(' ', $xxxx[0]);
@@ -296,12 +356,10 @@ class Jemaat extends CI_Controller
         $name = "file_" . $nmxxxx[0] . "_" . $rand . "." . $ext;
         $config['file_name']        = $name;
         $config['upload_path']      = $path;
-        $config['allowed_types']    = array('jpg', 'jpeg', 'gif', 'png', 'mp4', 'pdf', 'word');
+        $config['allowed_types']    = array('jpg', 'jpeg', 'gif', 'png', 'mp4', 'pdf', 'word', 'pdf');
         // $config['max_size']         = 5000;
         $link = $path . "/" . $name;
 
-        // print_r($link);
-        // exit;
         $data = array(
             'foto' => $link,
             'dir' => $path,

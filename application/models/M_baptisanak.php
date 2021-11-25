@@ -1,4 +1,5 @@
 <?php 
+
 class M_baptisanak extends CI_Model
 {
 	
@@ -8,73 +9,50 @@ class M_baptisanak extends CI_Model
 		$this->load->database();
 	}
 
-	function insertData($data){
-		$this->db->insert("jemaats", $data);
+	function insertData($data, $id){
+		$this->db->where('id_warga', $id)->update('tb_baptisan', $data);
+		$this->db->query('UPDATE jemaats, tb_baptisan SET jemaats.tgl_baptis = tb_baptisan.tgl_daftar WHERE jemaats.id_user = tb_baptisan.id_warga');
+		return $this->db->where('id_warga', $id);
+		// return $this->db->delete('tb_baptisan', array('id_warga' => $id));
 	}
 
-	function DataList($idgereja,$status){
-		$query = $this->db->query("SELECT a.*,b.namagereja,c.namapepantan FROM jemaats a 
-            LEFT JOIN gereja b ON b.id = a.gerejaid
-            LEFT JOIN pepantans c ON c.id = a.pepantan_id
-            WHERE a.gerejaid = $idgereja and a.status = '$status'");
+	function AkunList(){
+		$id = $this->session->userdata('gereja_id');
+		$now = date('Y');
+		$date = $now - 17;
+		$cari = $date.'-'.date('m-d');
+		$query = $this->db->select('a.*, d.foto, b.*')
+				->join('jemaats b','b.id_user = a.id_warga')
+				->join('tb_dokumen_warga c', 'b.id = c.id_warga')
+				->join('users d', 'b.id_user = d.id')
+				->where('b.tgl_lahir >=', $cari)
+				->where('a.id_gereja', $id)
+				->where('a.state','3')
+				->get('tb_baptisan a');
         return $query;
 	}
 
-	function editData($id,$data)
+	function updateData($gerejaid, $Pepantan_id, $id)
 	{
-		$this->db->where('id',$id);
-		return $this->db->update('jemaats',$data);
+		/*echo "<pre>";
+		  die(print_r($user_group, TRUE));*/
+		  $hasil=$this->db->query("UPDATE jemaats SET gerejaid = '$gerejaid', Pepantan_id = '$Pepantan_id' WHERE edit_data='$id'");
+        return $hasil;
+		// $hasil=$this->db->query("UPDATE users SET username='$username',fullname='$fullname',email='$email',group_id='$user_group',active='$status_aktif',modified=current_time,telpno='$telephone',gereja_id='$gereja' WHERE id='$id'");
+        // return $hasil;
 	}
-
-	function hapusData($data)
-	{
-		$hasil = $this->db->query("delete from jemaats where id = $data");
-		return $hasil;
-	}
-
 	function gereja(){
 	    $this->db->order_by('namagereja','ASC');
 	    $provinces= $this->db->get('gereja');
 	    return $provinces->result_array();
     }
+	function hapusData($data)
+	{
+		$hasil = $this->db->query("delete from users where id = $data");
+		return $hasil;
+	}
 
-    	function DetailJemaat($id){
-    		$query = $this->db->query("SELECT a.*,b.namagereja,c.namapepantan FROM jemaats a 
-    			LEFT JOIN gereja b ON b.id = a.gerejaid
-    			LEFT JOIN pepantans c ON c.id = a.pepantan_id
-    			WHERE a.id = $id");
-            return $query;
-    	}
 
-    		function pepantan($idGereja){
-    		    $this->db->order_by('namapepantan','ASC');
-    		    $this->db->where('gereja_id',$idGereja);
-    		    $pepantan= $this->db->get('pepantans');
-    		    return $pepantan->result_array();
-    	    }
-
-    	    function Pendidikan(){
-    		    $this->db->order_by('nama_strata','ASC');
-    		    $pendidikan= $this->db->get('pendidikan');
-    		    return $pendidikan->result_array();
-    	    }
-
-    	    function Penghasilan(){
-    		    $this->db->order_by('penghasilan_perbulan','ASC');
-    		    $penghasilan= $this->db->get('penghasilan');
-    		    return $penghasilan->result_array();
-    	    }
-
-    	    function Pekerjaan(){
-    		    $this->db->order_by('nama_pp','ASC');
-    		    $pekerjaan= $this->db->get('pekerjaanpokok');
-    		    return $pekerjaan->result_array();
-    	    }
-            function getPDF($kode)
-            {
-                 $hasil=$this->db->query("SELECT a.*,b.namagereja as namagereja from jemaats a Left join gereja b ON a.gerejaid = b.id WHERE a.id=$kode ");                 
-                 return $hasil->result();
-            }
 
 }
 ?>

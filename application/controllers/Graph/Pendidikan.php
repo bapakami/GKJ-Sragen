@@ -56,6 +56,7 @@ class Pendidikan extends CI_Controller {
 			"data" => $dataGraph,
 			"name" => $name,
 		];
+		// echo "<pre>"; print_r($result);exit;
 		echo json_encode($result);
 	}
 

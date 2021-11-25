@@ -28,7 +28,6 @@
 <script>
 	var columnUsia = <?= json_encode($columnUsia) ?>;
 	var gereja = <?= json_encode($gereja) ?>;
-	var columnStatus = <?= json_encode($columnStatus) ?>;
 </script>
 
 <script>
@@ -40,7 +39,6 @@ window.onload = function() {
 		url: base_url + "Graph/Usia/data",
 		data: {
 			"columnUsia": columnUsia,
-			"columnStatus": columnStatus,
 			"gereja": gereja
 		},
 		dataType: "json",

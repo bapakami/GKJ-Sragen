@@ -11,30 +11,35 @@ class M_atestasikeluar extends CI_Model
 		$this->load->database();
 	}
 
-	function insertData($data){
-		$this->db->insert("users", $data);
+	function insertData($data, $id){
+		return $this->db->where('id_jemaat', $id)->where('state', '3')->update("astestasi", $data);
 	}
 
 	function AkunList(){
-		$query = $this->db->query("SELECT a.id as id,a.username as username,a.fullname as fullname,a.email as email,b.namagereja as namagereja,a.telpno as telpno,a.gereja_id as gereja_id,a.group_id as group_id,a.active as active,a.gereja_id as gerejaid, c.groupname as groupname FROM users a 
-			LEFT JOIN gereja b ON b.id = a.gereja_id 
-			LEFT JOIN groups c ON c.id = a.group_id
-			WHERE group_id = 8");
+		$id = $this->session->userdata('gereja_id');
+		$query = $this->db->select('a.*, c.akte_lahir, b.*')
+				->join('jemaats b', 'b.id_user = a.id_jemaat')
+				->join('tb_dokumen_warga c', 'b.id = c.id_warga')
+				->where('a.id_gereja_lama', $id)
+				->where('a.state', '3')
+				->get('astestasi a');
         return $query;
 	}
 
-	function updateData($id,$username,$fullname,$status_aktif,$user_group,$telephone,$email,$gereja)
+	function updateData($state)
 	{
-		/*echo "<pre>";
-          die(print_r($user_group, TRUE));*/
-		$hasil=$this->db->query("UPDATE users SET username='$username',fullname='$fullname',email='$email',group_id='$user_group',active='$status_aktif',modified=current_time,telpno='$telephone',gereja_id='$gereja' WHERE id='$id'");
+		// /*echo "<pre>";
+        //   die(print_r($user_group, TRUE));*/
+		$hasil=$this->db->query("UPDATE astestasi a SET a.state = '$state' WHERE id_jemaat='$id'");
         return $hasil;
 	}
+	
 	function gereja(){
 	    $this->db->order_by('namagereja','ASC');
 	    $provinces= $this->db->get('gereja');
 	    return $provinces->result_array();
-    }
+	}
+	
 	function hapusData($data)
 	{
 		$hasil = $this->db->query("delete from users where id = $data");

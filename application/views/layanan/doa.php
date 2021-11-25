@@ -4,23 +4,28 @@ if ($kat == 1) {
     $kate = $doa->row_array();
     $st = $kate['state'];
     if ($st == 1) {
-        $marquee = "<marquee behavior='alternate'>Selamat Permohonan Nikah Anda Diterima</marquee>";
+        $marquee = "<marquee behavior='alternate'>Selamat Permohonan Pelayanan Doa Anda Diterima</marquee>";
         $disabled = 'disabled';
+        $button = '<a href="'. site_url("warga/layanan/hapus_doa/").'" style="margin-top:5px;" role="button" class="btn btn-sm btn-success">Buat Baru</a>';
     } elseif ($st == 2) {
-        $marquee = "<marquee bgcolor='red'>Mohon Maaf, Permohonan Nikah Anda Ditolak</marquee>";
+        $marquee = "<marquee bgcolor='red'>Mohon Maaf, Permohonan Pelayanan Doa Anda Ditolak</marquee>";
         $disabled = '';
+        $button = '';
     } elseif ($st == 3) {
-        $marquee = "<marquee>Permohonan Nikah Anda Sedang Diproses</marquee>";
-        $disabled = 'disabled';
+        $marquee = "<marquee>Permohonan Pelayanan Doa Anda Sedang Diproses</marquee>";
+        $button = '';
+        $disabled = '';
     }
 } else {
     $disabled = '';
+    $button = '';
     $marquee = '<button class="btn btn-info btn-sm pull-left" id="daftar" type="submit" style="margin: 4px;">Daftar Sekarang</button>';
 }
 
 $today = new DateTime();
 $lahir = new DateTime($jemaat['tgl_lahir']);
 $diff = $today->diff($lahir);
+$dd = $doa->row();
 ?>
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
@@ -54,34 +59,38 @@ $diff = $today->diff($lahir);
                                         <div class="col-md-6">
                                             <div class="form-group col-md-12">
                                                 <label>Jenis Pelayanan</label>
-                                                <input type="text" name="jenis" id="suami" class="form-control" required="required">
+                                                <input type="text" name="jenis" id="suami" class="form-control" required="required" value="<?= isset($dd->jenis_pelayanan)?$dd->jenis_pelayanan:'' ?>">
                                             </div>
                                             <div class="form-group col-md-12">
                                                 <label>Nama Pelayan 1</label>
-                                                <input type="text" disabled name="pelayan1" id="istri" class="form-control" required="required" value="<?php (isset($doa->row()->nama_pelayan1)?$doa->row()->nama_pelayan1 : '')?>">
+                                                <input disabled type="text" name="pelayan1" id="istri" class="form-control" required="required" value="<?=(isset($dd->nama_pelayan1)?$dd->nama_pelayan1: '')?>">
                                             </div>
                                             <div class="form-group col-md-12">
                                                 <label>Nama Pelayan 2</label>
-                                                <input type="text" disabled name="pelayan2" id="saksi" class="form-control" required="required" value="<?php (isset($doa->row()->nama_pelayan2)?$doa->row()->nama_pelayan2 : '')?>">
+                                                <input disabled type="text" name="pelayan2" id="saksi" class="form-control" required="required" value="<?= (isset($dd->nama_pelayan2)?$dd->nama_pelayan2: '')?>">
                                             </div>
                                             <br><br><br>
                                         </div>
                                         <div class="col-md-6">                                        
                                             <div class="col-md-12">
                                                 <label>Keterangan</label>
-                                                <textarea name="keterangan" id="keterangan" class="form-control "></textarea>
+                                                <textarea name="keterangan" id="keterangan" class="form-control "><?= isset($dd->tujuan)?$dd->tujuan:'' ?></textarea>
                                             </div>
                                             <div class="col-md-12" id="announ"></div>
                                             <div class="col-md-12">
                                                 <div>
-                                                    <?php if ($diff->y >= 17) { ?>
-                                                        <?= $marquee; ?>
-                                                    <?php } else { ?>
-                                                        <button class="btn btn-danger btn-sm pull-right" style="margin: 4px;">Maaf, umur minimum untuk mendaftar katekesasi adalah 17 Tahun</button>
-                                                    <?php } ?>
+                                                    <?= $marquee; ?>
                                                 </div>
                                             </form>
-                                            <button <?= $disabled; ?> class="btn btn-danger btn-sm pull-left" id="ubah" style="margin: 4px;">Ubah Data</button>
+                                            <div class="form-group pull-left">
+                                                <?= $button ?>
+                                                <button <?= $disabled; ?> class="btn btn-danger btn-sm pull-left" id="ubah" style="margin: 4px;">Ubah Data</button>
+                                                <button class="btn btn-warning btn-sm pull-left" type="button" id="chatting" style="margin: 4px;">Chat</button>
+                                            </div>
+
+                                            <div id="modal_form2" class="modal" data-width="800" data-height="400">
+                                                <div style="width: 100%;" id="tampil_form2"></div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -96,9 +105,24 @@ $diff = $today->diff($lahir);
 
 <script>
     $(document).ready(function() {
+        $(document).on('click','#chatting',function(){
+            $('#tampil_form2').load("<?=site_url()?>/warga/layanan/chat/6",function(){
+                $('#modal_form2').modal('show');
+            });
+        });
+
+
         $('.tanggal').datepicker({
             format: "dd-mm-yyyy",
             autoclose:true
+        });
+
+        $('#buat_baru').on('click', function() {
+            var baru = "<?= site_url('warga/layanan/hapus_doa/'); ?>";
+            toastr.success("Dalam proses, tunggu sebentar");
+            // setTimeout(function() {
+            //     location.reload();
+            // }, 3000);
         });
 
         $('textarea').wysihtml5({

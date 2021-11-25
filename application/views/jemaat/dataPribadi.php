@@ -269,39 +269,40 @@
 
                                 <!-- Data Gerejawi -->
                                 <div id="dataGerejawi" class="tab-pane fade-in">
-
                                   <h5 align="center"><strong> Data Gerejawi Jemaat</strong></h5> <br><br>
                                   <form class="form-horizontal validate-form" onsubmit="return validateForm()" action="<?php echo base_url('warga/jemaat/editDataGerejawi') ?>" method="post" enctype="multipart/form-data" role="form">
-                                      <div class="row">
-                                        <div class="col-md-6">
-                                          <label>Gereja Sekarang</label>
-                                          <select class='form-control' id='gereja_edit' name="gereja_edit" required>
-                                            <option value=''>--pilih--</option>
-                                            <?php foreach ($gereja as $grj) { ?>
-                                                "<option value='<?= $grj["id"]?>' <?php if($this->session->userdata('gereja_id') == $grj['id']) { echo "selected"; } ?> ><?= $grj['namagereja']?></option>";
+                                    <?php if($jemaat['gerejaid'] == '' && $jemaat['Pepantan_id'] == '') { ?>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                              <label>Gereja Sekarang</label>
+                                              <select class='form-control' id='gereja_edit' name="gereja_edit" required>
+                                                <option value=''>--pilih--</option>
+                                                <?php foreach ($gereja as $grj) { ?>
+                                                    "<option value='<?= $grj["id"]?>' <?php if($this->session->userdata('gereja_id') == $grj['id']) { echo "selected"; } ?> ><?= $grj['namagereja']?></option>";
+                                                <?php } ?>
+                                            </select>                               
+                                        </div>
+                                        <div class="col-md-6 ml-auto">
+                                          <label>Asal Pepanthan</label>
+                                          <select class='form-control' id='pepantan_edit' name="pepantan_edit" required>
+                                           <?php if($this->session->userdata('gereja_id') != '') {?>                                   
+                                               <option value='Gereja Induk'>Gereja Induk</option>
+                                               <?php foreach ($pepantan as $pnt) { ?>
+                                                <option value='<?= $pnt["id"] ?>' <?php if($jemaat['Pepantan_id'] == $pnt['id']){echo "selected"; }?>><?= $pnt["namapepantan"] ?></option>
+                                            <?php } } else {?>
+                                                <option>Pilih Pepantan</option>
+                                                <script>
+                                                    $('#gereja_edit').on('change', function() {
+                                                        var url = '<?= site_url("warga/jemaat/daftarPepantan/")?>'+$(this).val();
+                                                        $('#pepantan_edit').load(url);
+                                                        return false;
+                                                    });
+                                                </script>
                                             <?php } ?>
-                                        </select>                               
+                                        </select>
                                     </div>
-                                    <div class="col-md-6 ml-auto">
-                                      <label>Asal Pepanthan</label>
-                                      <select class='form-control' id='pepantan_edit' name="pepantan_edit" required>
-                                       <?php if($this->session->userdata('gereja_id') != '') {?>                                   
-                                           <option value='Gereja Induk'>Gereja Induk</option>
-                                           <?php foreach ($pepantan as $pnt) { ?>
-                                            <option value='<?= $pnt["id"] ?>' <?php if($jemaat['Pepantan_id'] == $pnt['id']){echo "selected"; }?>><?= $pnt["namapepantan"] ?></option>
-                                        <?php } } else {?>
-                                            <script>
-                                                $('#gereja_edit').on('change', function() {
-                                                    var url = '<?= site_url("warga/jemaat/daftarPepantan/")?>'+$(this).val();
-                                                    $('#pepantan_edit').load(url);
-                                                    return false;
-                                                });
-                                            </script>
-                                        <?php } ?>
-                                    </select>
                                 </div>
-
-                            </div>
+                            <?php } ?>
 
                             <br>
                             <div class="row">

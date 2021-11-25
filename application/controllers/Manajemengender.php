@@ -29,7 +29,6 @@ class Manajemengender extends CI_Controller {
 		$this->load->view('template/menu');
 		$this->load->view('konten/laporangender', $data);
 		$this->load->view('template/footer');
-
 	}
 
 	public function report_Data()

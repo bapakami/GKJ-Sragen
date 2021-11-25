@@ -31,11 +31,30 @@ if ($foto == '' || $foto == null) {
                     <li class="time-label">
                         <span class="bg-red">Aktifitas</span>
                     </li>
-                    <?php if($timeline->num_rows() >=1){ foreach($timeline->result_array() as $br => $bb) :?>
+                    <?php if($timeline->num_rows() >=1){ foreach($timeline->result_array() as $br => $bb) : 
+
+                        $date3 = date('Y-m-d', strtotime($bb['tanggal']));
+                        $date = date('Y-m-d');
+
+                        if($date3 == $date) {
+                            $today = 'Hari Ini ';
+                            $bg = 'aqua';
+                        } else {
+                            $bg = 'yellow';
+                            $date1 = new DateTime($bb['tanggal']);
+                            $date2 = new DateTime();
+                            $today1 = $date2->diff($date1);
+                            $today = $today1->d+1;
+                            $today .= " Hari lalu";  
+                            
+                        }
+
+                        // echo $date1; echo $date2;
+                    ?>
                         <li>
-                            <i class="fa fa-user bg-aqua"></i>
+                            <i class="fa fa-user bg-<?= $bg; ?>"></i>
                             <div class="timeline-item">
-                                <span class="time"><i class="fa fa-clock-o"></i> <?= date('h:i', strtotime($bb['tanggal']))?></span>
+                                <span class="time"> <?= $today; ?> <i class="fa fa-clock-o"></i> <?= date('h:i', strtotime($bb['tanggal']))?></span>
                                 <h3 class="timeline-header no-border"><?= $bb['jenis_log']?></h3>
                             </div>
                         </li>

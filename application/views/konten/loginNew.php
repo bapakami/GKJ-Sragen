@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>SI Jemaat Klasis GKJ GunungKidul </title>
+    <title>SI Jemaat GKJ Sragen </title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!--===============================================================================================-->
@@ -38,7 +38,7 @@
                 <div class="login100-form-title" style="background-image: url(assets/aset/images/gereja.png);">
                     <span class="login100-form-title-1">
                         <span id="judul">Login</span> <br>
-                        <h5> GKJ Klasis Gunung Kidul</h>
+                        <h5> GKJ Sragen</h>
                     </span>
                 </div>
                 <div id="contente">

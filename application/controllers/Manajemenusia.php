@@ -14,6 +14,7 @@ class Manajemenusia extends CI_Controller {
 		if($this->session->userdata('group_id') !='1' && $this->session->userdata('group_id') !='6'){
             redirect(base_url("login"));
         }
+		$this->load->model("M_manajemenberita");
 		$this->load->model("M_manajemenusia");
 		$this->load->model("M_datapersembahan");
 		$this->load->model("M_laporan");
@@ -33,30 +34,20 @@ class Manajemenusia extends CI_Controller {
 	}
 
 	public function report_Data()
-	{
+	{	ini_set('max_execution_time', 0); 
+		ini_set('memory_limit','2048M');
 		$usia = $this->input->post('usia');
-		$usiastart = $this->input->post('startusia');
-		$usiaend = $this->input->post('endusia');
-		$status = $this->input->post('status');
 		$gereja = $this->input->post('gereja');
-		$berdasarStatus = implode(",", $status);
-		// $berdasarUsia = implode(",", $usia);
-		// $partsUsia = '"'.implode('","', $usia).'"';
-		// $partsStatus = '"'.implode('","', $status).'"';
+		$berdasar = implode(",", $usia);
+		$partsUsia = '"'.implode('","', $usia).'"';
+
 		if($this->input->post('hasil_id') == 'PDF'){	
+
 			$data['namagereja'] = $this->M_manajemenusia->getNamaGereja($gereja);
-			// $data['isi'] = $this->M_manajemenusia->getPDF($partsUsia,$partsStatus,$gereja);
-					$usiastart = $this->input->post('startusia');
-		$usiaend = $this->input->post('endusia');
-		$status = $this->input->post('status');
-		$gereja = $this->input->post('gereja');
-		$berdasarStatus = implode(",", $status);
-			$statistik3 = $this->M_manajemenusia->getStatistik($usiastart,$usiaend,$gereja,$berdasarStatus);
-			$data = array('statistik1' => $statistik3 );
-			$data['usia_start'] = $usiastart;
-			$data['usia_end'] = $usiaend;
-			$data['berdasarStatus'] = $berdasarStatus;
-	  		$html=$this->load->view('laporan/pdf_laporanusia',$data , true);      
+			$data['isi'] = $this->M_manajemenusia->getPDF($partsUsia,$gereja);
+			$data['statistik'] = $this->M_manajemenusia->getStatistik($gereja,$partsUsia);
+			$data['berdasar'] = $berdasar;
+  			$html=$this->load->view('laporan/pdf_laporanusia',$data , true);      
 	        //this the the PDF filename that user will get to download
 	  		$pdfFilePath = "Laporan_usia.pdf";
 	        //load mPDF library
@@ -69,10 +60,10 @@ class Manajemenusia extends CI_Controller {
 	  		$this->m_pdf->pdf->Output($pdfFilePath, "I");
 		}else if($this->input->post('hasil_id') == 'XLS'){
 			$namagereja = $this->M_manajemenusia->getNamaGereja($gereja);
-			$isi = $this->M_manajemenusia->getPDF($partsUsia,$partsStatus,$gereja);
+			$isi = $this->M_manajemenusia->getPDF($partsUsia,$gereja);
 			$spreadsheet = new Spreadsheet();
 			$sheet = $spreadsheet->getActiveSheet();
-			$heading=array('No','Nama Lengkap','Jenis Kelamin','Usia','Status','Alamat','Asal Gereja');
+			$heading=array('No','Nama Lengkap','Jenis Kelamin','Usia','Alamat','Asal Gereja');
 			$styleArray = array(
 			    'borders' => array(
 			        'outline' => array(
@@ -102,14 +93,13 @@ class Manajemenusia extends CI_Controller {
 			       $no = 1;
 			foreach($isi as $n){
 			    //$numnil = (float) str_replace(',','.',$n->nilai);
-			    $sheet ->getStyle('A'.$row.':'.'G'.$row)->applyFromArray($styleArray);
+			    $sheet ->getStyle('A'.$row.':'.'F'.$row)->applyFromArray($styleArray);
 			    $sheet->setCellValue('A'.$row,$no);
 			    $sheet->setCellValue('B'.$row,$n->NamaLengkap);
 			    $sheet->setCellValue('C'.$row,$n->gender);
 			    $sheet->setCellValue('D'.$row,$n->usia);
-			    $sheet->setCellValue('E'.$row,$n->status_perkawinan);
-			    $sheet->setCellValue('F'.$row,$n->alamat);
-			    $sheet->setCellValue('G'.$row,$n->namagereja);
+			    $sheet->setCellValue('E'.$row,$n->alamat);
+			    $sheet->setCellValue('F'.$row,$n->namagereja);
 			    $row++;
 			    $no++;
 			}
@@ -127,7 +117,6 @@ class Manajemenusia extends CI_Controller {
 			 
 		}elseif ($this->input->post('hasil_id') == 'GRAPH') {
 			$columnUsia = $this->input->post('usia');
-			$columnStatus = $this->input->post('status');
 			$gereja = $this->input->post('gereja');
 			if ( ! is_array($columnUsia)) {
 				redirect('Manajemenusia');
@@ -135,7 +124,6 @@ class Manajemenusia extends CI_Controller {
 			
 			$arr = [
 				'columnUsia' => $columnUsia,
-				'columnStatus' => $columnStatus,
 				'gereja' => $gereja
 			];
 			redirect('Graph/Usia?' . http_build_query($arr));	
@@ -160,5 +148,6 @@ class Manajemenusia extends CI_Controller {
 		}
 		echo json_encode($data);
 	}
+
 }
 ?>

@@ -4,9 +4,9 @@
     <section class="content-header">
       <h1>
         <?php if($this->session->userdata('group_id')==='6'):?>
-            Laporan Berdasarkan Pekerjaan Gerejawi Jemaat 
+            Laporan Berdasarkan Keaktifan Gerejawi Jemaat 
            <?php elseif($this->session->userdata('group_id')==='1'):?>
-        Laporan Berdasarkan Pekerjaan Gerejawi Jemaat <br> <?= $NamaGereja?>
+        Laporan Berdasarkan Keaktifan Gerejawi Jemaat <br> <?= $NamaGereja?>
          <?php endif;?>
        
         <small></small>
@@ -130,7 +130,7 @@
              <select class="form-control" name="hasil_id">
                <option value="PDF"> PDF</option>
                <option value="XLS"> XLS </option>
-               <option value="GRAPH"> Grafik </option>
+               <!-- <option value="GRAPH"> Grafik </option> -->
              </select>
             <br>
 

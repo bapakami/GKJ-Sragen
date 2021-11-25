@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>SI Jemaat Klasis GKJ Gunung Kidul</title>
+    <title>SI Jemaat GKJ Sragen</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     
@@ -31,7 +31,7 @@
     
 	  <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
 	    <div class="container">
-	      <a class="navbar-brand" href="<?php echo base_url();?>index.html"><!-- <i class="flaticon-cross"></i> --><img src="<?php echo base_url();?>assets/wisdom/images/logoGKJ.png" height="30" width="30"> <span>GKJ Klasis</span> <span>Gunung Kidul</span></a>
+	      <a class="navbar-brand" href="<?php echo base_url();?>index.html"><!-- <i class="flaticon-cross"></i> --><img src="<?php echo base_url();?>assets/wisdom/images/logoGKJ.png" height="30" width="30"> <span>GKJ Sragen</span></a>
 	      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
 	        <span class="oi oi-menu"></span> Menu
 	      </button>
@@ -55,8 +55,7 @@
 			<div class="container">
         <div class="row no-gutters slider-text js-fullheight align-items-center justify-content-center" data-scrollax-parent="true">
           <div class="col-md-10 ftco-animate text-center" data-scrollax=" properties: { translateY: '70%' }">
-            <h1 class="mb-4" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">Klasis Gereja-gereja Kristen Jawa Gunungkidul</h1>
-            <p data-scrollax="properties: { translateY: '30%', opacity: 1.6 }"><a href="<?php echo base_url();?>#" class="" style="color: #f3f700;"> Klasis Gunungkidul merupakan klasis yang terdiri dari 13 GKJ (Gereja Kristen Jawa) sehingga tergolong klasis yang besar dan luas area pelayanannya.</a></p>
+            <h1 class="mb-4" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">&nbsp;</h1>
           </div>
         </div>
       </div>
@@ -71,7 +70,7 @@
                 <div class="one-forth ftco-animate">
                   <img src="assets/wisdom/images/logoGKJ.png"  height="30" width="30">
                  <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                 Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | GKJ Klasis Gunung Kidul <i class="icon-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">SLS</a>
+                 Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | GKJ Sragen <i class="icon-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">SLS</a>
                  <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
                 </div>
                 

@@ -27,61 +27,77 @@
           <div class="box-body table-responsive">
             <div class="right_col" role="main">
               <?php 
-              foreach($non_jemaat->result_array() as $bj => $bb):
-                if ($bb['jenis_kelamin'] == 'Perempuan') {
-                  $fotox = base_url() . 'assets/img/avatar2.png';
-                } else {
-                  $fotox = base_url() . 'assets/img/avatar5.png';
-                }
-                ?>
-                <div class="col-md-3">
+              if($non_jemaat->num_rows() > 0) {
+                foreach($non_jemaat->result_array() as $bj => $bb):
+                  if ($bb['jenis_kelamin'] == 'Perempuan') {
+                    $fotox = base_url() . 'assets/img/avatar2.png';
+                  } else {
+                    $fotox = base_url() . 'assets/img/avatar5.png';
+                  }
+                  ?>
+                  <div class="col-md-3">
 
-                  <!-- data keluarga  -->
-                  <!-- Profile Image -->
-                  <div class="box box-primary">
-                    <div class="box-body box-profile">
-                      <img class="profile-user-img img-responsive img-circle" src="<?= $fotox?>" alt="User profile picture">
+                    <!-- data keluarga  -->
+                    <!-- Profile Image -->
+                    <div class="box box-primary">
+                      <div class="box-body box-profile">
+                        <img class="profile-user-img img-responsive img-circle" src="<?= $fotox?>" alt="User profile picture">
 
-                      <h3 class="profile-username text-center"><?= $bb['nama_lengkap']?></h3>
+                        <h3 class="profile-username text-center"><?= $bb['nama_lengkap']?></h3>
 
-                      <p class="text-muted text-center"><strong><?= $bb['status_keluarga']?></strong></p>
+                        <p class="text-muted text-center"><strong><?= $bb['status_keluarga']?></strong></p>
 
-                      <ul class="list-group list-group-unbordered">
+                        <ul class="list-group list-group-unbordered">
 
-                        <!-- /.box-header -->
-                        <div class="box-body">
-                          <strong><i class="fa fa-home margin-r-5"></i> Gereja</strong>
+                          <!-- /.box-header -->
+                          <div class="box-body">
+                            <strong><i class="fa fa-home margin-r-5"></i> Gereja</strong>
 
-                          <p class="text-muted">
-                            <?= $bb['status_warga']?> <?php $this->lib->nama_gereja($bb['gerejaid']); ?>
-                          </p>
+                            <p class="text-muted">
+                              <?= $bb['status_warga']?> <?php $this->lib->nama_gereja($bb['gerejaid']); ?>
+                            </p>
 
-                          <hr>
+                            <hr>
 
-                          <strong><i class="fa fa-map-marker margin-r-5"></i> Alamat</strong>
+                            <strong><i class="fa fa-map-marker margin-r-5"></i> Alamat</strong>
 
-                          <p class="text-muted"><?= $bb['alamat_tinggal']?></p>
-                        </div>
-                      </ul>
+                            <p class="text-muted"><?= $bb['alamat_tinggal']?></p>
+                          </div>
+                        </ul>
 
-                      <a href="<?= site_url('warga/jemaat/editNonJemaat/'.$bb['id'])?>" class="btn btn-primary btn-block"><b>Lebih Detail <i class="fa fa-arrow-circle-right"></i></b></a>
+                        <a href="<?= site_url('warga/jemaat/editNonJemaat/'.$bb['id'])?>" class="btn btn-primary btn-block"><b>Lebih Detail <i class="fa fa-arrow-circle-right"></i></b></a>
+                      </div>
+                      <!-- /.box-body -->
                     </div>
-                    <!-- /.box-body -->
+                    <!-- /.box -->
                   </div>
-                  <!-- /.box -->
-                </div>
-              <?php endforeach;?>
+                <?php endforeach; } else { ?>
+                  <div class="col-xs-12">
+                    <div class="error-page">
+                      <h2 class="headline text-yellow"> <i class="fa fa-warning text-yellow"></i></h2>
 
-              <!-- end data keluarga  -->
+                      <div class="error-content">
+                        <h3>Oops! Tidak ada Data.</h3>
+
+                        <p>
+                          Belum ada data.
+                          Silahkan Klik tombol Tambah untuk menambahkan data.
+                        </p>
+                      </div>
+                      <!-- /.error-content -->
+                    </div>
+                  </div>
+                <?php } ?> 
+                <!-- end data keluarga  -->
+              </div>
             </div>
+            <!-- </div> -->
           </div>
-          <!-- </div> -->
         </div>
-      </div>
-    </section>
-  </div>
-  <script>
-    $('#tambah').on('click', function() {
-      window.location.href = '<?= site_url("warga/jemaat/tambahNonJemaat")?>';
-    });
-  </script>
+      </section>
+    </div>
+    <script>
+      $('#tambah').on('click', function() {
+        window.location.href = '<?= site_url("warga/jemaat/tambahNonJemaat")?>';
+      });
+    </script>

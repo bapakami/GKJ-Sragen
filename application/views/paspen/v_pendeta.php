@@ -10,7 +10,6 @@
        
       </ol>
     </section>
-
     <!-- Main content -->
     <section class="content">
       <div class="row">
@@ -22,7 +21,7 @@
                 <div class="">
                   <div class="page-title">
                     <div class="title_left">
-                      <h3>Selamat datang di halaman utama Dashboard untuk Pastor</h3>
+                      <h3>Selamat datang di halaman utama Dashboard untuk Pendeta</h3>
                     </div>
                   </div>
 
@@ -32,7 +31,7 @@
                       <!-- <div class="x_panel"> -->
                         <div class="x_content">
                           <p class="text-muted font-13 m-b-30">
-                            Pada halaman ini, pastor dapat melakukan atestasi keluar maupun masuk kepada jamaat, manajemen pindah iman, serta surat Baptis dan surat Sidi.
+                            Pada halaman ini, pendeta dapat melakukan atestasi keluar maupun masuk kepada jamaat, manajemen pindah iman, serta surat Baptis dan surat Sidi.
                           </p>
                         </div>
                       <!-- </div> -->

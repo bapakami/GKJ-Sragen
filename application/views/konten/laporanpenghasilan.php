@@ -27,6 +27,7 @@
                <option value='0'>-- Select Penghasilan --</option>
              </select>
              <br>
+
             <?php if($this->session->userdata('group_id')==='6'):?>
              <label>Asal Gereja : </label>
              <select class='form-control' id='gereja' name="gereja">
@@ -37,12 +38,16 @@
                     }
                   ?>
               </select>
+
+
+
             <?php elseif($this->session->userdata('group_id')==='1'):?>
               <input type="hidden" id="gereja" name="gereja" value="<?= $this->session->userdata('gereja_id') ?>">
             <?php endif;?><br>
             <label>Output</label>
              <select class="form-control" name="hasil_id">
                <option value="PDF"> PDF</option>
+               href="<?= site_url('AdminGereja/Jemaat/export') ?>"
                <option value="XLS"> XLS </option>
                <option value="GRAPH"> Grafik </option>
              </select>
@@ -57,7 +62,6 @@
   </div>
 
 <script type="text/javascript">
-
 function validateForm() {
    var status = $('#penghasilan').val()
    if (status == 0) {

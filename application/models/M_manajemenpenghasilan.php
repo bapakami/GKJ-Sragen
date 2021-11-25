@@ -33,8 +33,8 @@ class M_manajemenpenghasilan extends CI_Model
 		From 
 			jemaats 
 		WHERE
-			penghasilan in ($partsNo)
-			AND
+			-- penghasilan in ($partsNo)
+			-- AND
 				gerejaid = $gereja
 			AND
 				status = 'Hidup'
@@ -47,7 +47,7 @@ class M_manajemenpenghasilan extends CI_Model
 
 	function getPDF($penghasilan,$gereja)
 	{
-		$q = "SELECT 
+		$q = ("SELECT 
 				a.Nama_Lengkap as NamaLengkap, 
 				a.jenis_kelamin as gender,
 				a.pendidikan as pendidikan,
@@ -66,7 +66,7 @@ class M_manajemenpenghasilan extends CI_Model
 					a.status = 'Hidup' 
 				AND 
 					a.gerejaid = $gereja 
-			";
+			");
 		$hasil=$this->db->query($q);
 		
 		return $hasil->result();
@@ -74,7 +74,12 @@ class M_manajemenpenghasilan extends CI_Model
 
 	function getStatistik($penghasilan,$gereja)
 	{
-		$hasil=$this->db->query("SELECT COUNT(a.Nama_Lengkap) as JumlahJemaat from jemaats a Left join gereja b ON a.gerejaid = b.id WHERE a.penghasilan = '$penghasilan' and a.status = 'Hidup' AND a.gerejaid = $gereja ");
+		$hasil=$this->db->query("SELECT COUNT(a.Nama_Lengkap) as JumlahJemaat 
+		from jemaats a 
+		Left join gereja b ON a.gerejaid = b.id 
+		WHERE a.penghasilan = '$penghasilan' 
+		and a.status = 'Hidup' 
+		AND a.gerejaid = $gereja ");
 		
 		return $hasil->result();
 	}

@@ -3,8 +3,7 @@
   <header class="main-header">
     <a href="" class="logo">
       <span class="logo-mini">GKJ</span>
-      <span class="logo-lg"><b>GKJ&nbsp;</b>Gunung Kidul</span>
-    </a>
+    <span class="logo-lg"><b>GKJ&nbsp;</b>Sragen</span></a>
 
     <nav class="navbar navbar-static-top">
       <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
@@ -72,13 +71,21 @@
             <?php elseif ($this->session->userdata('group_id') === '1') : ?>
               <a href="<?php echo base_url(); ?>AdminGereja/Beranda">
               <?php elseif ($this->session->userdata('group_id') === '9') : ?>
-                <a href="<?php echo base_url(); ?>Pendetaa/pastorr">
+                <a href="<?php echo base_url(); ?>Pendetaa/pendeta">
                 <?php elseif ($this->session->userdata('group_id') === '8') : ?>
                   <a href="<?php echo base_url(); ?>warga/jemaat">
                   <?php endif; ?>
                   <i class="fa fa-dashboard"></i> <span>Dashboard</span>
                   <span class="pull-right-container"></span>
                   </a>
+        </li>
+        <li class="treeview ">
+              <?php if ($this->session->userdata('group_id') === '9') : ?>
+                <a href="<?php echo base_url(); ?>Pendetaa/dokumen">
+                  <i class="fa fa-dashboard"></i> <span>Dokumen Jemaat</span>
+                  <span class="pull-right-container"></span>
+                  </a>
+                  <?php endif; ?>
         </li>
 
         <?php if ($this->session->userdata('group_id') == 8) { ?>
@@ -108,9 +115,9 @@
               <!-- aji -->
             <?php } elseif ($this->session->userdata('group_id') === '1') { ?>
               <span>Manajemen</span>
-              <!-- pastor -->
+              <!-- pendeta -->
             <?php } elseif ($this->session->userdata('group_id') === '9') { ?>
-              <span>Menu PASTOR</span>
+              <span>Menu PENDETA</span>
             <?php } else {
             } ?>
             <span class="pull-right-container">
@@ -119,7 +126,7 @@
           </a>
 
             <!-- yehuda -->
-              <ul class="treeview-menu"> // ini ketutupan
+              <ul class="treeview-menu"> //ini ketutupan
             <?php if ($this->session->userdata('group_id') === '6') { ?>
 
                 <li><a href="<?php echo base_url(); ?>Manajemenakun"><i class="fa fa-user-o"></i>Manajemen Akun</a></li>
@@ -130,14 +137,35 @@
 
                 <!-- pendeta -->
               <?php  } elseif ($this->session->userdata('group_id') === '9') { ?>
-                <li><a href="<?php echo base_url(); ?>Atestasikeluar"><i class="fa fa-sign-out"></i> Atestasi Keluar</a></li>
-                <li><a href="<?php echo base_url(); ?>Manajemendatagereja"><i class="fa fa-sign-in"></i> Atestasi Masuk</a></li>
-                <li><a href="<?php echo base_url(); ?>ManajemenBerita/"><i class="fa fa-spinner"></i> Pindah Iman</a></li>
-                <li><a href="<?php echo base_url();?>Bptanak/Baptisanak/"><i class="fa fa-file"></i> Surat Baptis Anak</a></li>  
-                <li><a href="<?php echo base_url(); ?>Klasis/ManajemenJemaat/"><i class="fa fa-file"></i> Surat Baptis Dewasa</a></li>
-                <li><a href="<?php echo base_url(); ?>Klasis/Datapersembahan/"><i class="fa fa-file-image-o"></i> Surat Sidi </a></li>
-
-                <!-- jemaat -->
+                <!-- <li><a href="<?php echo base_url(); ?>Atestasikeluar"><i class="fa fa-sign-out"></i> Atestasi Keluar</a></li>
+                <li><a href="<?php echo base_url(); ?>Manajemendatagereja"><i class="fa fa-sign-in"></i> Atestasi Masuk</a></li> -->
+                <li class="treeview"><a href="#"><i class="fa fa-user-o"></i><span>Atestasi</span>
+                    <span class="pull-right-container">
+                      <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                  </a>
+                  <ul class="treeview-menu">
+                    <li><a href="<?php echo base_url(); ?>Atestasi/Atestasikeluar"><i class="fa fa-circle-o text-yellow"></i> Atestasi Keluar</a></li>
+                    <li><a href="<?php echo base_url(); ?>Atestasi/Atestasimasuk"><i class="fa fa-circle-o text-yellow"></i> Atestasi Masuk</a></li>
+                  </ul>
+                </li>
+                <li><a href="<?php echo base_url(); ?>Pindahiman/Pindahiman"><i class="fa fa-spinner"></i> Pindah Iman</a></li>
+                <!-- <li><a href="<?php echo base_url();?>Bptanak/Baptisanak/"><i class="fa fa-file"></i> Surat Baptis Anak</a></li>  
+                <li><a href="<?php echo base_url(); ?>Klasis/ManajemenJemaat/"><i class="fa fa-file"></i> Surat Baptis Dewasa</a></li> -->
+                <li class="treeview"><a href="#"><i class="fa fa-file"></i><span>Baptisan</span>
+                    <span class="pull-right-container">
+                      <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                  </a>
+                  <ul class="treeview-menu">
+                    <li><a href="<?php echo base_url(); ?>Baptis/Baptisdewasa/"><i class="fa fa-circle-o text-yellow"></i> Surat Baptis Dewasa</a></li>
+                    <li><a href="<?php echo base_url(); ?>Baptis/Baptisanak"><i class="fa fa-circle-o text-yellow"></i> Surat Baptis Anak</a></li>
+                  </ul>
+                </li>
+                <li><a href="<?php echo base_url(); ?>Katekisasi/Katekisasi/"><i class="fa fa-file-image-o"></i> Katekisasi </a></li>
+                <li><a href="<?php echo base_url(); ?>Sidi/Sidi/"><i class="fa fa-square-o"></i> Surat Sidi </a></li>
+                <li><a href="<?php echo base_url(); ?>Doa/Doa/"><i class="fa fa-square-o"></i> Doa </a></li>
+                <li><a href="<?php echo base_url(); ?>Nikah/Nikah/"><i class="fa fa-circle-o"></i> Nikah </a></li>
 
                 <!-- aji -->
               <?php } elseif ($this->session->userdata('group_id') === '1') { ?>
@@ -182,7 +210,6 @@
                     <li><a href="<?php echo base_url(); ?>AdminGereja/Kelola_Pembangunan"><i class="fa fa-circle-o text-aqua"></i> Pembangunan</a></li>
                   </ul>
                 </li>
-                <!-- pastor -->
 
               </ul>
             <?php } ?>
@@ -231,7 +258,7 @@
                 <li><a href="<?php echo base_url(); ?>manajemengender"><i class="fa fa-circle-o text-red"></i> Berdasar Jenis Kelamin dan <br> Golongan Darah</a></li>
                 <li><a href="<?php echo base_url(); ?>Manajemenperkawinan"><i class="fa fa-circle-o text-red"></i> Berdasar Status Perkawinan</a></li>
                 <li><a href="<?php echo base_url(); ?>ManajemenStatusGerejawi"><i class="fa fa-circle-o text-red"></i> Berdasar Status Gerejawi</a></li>
-                <li><a href="<?php echo base_url(); ?>ManajemenpekerjaanPenghasilan"><i class="fa fa-circle-o text-red"></i> Berdasar Penghasilan, <br>Pekerjaan, dan Pendidikan</a></li>
+                <li><a href="<?php echo base_url(); ?>ManajemenpekerjaanPenghasilan"><i class="fa fa-circle-o text-red"></i> Berdasar Penghasilan dan <br>Pekerjaan</a></li>
                 <li><a href="<?php echo base_url(); ?>Manajemenkeluarga"><i class="fa fa-circle-o text-red"></i> Berdasar Status Keluarga</a></li>
                 <li><a href="<?php echo base_url(); ?>ManajemenPelayanan"><i class="fa fa-circle-o text-red"></i> Berdasar Pelayanan</a></li>
                 <li><a href="<?php echo base_url(); ?>Manajemenaktifan"><i class="fa fa-circle-o text-red"></i> Berdasar Keaktifan</a></li>

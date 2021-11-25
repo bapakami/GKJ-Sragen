@@ -11,7 +11,7 @@
             <li><a href="<?= site_url('warga/jemaat/kelola') ?>">Kelola</a></li>
             <li><a href="<?= site_url('warga/jemaat/dataDokumen') ?>">Data Dokumen</a></li>
         </ol>
-    </section>
+    </section> 
     <!-- Main content -->
     <section class="content">
         <div class="row">
@@ -29,66 +29,76 @@
                 <div class="box">
                     <div class="box-body table-responsive">
                         <div class="right_col" role="main">
+                            <div class="col-md-12"> <h3><span style="color: red">PERHATIAN</span> : Ukuran maksimal file sebesar 2mb</h3> </div>
+                        </hr>
+                        <br>
                             <div class="col-md-4">
                                 <div style="margin-bottom: 3%;">
                                     <h4 class="card-title text-center">Scan KTP</h4><br>
-                                    <input onchange="simpanFoto('ktp')" type="file" accept="image/*" <?php if($dokumen['ktp'] != '' || $dokumen['ktp'] != null){ ?> data-default-file="<?= base_url($dokumen['ktp'])?>" <?php } ?> data-allowed-file-extensions="png jpg jpeg" name="foto_ktp" id="foto_ktp" class="dropify" /><br>
+                                    <input onchange="simpanFoto('ktp')" type="file" <?php if($dokumen['ktp'] != '' || $dokumen['ktp'] != null){ ?> data-default-file="<?= base_url($dokumen['ktp'])?>" <?php } ?> data-allowed-file-extensions="png jpg jpeg word pdf xls" name="foto_ktp" id="foto_ktp" class="dropify" /><br>
                                     
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div style="margin-bottom: 3%;">
                                     <h4 class="card-title text-center">Scan KK</h4><br>
-                                    <input onchange="simpanFoto('kk')" type="file" accept="image/*"  <?php if($dokumen['kk'] != '' || $dokumen['kk'] != null){ ?> data-default-file="<?= base_url($dokumen['kk'])?>" <?php } ?>  data-allowed-file-extensions="png jpg jpeg" id="foto_kk" class="dropify" /><br>
+                                    <input onchange="simpanFoto('kk')" type="file" <?php if($dokumen['kk'] != '' || $dokumen['kk'] != null){ ?> data-default-file="<?= base_url($dokumen['kk'])?>" <?php } ?>  data-allowed-file-extensions="png jpg jpeg word pdf xls" id="foto_kk" class="dropify" /><br>
                                     
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div style="margin-bottom: 3%;">
                                     <h4 class="card-title text-center">Scan Surat Pengantar</h4><br>
-                                    <input onchange="simpanFoto('surat_pengantar')"  <?php if($dokumen['surat_pengantar'] != '' || $dokumen['surat_pengantar'] != null){ ?> data-default-file="<?= base_url($dokumen['surat_pengantar'])?>" <?php } ?>  type="file" accept="image/*" data-allowed-file-extensions="png jpg jpeg" id="foto_surat_pengantar" class="dropify" /><br>
+                                    <input onchange="simpanFoto('surat_pengantar')"  <?php if($dokumen['surat_pengantar'] != '' || $dokumen['surat_pengantar'] != null){ ?> data-default-file="<?= base_url($dokumen['surat_pengantar'])?>" <?php } ?>  type="file"data-allowed-file-extensions="png jpg jpeg word pdf xls" id="foto_surat_pengantar" class="dropify" /><br>
                                     
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div style="margin-bottom: 3%;">
                                     <h4 class="card-title text-center">Scan Surat Baptis Anak</h4><br>
-                                    <input onchange="simpanFoto('surat_baptis_anak')" <?php if($dokumen['surat_baptis_anak'] != '' || $dokumen['surat_baptis_anak'] != null){ ?> data-default-file="<?= base_url($dokumen['surat_baptis_anak'])?>" <?php } ?> type="file" accept="image/*" data-allowed-file-extensions="png jpg jpeg" id="foto_surat_baptis_anak" class="dropify" /><br>
+                                    <input onchange="simpanFoto('surat_baptis_anak')" <?php if($dokumen['surat_baptis_anak'] != '' || $dokumen['surat_baptis_anak'] != null){ ?> data-default-file="<?= base_url($dokumen['surat_baptis_anak'])?>" <?php } ?> type="file"data-allowed-file-extensions="png jpg jpeg word pdf xls" id="foto_surat_baptis_anak" class="dropify" /><br>
                                     
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div style="margin-bottom: 3%;">
                                     <h4 class="card-title text-center">Scan Surat Baptis Dewasa</h4><br>
-                                    <input onchange="simpanFoto('surat_baptis_dewasa')" <?php if($dokumen['surat_baptis_dewasa'] != '' || $dokumen['surat_baptis_dewasa'] != null){ ?> data-default-file="<?= base_url($dokumen['surat_baptis_dewasa'])?>" <?php } ?> type="file" accept="image/*" data-allowed-file-extensions="png jpg jpeg" id="foto_surat_baptis_dewasa" class="dropify" /><br>
+                                    <input onchange="simpanFoto('surat_baptis_dewasa')" <?php if($dokumen['surat_baptis_dewasa'] != '' || $dokumen['surat_baptis_dewasa'] != null){ ?> data-default-file="<?= base_url($dokumen['surat_baptis_dewasa'])?>" <?php } ?> type="file"data-allowed-file-extensions="png jpg jpeg word pdf xls" id="foto_surat_baptis_dewasa" class="dropify" /><br>
                                     
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div style="margin-bottom: 3%;">
                                     <h4 class="card-title text-center">Scan Surat Sidhi</h4><br>
-                                    <input onchange="simpanFoto('surat_sidhi')" type="file" <?php if($dokumen['surat_sidhi'] != '' || $dokumen['surat_sidhi'] != null){ ?> data-default-file="<?= base_url($dokumen['surat_sidhi'])?>" <?php } ?> accept="image/*" data-allowed-file-extensions="png jpg jpeg" id="foto_surat_sidhi" class="dropify" /><br>
+                                    <input onchange="simpanFoto('surat_sidhi')" type="file" <?php if($dokumen['surat_sidhi'] != '' || $dokumen['surat_sidhi'] != null){ ?> data-default-file="<?= base_url($dokumen['surat_sidhi'])?>" <?php } ?>data-allowed-file-extensions="png jpg jpeg word pdf xls" id="foto_surat_sidhi" class="dropify" /><br>
                                     
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div style="margin-bottom: 3%;">
                                     <h4 class="card-title text-center">Scan Surat Nikah</h4><br>
-                                    <input onchange="simpanFoto('surat_nikah')" type="file" <?php if($dokumen['surat_nikah'] != '' || $dokumen['surat_nikah'] != null){ ?> data-default-file="<?= base_url($dokumen['surat_nikah'])?>" <?php } ?> accept="image/*" data-allowed-file-extensions="png jpg jpeg" id="foto_surat_nikah" class="dropify" /><br>
+                                    <input onchange="simpanFoto('surat_nikah')" type="file" <?php if($dokumen['surat_nikah'] != '' || $dokumen['surat_nikah'] != null){ ?> data-default-file="<?= base_url($dokumen['surat_nikah'])?>" <?php } ?>data-allowed-file-extensions="png jpg jpeg word pdf xls" id="foto_surat_nikah" class="dropify" /><br>
                                     
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div style="margin-bottom: 3%;">
                                     <h4 class="card-title text-center">Scan Surat Kematian</h4><br>
-                                    <input onchange="simpanFoto('surat_kematian')" type="file" <?php if($dokumen['surat_kematian'] != '' || $dokumen['surat_kematian'] != null){ ?> data-default-file="<?= base_url($dokumen['surat_kematian'])?>" <?php } ?> accept="image/*" data-allowed-file-extensions="png jpg jpeg" id="foto_surat_kematian" class="dropify" /><br>
+                                    <input onchange="simpanFoto('surat_kematian')" type="file" <?php if($dokumen['surat_kematian'] != '' || $dokumen['surat_kematian'] != null){ ?> data-default-file="<?= base_url($dokumen['surat_kematian'])?>" <?php } ?>data-allowed-file-extensions="png jpg jpeg word pdf xls" id="foto_surat_kematian" class="dropify" /><br>
                                     
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div style="margin-bottom: 3%;">
                                     <h4 class="card-title text-center">Scan Surat Cerai</h4><br>
-                                    <input onchange="simpanFoto('surat_cerai')" type="file" accept="image/*" data-allowed-file-extensions="png jpg jpeg" id="foto_surat_cerai" class="dropify" /><br>
+                                    <input onchange="simpanFoto('surat_cerai')" type="file" <?php if($dokumen['surat_cerai'] != '' || $dokumen['surat_cerai'] != null){ ?> data-default-file="<?= base_url($dokumen['surat_cerai'])?>" <?php } ?> data-allowed-file-extensions="png jpg jpeg word pdf xls" id="foto_surat_cerai" class="dropify" /><br>
+                                    
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div style="margin-bottom: 3%;">
+                                    <h4 class="card-title text-center">Scan Surat Akta Lahir</h4><br>
+                                    <input onchange="simpanFoto('akte_lahir')" type="file" <?php if($dokumen['akte_lahir'] != '' || $dokumen['akte_lahir'] != null){ ?> data-default-file="<?= base_url($dokumen['akte_lahir'])?>" <?php } ?> data-allowed-file-extensions="png jpg jpeg word pdf xls" id="foto_akte_lahir" class="dropify" /><br>
                                     
                                 </div>
                             </div>

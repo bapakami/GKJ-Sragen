@@ -24,22 +24,20 @@
 
             <!-- /.box-header -->
             <div class="box-body table-responsive">
-            <form class="form-horizontal" onsubmit="return validateForm()" action="<?php echo base_url('ManajemenStatusGerejawi/report_Data')?>" method="post" enctype="multipart/form-data" role="form">
+            <form class="form-horizontal" action="<?php echo base_url('ManajemenStatusGerejawi/report_Data')?>" method="post" enctype="multipart/form-data" role="form">
               <h4>Keterangan = yang bertanda * wajib diisi. </h4> <br>
-
-                        <br>
-              <label>Status Gerejawi* (*)</label>
+              <label>Status Gerejawi* (Pilih salah satu)</label>
                <table>
                            <tr>
                             <td>  
                               <div class="checkbox">
-                              <label><input type="checkbox" name="BelumBaptisSidhi" value="Belum Baptis Anak dan Sidhi">Belum Baptis Anak dan Sidhi</label>
+                              <label><input type="checkbox" name="status[]" value="Belum Baptis dan Sidhi">Belum Baptis dan Sidhi </label>
                               </div> 
                             </td>
                             
                             <td>  
                               <div class="checkbox">
-                              <label><input type="checkbox" name="HanyaSidhi" value="Hanya Sidhi">Hanya Sidhi</label>
+                              <label><input type="checkbox" name="status[]" value="Hanya Sidhi">Hanya Sidhi</label>
                               </div> 
                             </td>
                           </tr>
@@ -47,12 +45,12 @@
                            <tr>
                             <td>  
                               <div class="checkbox">
-                              <label><input type="checkbox" name="HanyaBaptis" value="Hanya Baptis">Hanya Baptis Anak</label>
+                              <label><input type="checkbox" name="status[]" value="Hanya Baptis">Hanya Baptis</label>
                               </div> 
                             </td>
                              <td>  
                               <div class="checkbox">
-                              <label><input type="checkbox" name="BaptisdanSidhi" value="Baptis Anak dan Sidhi">Baptis Anak dan Sidhi</label>
+                              <label><input type="checkbox" name="status[]" value="Baptis dan Sidhi">Baptisdan Sidhi</label>
                               </div> 
                             </td>
                           </tr>
@@ -65,13 +63,13 @@
                            <tr>
                             <td>  
                               <div class="checkbox">
-                              <label><input type="checkbox" id="Warga" name="statusWarga[]" value="Warga">Warga</label>
+                              <label><input type="checkbox" id="Warga" name="statuswarga[]" value="Warga">Warga</label>
                               </div> 
                             </td>
                             
                             <td>  
                               <div class="checkbox">
-                              <label><input type="checkbox" id="Tamu" name="statusWarga[]" value="Tamu">Tamu</label>
+                              <label><input type="checkbox" id="Tamu" name="statuswarga[]" value="Tamu">Tamu</label>
                               </div> 
                             </td>
                           </tr>
@@ -79,7 +77,7 @@
                            <tr>
                             <td>  
                               <div class="checkbox">
-                              <label><input type="checkbox" id="Warga_Belajar" name="statusWarga[]" value="Warga Belajar">Warga Belajar</label>
+                              <label><input type="checkbox" id="Warga_Belajar" name="statuswarga[]" value="Warga Belajar">Warga Belajar</label>
                               </div> 
                             </td>
                             
@@ -105,7 +103,7 @@
             <?php endif;?>
 
             <br>
-            <label>Output</label>
+            <label>Output (untuk Data Daftar Jemaat, Pilih PDF/XLS): </label>
              <select class="form-control" name="hasil_id">
                <option value="PDF"> PDF</option>
                <option value="XLS"> XLS </option>
@@ -123,9 +121,15 @@
 
 <script type="text/javascript">
 function validateForm() {
- var status = $('input[name="statusWarga[]"]:checked').length;
+ var status = $('input[name="status[]"]:checked').length;
   if (!status) {
-      alert("Anda belum memilih list statusWarga");
+      alert("Anda belum memilih list status");
+      return false;
+  }
+
+  var statuswarga = $('input[name="statuswarga[]"]:checked').length;
+  if (!statuswarga) {
+      alert("Anda belum memilih list statuswarga");
       return false;
   }
 
@@ -136,7 +140,15 @@ function validateForm() {
   }
   return true;
 }
-    
+$(document).ready(function () {
+  $("form").submit(function(e) { 
+    if(! validateForm()) {
+      e.preventDefault();
+      return;
+    }
+    this.submit();
+  }); 
+});
 </script>
 
 

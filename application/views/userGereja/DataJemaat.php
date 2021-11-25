@@ -1,6 +1,6 @@
 ﻿  <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
-    <!-- Content Header (Page header) -->
+    <!-- Content Header (Page header) --> 
     <section class="content-header">
       <h1>
         Manajemen Data Jemaat
@@ -9,18 +9,20 @@
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-briefcase"></i> Fasilitas </a></li>
         <li class="active">Manajemen Data Jemaat </li>
-      </ol>
+      </ol> 
     </section>
-
+    
     <!-- Main content -->
     <section class="content">
       <div class="row">
         <div class="col-xs-12">
           <div class="box">
-
-
             <div class="box-header">
               <a class="btn btn-success btn-flat" data-toggle="modal" data-target="#tambah_data"><span class="fa fa-plus"></span> Tambah Data</a>
+              <div class="pull-right">
+                <a href="<?= site_url('AdminGereja/Jemaat/export') ?>" target="_blank" role="button" class="btn btn-info">Export Data</a>
+                <a href="<?= site_url('AdminGereja/Jemaat/import') ?>" role="button" class="btn btn-primary">Import Data</a>
+              </div>
             </div>
             <!-- /.box-header -->
             <div class="box-body table-responsive">
@@ -38,6 +40,7 @@
                     <th>No. Telp</th>
                     <th>Buku Induk</th>
                     <th style="text-align:center;">Aksi</th>
+  
                 </tr>
                 </thead>
                 <tbody>
@@ -127,7 +130,7 @@ $username = $i['nama_lengkap'];
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default btn-flat" data-dismiss="modal"><i class="fa fa-close"></i> Close</button>
-                        <button type="submit" class="btn btn-danger btn-flat" id="simpan"><i class="fa fa-trash"></i> Hapus</button>
+                        <button type="submit" class="btn btn-danger btn-flat"><i class="fa fa-trash"></i> Hapus</button>
                     </div>
                     </form>
                 </div>
@@ -166,7 +169,7 @@ $username = $i['nama_lengkap'];
             <div class="form-group ">
               <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">Tanggal Kematian</label>
               <div class="col-md-6 col-sm-6 col-xs-12">
-              <input id="datepickerSyukur" name="tanggalKematian" required="required" Placeholder="Tanggal Kematian" class="form-control" type="text" style="z-index: 2000; width: 400px;"/>
+              <input name="tanggalKematian" required="required" Placeholder="Tanggal Kematian" class="form-control" type="text" style="z-index: 2000; width: 400px;"/>
               </div>
             </div>
             <br>
@@ -322,11 +325,11 @@ $username = $i['nama_lengkap'];
                     <div class="row">
                       <div class="col-md-6"> 
                         <label class="control-label" for="Overview (max 200 words)">Alamat sesuai KTP*</label>
-                          <textarea class="form-control" rows="3" id="Overview (max 200 words)" name="AlamatKTP" placeholder="Alamat sesuai KTP"></textarea>
+                          <textarea class="form-control" rows="3" name="AlamatKTP" placeholder="Alamat sesuai KTP"></textarea>
                       </div>
                       <div class="col-md-6 ml-auto">
                         <label class="control-label" for="Overview (max 200 words)">Alamat Tinggal Sekarang*</label>               
-                          <textarea class="form-control" rows="3" id="Overview (max 200 words)" name="AlamatTinggalSekarang" placeholder="Alamat"></textarea>
+                          <textarea class="form-control" rows="3"  name="AlamatTinggalSekarang" placeholder="Alamat"></textarea>
                       </div>
                     </div>
 
@@ -334,15 +337,15 @@ $username = $i['nama_lengkap'];
                     <div class="row">
                       <div class="col-md-4">
                         <label for="form_lastname">No Handphone</label>
-                        <input id="NoTelp" type="text" name="NoTelp" class="form-control" placeholder="Nomor Handphone" data-error="Lastname is required.">
+                        <input type="text" name="NoTelp" class="form-control" placeholder="Nomor Handphone" data-error="Lastname is required.">
                       </div>
                       <div class="col-md-4 ml-auto">
                         <label for="form_lastname">No Telp Rumah</label>
-                        <input id="NoTelp" type="text" name="NoTelprumah" class="form-control" placeholder="Nomor Rumah" data-error="Lastname is required.">
+                        <input type="text" name="NoTelprumah" class="form-control" placeholder="Nomor Rumah" data-error="Lastname is required.">
                       </div>
                       <div class="col-md-4 ml-auto">
                        <label for="form_lastname">No Telp WA</label>
-                       <input id="NoTelp" type="text" name="NoTelpwa" class="form-control" placeholder="Nomor WA" data-error="Lastname is required.">
+                       <input type="text" name="NoTelpwa" class="form-control" placeholder="Nomor WA" data-error="Lastname is required.">
                       </div>
                     </div>
 
@@ -679,30 +682,7 @@ $(document).ready(function () {
         responsive: true
     } );
  
-    new $.fn.dataTable.FixedHeader( table );
-
-    //Update Barang
-        $('#btn_edit').click(function(){
-            alert("ehe");
-            return false;
-            var kobar=$('#kode_barang2').val();
-            var nabar=$('#nama_barang2').val();
-            var harga=$('#harga2').val();
-            $.ajax({
-                type : "POST",
-                url  : "<?php echo base_url('index.php/barang/update_barang')?>",
-                dataType : "JSON",
-                data : {kobar:kobar , nabar:nabar, harga:harga},
-                success: function(data){
-                    $('[name="kobar_edit"]').val("");
-                    $('[name="nabar_edit"]').val("");
-                    $('[name="harga_edit"]').val("");
-                    $('#ModalaEdit').modal('hide');
-                    tampil_data_barang();
-                }
-            });
-            return false;
-        });
+    // new $.fn.dataTable.FixedHeader( table );
 });
 
 function validateForm() {

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>SI Jemaat Klasis GKJ Gunung Kidul</title>
+    <title>SI Jemaat GKJ Sragen</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     
@@ -31,7 +31,7 @@
     
     <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
       <div class="container">
-        <a class="navbar-brand" href="index.html"><!-- <i class="flaticon-cross"></i> --><img src="<?php echo base_url();?>assets/wisdom/images/logoGKJ.png" height="30" width="30"> <span>GKJ Klasis</span> <span>Gunung Kidul</span></a>
+        <a class="navbar-brand" href="index.html"><!-- <i class="flaticon-cross"></i> --><img src="<?php echo base_url();?>assets/wisdom/images/logoGKJ.png" height="30" width="30"> <span>GKJ Sragen</span></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
           <span class="oi oi-menu"></span> Menu
         </button>
@@ -113,11 +113,11 @@
       <!--   <div class="row mb-5">
           <div class="col-md"> -->
             <div class="ftco-footer-widget mb-4">
-              <h2 class="logo"><img src="<?php echo base_url();?>assets/wisdom/images/logoGKJ.png" height="30" width="30"> <a href="index.html"></i><span>GKJ Klasis</span><span>GunungKidul</span></a></h2>
+              <h2 class="logo"><img src="<?php echo base_url();?>assets/wisdom/images/logoGKJ.png" height="30" width="30"> <a href="index.html"></i><span>GKJ Sragen</span></a></h2>
 
               <br>
                 <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-  Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | GKJ Klasis Gunung Kidul <i class="icon-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">SLS</a>
+  Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | GKJ Sragen <i class="icon-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">SLS</a>
   <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
             </div>
           </div>

@@ -35,13 +35,10 @@ class ManajemenPelayanan extends CI_Controller {
 
 	public function report_Data()
 	{
-
-		
 		$minat = $this->input->post('minat');
 		$gereja = $this->input->post('gereja');
 		$berdasar = implode(",", $minat);
 		$partsNo = '"'.implode('","', $minat).'"';
-
 
 		if($this->input->post('hasil_id') == 'PDF'){
 			
@@ -63,7 +60,6 @@ class ManajemenPelayanan extends CI_Controller {
 		}else if($this->input->post('hasil_id') == 'XLS'){
 			$namagereja = $this->M_manajemenpelayanan->getNamaGereja($gereja);
 			$isi =  $this->M_manajemenpelayanan->getPDF($gereja,$partsNo);
-
 			$spreadsheet = new Spreadsheet();
 			$sheet = $spreadsheet->getActiveSheet();
 			$heading=array('No','Nama Lengkap','Jenis kelamin','Alamat Tinggal','Telepone','MInat Pelayanan','Asal Gereja'); //Field Header

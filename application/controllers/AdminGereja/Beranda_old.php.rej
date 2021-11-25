@@ -1,0 +1,9 @@
+diff a/application/controllers/AdminGereja/Beranda_old.php b/application/controllers/AdminGereja/Beranda_old.php	(rejected hunks)
+@@ -34,6 +34,7 @@
+ 		$this->load->view('konten/v_login');
+ 		$this->load->view('template/footer');
+ 	}
++	public function pendeta()
+ 	{
+ 		$this->load->view('template/header');
+ 		$this->load->view('template/menu');

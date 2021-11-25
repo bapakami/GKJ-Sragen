@@ -32,7 +32,6 @@ class Manajemenpenghasilan extends CI_Controller {
 		$this->load->view('konten/laporanpenghasilan', $data);
 		$this->load->view('template/footer');
 		
-
 	}
 
 	public function insertData()
@@ -146,12 +145,6 @@ class Manajemenpenghasilan extends CI_Controller {
 		
 	}
 
-	// public function getData($penghasilan){
-	// 	$data['isi'] = $this->M_manajemenpenghasilan->getPDF($penghasilan,$gereja);
- //        //$id_siswa=$this->input->get('id');
- //        //$data=$this->m_iuran->get_detail_by_kode($id_siswa,$id_iuran);
- //        echo json_encode($data);
- //    }
 
 	public function editData()
 	{

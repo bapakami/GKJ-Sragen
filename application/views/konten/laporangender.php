@@ -8,7 +8,6 @@
            <?php elseif($this->session->userdata('group_id')==='1'):?>
         Laporan Berdasarkan Golongan darah dan Gender Jemaat <br>  <?= $NamaGereja?>
          <?php endif;?>
-        
         <small></small>
       </h1>
       <ol class="breadcrumb">
@@ -29,7 +28,6 @@
                <h4>Keterangan : yang diberi tanda * wajib diisi</h4>
             <label>Jenis Kelamin (*)</label> <br>
               <table>
-                
                 <tr>
                   <td>  
                     <div class="checkbox">
@@ -68,7 +66,6 @@
                     </div> 
                   </td>
                 </tr>
-
                  <tr>
                   <td>  
                     <div class="checkbox">
@@ -101,7 +98,7 @@
               <input type="hidden" id="gereja" name="gereja" value="<?= $this->session->userdata('gereja_id') ?>">
             <?php endif;?>
             <br>
-            <label>Output</label>
+            <label>Output (Pilih PDF untuk hasil lebih lengkap)</label>
              <select class="form-control" name="hasil_id">
                <option value="PDF"> PDF</option>
                <option value="XLS"> XLS </option>

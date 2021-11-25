@@ -64,6 +64,18 @@
                                     </div>
                                 </div>
                             </a>
+                            <a href="<?= site_url('warga/jemaat/dataAstestasi') ?>">
+                                <div class="col-lg-3 col-xs-6" id="dataPribadi">
+                                    <div class="small-box bg-red">
+                                        <div class="inner">
+                                            <h3>Atestasi</h3>
+                                            <p>Atestasi Masuk / Keluar</p>
+                                        </div>
+                                        <div class="icon"><img src="<?= base_url('assets/img/logoGKJ.png') ?>" width="70px" alt="logo GKJ"></div>
+                                        <div class="small-box-footer">Lebih Lanjut <i class="fa fa-arrow-circle-right"></i></div>
+                                    </div>
+                                </div>
+                            </a>
                         </div>
                     </div>
                     <div class="box-body table-responsive">

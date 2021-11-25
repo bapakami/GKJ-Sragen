@@ -59,8 +59,8 @@ class ManajemenKematian extends CI_Controller {
 	        //download it.
 	  		$this->m_pdf->pdf->Output($pdfFilePath, "I");
 		}else if($this->input->post('hasil_id') == 'XLS'){
-			$namagereja = $this->M_manajemenpenghasilan->getNamaGereja($gereja);
-			$isi = $this->M_manajemenpenghasilan->getPDF($gereja);
+			$namagereja = $this->M_manajemenKematian->getNamaGereja($gereja);
+			$isi = $this->M_manajemenKematian->getPDF($gereja);
 			$spreadsheet = new Spreadsheet();
 			$sheet = $spreadsheet->getActiveSheet();
 			$heading=array('No','Nama Lengkap','Tanggal Kematian','Kota Kematian','Tempat Kematian','Asal Gereja');

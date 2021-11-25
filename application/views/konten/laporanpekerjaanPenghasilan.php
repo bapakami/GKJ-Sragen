@@ -25,7 +25,7 @@
             <!-- /.box-header -->
             <div class="box-body table-responsive">
             <form class="form-horizontal" onsubmit="return validateForm()" action="<?php echo base_url('Manajemenpekerjaanpenghasilan/report_Data')?>" method="post" enctype="multipart/form-data" role="form">
-              <h5>Menampilkan data pendidikan jemaat berdasarkan penghasilan dan pekerjaan yang dimiliki</h5>
+              <h5>Menampilkan data jemaat berdasarkan penghasilan dan pekerjaan yang dimiliki</h5>
             <label>Penghasilan</label>
            <br>
           <select class='form-control' id='penghasilan' name="Penghasilan_id" style="z-index:2000; width:310px;">
@@ -52,7 +52,7 @@
             <?php elseif($this->session->userdata('group_id')==='1'):?>
               <input type="hidden" id="gereja" name="gereja" value="<?= $this->session->userdata('gereja_id') ?>">
             <?php endif;?> <br>
-            <label>Output</label>
+            <label>Output (Pilih PDF untuk hasil lebih lengkap)</label>
              <select class="form-control" name="hasil_id">
                <option value="PDF"> PDF</option>
                <option value="XLS"> XLS </option>

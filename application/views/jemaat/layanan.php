@@ -47,7 +47,7 @@
                                     <div class="col-lg-3 col-xs-6" id="dataPribadi">
                                         <div class="small-box bg-aqua">
                                             <div class="inner">
-                                                <h3>Sidhi</h3>
+                                                <h3>Sidi</h3>
                                                 <?= $sidi; ?>
                                             </div>
                                             <div class="icon"><i class="fa fa-users"></i></div>
@@ -101,6 +101,18 @@
                                                 Perkeunjungan / Patuwen
                                             </div>
                                             <div class="icon"><i class="fa fa-users"></i></div>
+                                            <div class="small-box-footer">Lebih Lanjut <i class="fa fa-arrow-circle-right"></i></div>
+                                        </div>
+                                    </div>
+                                </a>
+                                <a href="<?= site_url('warga/layanan/pindahIman') ?>">
+                                    <div class="col-lg-3 col-xs-6" id="dataPribadi">
+                                        <div class="small-box bg-pink">
+                                            <div class="inner">
+                                                <h3>Pindah Iman</h3>
+                                                <?= $iman; ?>
+                                            </div>
+                                            <div class="icon"><i class="fa fa-user"></i></div>
                                             <div class="small-box-footer">Lebih Lanjut <i class="fa fa-arrow-circle-right"></i></div>
                                         </div>
                                     </div>
