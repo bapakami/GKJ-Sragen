@@ -1,2 +1,2 @@
-# GKJKlasisJogja
-Repository GKJ Klasis Jogyakarta
+# GKJKlasisSragen
+Repository GKJ Klasis Sragen
